@@ -1,0 +1,5229 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@finbourne.com
+    name: FINBOURNE Technology
+    url: https://www.finbourne.com
+  termsOfService: https://www.finbourne.com/legal/terms-conditions
+  title: FINBOURNE Scheduler API
+  version: 0.0.834
+  x-logo:
+    url: https://www.lusid.com/app/assets/logo_white.png
+    backgroundColor: '#415464'
+servers:
+- url: https://fbn-ci.lusid.com/scheduler2
+security:
+- {}
+tags:
+- description: Metadata about the Scheduler application
+  name: Application Metadata
+- description: Methods for interacting with Schedules
+  name: Images
+- description: Methods for interacting with Jobs
+  name: Jobs
+- description: Methods for interacting with Schedules
+  name: Schedules
+paths:
+  /api/images:
+    post:
+      description: "Every image must have at least one tag. Note: your image will\
+        \ not be available until the returned Docker commands are executed."
+      operationId: UploadImage
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              imageName: example-image-name:0.0.1
+            schema:
+              $ref: '#/components/schemas/UploadImageRequest'
+          application/json:
+            example:
+              imageName: example-image-name:0.0.1
+            schema:
+              $ref: '#/components/schemas/UploadImageRequest'
+          text/json:
+            example:
+              imageName: example-image-name:0.0.1
+            schema:
+              $ref: '#/components/schemas/UploadImageRequest'
+          application/*+json:
+            example:
+              imageName: example-image-name:0.0.1
+            schema:
+              $ref: '#/components/schemas/UploadImageRequest'
+        description: Request to upload image
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadImageInstructions'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UploadImage: Upload a Docker Image used for Scheduler\
+        \ jobs"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/images/repository:
+    get:
+      operationId: ListRepositories
+      parameters:
+      - description: "The pagination token to use to continue listing images from\
+          \ a previous call to list images.\r\n This value is returned from the previous\
+          \ call. If a pagination token is provided the sortBy and filter fields\r\
+          \n must not have changed since the original request. Also, if set, a start\
+          \ value cannot be provided."
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: Order the results by these fields. Use use the '-' sign to denote
+          descending order e.g. -MyFieldName.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "When paginating, skip this number of results."
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 0
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the number of returned results to this\
+          \ many. Defaults to 2000 if not specified. Maximum is 5000."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 2000
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 1024
+          minLength: 0
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - name: ExampleName
+                  creationTime: 2013-02-01T12:34:21.0000000+00:00
+                  lastUpdate: 0001-01-01T00:00:00.0000000+00:00
+                  pullCount: 6631
+                  imageCount: 34
+                  images:
+                    relation: images
+                    href: api/images/repository/ExampleName
+                    description: Get all image versions
+                    method: GET
+                  links:
+                  - relation: images
+                    href: api/images/repository/ExampleName
+                    description: Get all image versions
+                    method: GET
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfRepository'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListRepositories: List all Docker image repositories"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/images/repository/{name}:
+    get:
+      operationId: ListImages
+      parameters:
+      - description: The name of the Repository
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "The pagination token to use to continue listing images from\
+          \ a previous call to list images.\r\n This value is returned from the previous\
+          \ call. If a pagination token is provided the sortBy and filter fields\r\
+          \n must not have changed since the original request. Also, if set, a start\
+          \ value cannot be provided."
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: Order the results by these fields. Use use the '-' sign to denote
+          descending order e.g. -MyFieldName.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "When paginating, skip this number of results."
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 0
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the number of returned results to this\
+          \ many. Defaults to 2000 if not specified. Maximum is 5000."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 2000
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 1024
+          minLength: 0
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - name: ExampleName
+                  pushTime: 2020-09-12T12:34:12.0000000+00:00
+                  pullTime: 2020-09-12T12:45:15.0000000+00:00
+                  digest: sha256:b1365a9ada7eab7c6a42c90c112c7634ff7356a6b8a2148647dcbb56cdd982ff
+                  size: 56825012
+                  tags:
+                  - name: latest
+                    pullTime: 0001-01-01T00:00:00.0000000+00:00
+                    pushTime: 0001-01-01T00:00:00.0000000+00:00
+                    signed: false
+                    immutable: false
+                  - name: "0.61"
+                    pullTime: 0001-01-01T00:00:00.0000000+00:00
+                    pushTime: 0001-01-01T00:00:00.0000000+00:00
+                    signed: false
+                    immutable: false
+                  scanSummary:
+                    fixable: 1
+                    total: 1
+                    critical: 0
+                    high: 1
+                    medium: 0
+                    low: 0
+                    negligible: 0
+                    unknown: 0
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfImageSummary'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListImages: List all images under same image repository"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/images/{name}:
+    delete:
+      operationId: DeleteImage
+      parameters:
+      - description: The name and tag of the image. Format "ExampleImageName:0.1"
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\d]+))*:[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\\
+            d]+))*$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No image with this name and tag exists
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteImage: Delete a Docker Image"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    get:
+      operationId: GetImage
+      parameters:
+      - description: The name and tag of a Docker image. Format "ExampleImageName:latest"
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\d]+))*:[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\\
+            d]+))*$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                name: ExampleName
+                pushTime: 2020-09-12T12:34:12.0000000+00:00
+                pullTime: 2020-09-12T12:45:15.0000000+00:00
+                digest: sha256:b1365a9ada7eab7c6a42c90c112c7634ff7356a6b8a2148647dcbb56cdd982ff
+                size: 56825012
+                tags:
+                - name: latest
+                  pullTime: 0001-01-01T00:00:00.0000000+00:00
+                  pushTime: 0001-01-01T00:00:00.0000000+00:00
+                  signed: false
+                  immutable: false
+                - name: "0.61"
+                  pullTime: 0001-01-01T00:00:00.0000000+00:00
+                  pushTime: 0001-01-01T00:00:00.0000000+00:00
+                  signed: false
+                  immutable: false
+                scanReport:
+                  severity: Critical
+                  status: Success
+                  startTime: 2020-09-13T02:24:12.0000000+00:00
+                  endTime: 2020-09-13T02:24:42.0000000+00:00
+                  scanDuration: 30
+                  summary:
+                    fixable: 1
+                    total: 1
+                    critical: 0
+                    high: 1
+                    medium: 0
+                    low: 0
+                    negligible: 0
+                    unknown: 0
+                  vulnerabilities:
+                  - name: CVE-2012-113462
+                    package: libdin
+                    version: 1.33-1
+                    fixVersion: 1.33-2
+                    severity: High
+                    description: There is an overflow bug
+                    links:
+                    - https://security-tracking-website.com
+              schema:
+                $ref: '#/components/schemas/Image'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetImage: Get metadata of a Docker Image"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/images/{name}/contents:
+    get:
+      operationId: DownloadImage
+      parameters:
+      - description: The name and tag of the image of the image. Format "ExampleImageName:latest"
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: binary
+                type: string
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DownloadImage: Download Docker Image"
+      tags:
+      - Images
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/jobs:
+    get:
+      operationId: ListJobs
+      parameters:
+      - description: "The pagination token to use to continue listing instruments\
+          \ from a previous call to list instruments.\r\n This value is returned from\
+          \ the previous call. If a pagination token is provided the sortBy and filter\
+          \ fields\r\n must not have changed since the original request. Also, if\
+          \ set, a start value cannot be provided."
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: Order the results by these fields. Use use the '-' sign to denote
+          descending order e.g. -MyFieldName.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "When paginating, skip this number of results."
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 0
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the number of returned results to this\
+          \ many. Defaults to 2000 if not specified. Maximum is 5000."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 2000
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 1024
+          minLength: 0
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfJobDefinition'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListJobs: List the available jobs"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    post:
+      operationId: CreateJob
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Data loader
+              author: Job author
+              dateCreated: 2019-12-11T00:00:00.0000000+00:00
+              description: Load EOD data
+              imageName: alpine
+              imageTag: latest
+              ttl: 500
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                SECRET1:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+          application/json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Data loader
+              author: Job author
+              dateCreated: 2019-12-11T00:00:00.0000000+00:00
+              description: Load EOD data
+              imageName: alpine
+              imageTag: latest
+              ttl: 500
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                SECRET1:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+          text/json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Data loader
+              author: Job author
+              dateCreated: 2019-12-11T00:00:00.0000000+00:00
+              description: Load EOD data
+              imageName: alpine
+              imageTag: latest
+              ttl: 500
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                SECRET1:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+          application/*+json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Data loader
+              author: Job author
+              dateCreated: 2019-12-11T00:00:00.0000000+00:00
+              description: Load EOD data
+              imageName: alpine
+              imageTag: latest
+              ttl: 500
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                SECRET1:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/CreateJobRequest'
+        description: The request to create a new job
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Data loader
+                author: Job author
+                dateCreated: 2019-12-11T00:00:00.0000000+00:00
+                description: Load EOD data
+                dockerImage: alpine:latest
+                ttl: 500
+                minCpu: "2"
+                maxCpu: "4"
+                minMemory: 0.5Mi
+                maxMemory: 500Mi
+                argumentDefinitions:
+                  SECRET1:
+                    dataType: SecureString
+                    required: true
+                    description: Database credentials
+                    order: 1
+                    constraints: None
+                    passedAs: EnvironmentVariable
+                commandLineArgumentSeparator: ' '
+                requiredResources:
+                  lusidApis:
+                  - "Shrine, IBOR"
+                  lusidFileSystem: []
+                  externalCalls:
+                  - AWS
+              schema:
+                $ref: '#/components/schemas/JobDefinition'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateJob: Create a new job"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/jobs/history:
+    get:
+      operationId: GetHistory
+      parameters:
+      - description: "The pagination token to use to continue listing instruments\
+          \ from a previous call to list instruments.\r\n This value is returned from\
+          \ the previous call. If a pagination token is provided the sortBy and filter\
+          \ fields\r\n must not have changed since the original request. Also, if\
+          \ set, a start value cannot be provided."
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: Order the results by these fields. Use use the '-' sign to denote
+          descending order e.g. -MyFieldName.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "This field is obsolete, the value of this field would not be\
+          \ considered."
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the number of returned results to this\
+          \ many. Defaults to 2000 if not specified. Maximum is 5000."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                  jobId:
+                    scope: JobScope
+                    code: JobCode
+                  name: Job name
+                  initialisedDate: 2019-12-10T23:59:50.0000000+00:00
+                  startDate: 2019-12-11T00:00:00.0000000+00:00
+                  endDate: 2019-12-11T00:06:12.0000000+00:00
+                  arguments:
+                    ExchangeCode: XLON
+                  environmentVariables:
+                    Secret1: "{secret:/Scheduler/Secrets/secret1}"
+                  jobStatus: Succeeded
+                  jobResult: Data load
+                  description: Data load
+                  scheduleId:
+                    scope: JobScope
+                    code: JobCode
+                  resultUrl: http://exampleUri
+                  manuallyTriggeredBy: UserId
+                  message: All jobs have completed successfully
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfJobHistory'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetHistory: Get the history of job runs"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/jobs/history/{runId}:
+    get:
+      operationId: GetRunHistory
+      parameters:
+      - description: The unique ID of the run
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 0
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                consoleOutputUrl: https://test.lusid.com/scheduler2/api/jobs/history/1dab8d80-5fea-4b14-a6b9-b845cc2c1901/console
+                runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Job name
+                initialisedDate: 2019-12-11T00:00:10.0000000+00:00
+                startDate: 2019-12-11T00:00:00.0000000+00:00
+                endDate: 2019-12-11T00:06:12.0000000+00:00
+                arguments:
+                  ExchangeCode: XLON
+                environmentVariables:
+                  Secret1: "{secret:/Scheduler/Secrets/secret1}"
+                jobStatus: Succeeded
+                jobResult: Data load
+                description: Data load
+                scheduleId:
+                  scope: JobScope
+                  code: JobCode
+                resultUrl: http://exampleUri
+                manuallyTriggeredBy: UserId
+                message: All jobs have completed successfully
+              schema:
+                $ref: '#/components/schemas/JobRunResult'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetRunHistory: Get the history for a single job run"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/jobs/history/{runId}/console:
+    get:
+      operationId: GetJobConsoleOutput
+      parameters:
+      - description: The RunId of the job run
+        explode: false
+        in: path
+        name: runId
+        required: true
+        schema:
+          maxLength: 36
+          minLength: 0
+          pattern: "^[a-zA-Z0-9\\-]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific\
+        \ job run"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/jobs/{scope}/{code}:
+    delete:
+      operationId: DeleteJob
+      parameters:
+      - description: The scope of the job
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The code of the job
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteJob: Delete a job"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    put:
+      operationId: UpdateJob
+      parameters:
+      - explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              name: Updated job name
+              author: Job author
+              description: Updated job description
+              imageName: Updated image name
+              imageTag: Updated image tag
+              ttl: 250
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                UpdatedSecret:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+                UpdatedArgument:
+                  dataType: String
+                  required: true
+                  description: Command line argument
+                  order: 2
+                  constraints: None
+                  passedAs: CommandLine
+                  defaultValue: Update default value
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+          application/json:
+            example:
+              name: Updated job name
+              author: Job author
+              description: Updated job description
+              imageName: Updated image name
+              imageTag: Updated image tag
+              ttl: 250
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                UpdatedSecret:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+                UpdatedArgument:
+                  dataType: String
+                  required: true
+                  description: Command line argument
+                  order: 2
+                  constraints: None
+                  passedAs: CommandLine
+                  defaultValue: Update default value
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+          text/json:
+            example:
+              name: Updated job name
+              author: Job author
+              description: Updated job description
+              imageName: Updated image name
+              imageTag: Updated image tag
+              ttl: 250
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                UpdatedSecret:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+                UpdatedArgument:
+                  dataType: String
+                  required: true
+                  description: Command line argument
+                  order: 2
+                  constraints: None
+                  passedAs: CommandLine
+                  defaultValue: Update default value
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+          application/*+json:
+            example:
+              name: Updated job name
+              author: Job author
+              description: Updated job description
+              imageName: Updated image name
+              imageTag: Updated image tag
+              ttl: 250
+              minCpu: "2"
+              maxCpu: "4"
+              minMemory: 0.5Mi
+              maxMemory: 500Mi
+              argumentDefinitions:
+                UpdatedSecret:
+                  dataType: SecureString
+                  required: true
+                  description: Database credentials
+                  order: 1
+                  constraints: None
+                  passedAs: EnvironmentVariable
+                UpdatedArgument:
+                  dataType: String
+                  required: true
+                  description: Command line argument
+                  order: 2
+                  constraints: None
+                  passedAs: CommandLine
+                  defaultValue: Update default value
+              commandLineArgumentSeparator: ' '
+              requiredResources:
+                lusidApis:
+                - "Shrine, IBOR"
+                lusidFileSystem: []
+                externalCalls:
+                - AWS
+            schema:
+              $ref: '#/components/schemas/UpdateJobRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Data loader
+                author: Job author
+                dateCreated: 2019-12-11T00:00:00.0000000+00:00
+                description: Load EOD data
+                dockerImage: alpine:latest
+                ttl: 500
+                minCpu: "2"
+                maxCpu: "4"
+                minMemory: 0.5Mi
+                maxMemory: 500Mi
+                argumentDefinitions:
+                  SECRET1:
+                    dataType: SecureString
+                    required: true
+                    description: Database credentials
+                    order: 1
+                    constraints: None
+                    passedAs: EnvironmentVariable
+                commandLineArgumentSeparator: ' '
+                requiredResources:
+                  lusidApis:
+                  - "Shrine, IBOR"
+                  lusidFileSystem: []
+                  externalCalls:
+                  - AWS
+              schema:
+                $ref: '#/components/schemas/JobDefinition'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateJob: Update a JobDefinition"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/jobs/{scope}/{code}/$run:
+    post:
+      operationId: RunJob
+      parameters:
+      - description: The scope of the job
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The code of the job
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              arguments:
+                ExchangeCode: XLON
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - Team A
+              useAsAuth: job auth userId
+            schema:
+              $ref: '#/components/schemas/StartJobRequest'
+          application/json:
+            example:
+              arguments:
+                ExchangeCode: XLON
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - Team A
+              useAsAuth: job auth userId
+            schema:
+              $ref: '#/components/schemas/StartJobRequest'
+          text/json:
+            example:
+              arguments:
+                ExchangeCode: XLON
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - Team A
+              useAsAuth: job auth userId
+            schema:
+              $ref: '#/components/schemas/StartJobRequest'
+          application/*+json:
+            example:
+              arguments:
+                ExchangeCode: XLON
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - Team A
+              useAsAuth: job auth userId
+            schema:
+              $ref: '#/components/schemas/StartJobRequest'
+        description: The request for starting job
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              example:
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                status: TestStatus
+                result: TestResult
+              schema:
+                $ref: '#/components/schemas/StartJobResponse'
+          description: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] RunJob: Run a job immediately"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/jobs/{scope}/{code}/schedules:
+    get:
+      operationId: GetSchedulesForAJob
+      parameters:
+      - description: The scope of the job
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The code of the job
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single\
+        \ job"
+      tags:
+      - Jobs
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/metadata/access/resources:
+    get:
+      description: Get the comprehensive set of resources that are available for access
+        control
+      operationId: ListAccessControlledResources
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListAccessControlledResources: Get resources available\
+        \ for access control"
+      tags:
+      - Application Metadata
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/schedules:
+    get:
+      operationId: ListSchedules
+      parameters:
+      - description: "The pagination token to use to continue listing instruments\
+          \ from a previous call to list instruments.\r\n This value is returned from\
+          \ the previous call. If a pagination token is provided the sortBy and filter\
+          \ fields\r\n must not have changed since the original request. Also, if\
+          \ set, a start value cannot be provided."
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: Order the results by these fields. Use use the '-' sign to denote
+          descending order e.g. -MyFieldName.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+        x-nullable: true
+      - description: "When paginating, skip this number of results."
+        explode: true
+        in: query
+        name: start
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 0
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "When paginating, limit the number of returned results to this\
+          \ many. Defaults to 2000 if not specified. Maximum is 5000."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 2000
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      - description: Expression to filter the result set.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 1024
+          minLength: 0
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfScheduleDefinition'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfScheduleDefinition'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListSchedules: List the available Schedules"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    post:
+      operationId: CreateSchedule
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              scheduleId:
+                scope: ScheduleScope
+                code: ScheduleCode
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Schedule name
+              description: Schedule description
+              author: Schedule author
+              owner: Schedule owner
+              arguments:
+                Argument: Argument value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+          application/json:
+            example:
+              scheduleId:
+                scope: ScheduleScope
+                code: ScheduleCode
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Schedule name
+              description: Schedule description
+              author: Schedule author
+              owner: Schedule owner
+              arguments:
+                Argument: Argument value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+          text/json:
+            example:
+              scheduleId:
+                scope: ScheduleScope
+                code: ScheduleCode
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Schedule name
+              description: Schedule description
+              author: Schedule author
+              owner: Schedule owner
+              arguments:
+                Argument: Argument value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+          application/*+json:
+            example:
+              scheduleId:
+                scope: ScheduleScope
+                code: ScheduleCode
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: Schedule name
+              description: Schedule description
+              author: Schedule author
+              owner: Schedule owner
+              arguments:
+                Argument: Argument value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            text/plain:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            application/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            text/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+          description: The newly created schedule
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateSchedule: Create a Schedule for a job"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/schedules/{scope}/{code}:
+    delete:
+      operationId: DeleteSchedule
+      parameters:
+      - description: Scope of the schedule to be deleted
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Code of the schedule to be deleted
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteSchedule: Delete a schedule"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    get:
+      operationId: GetSchedule
+      parameters:
+      - description: The scope of Schedule
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The code of the Schedule
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            application/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            text/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetSchedule: Get a single Schedule"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+    put:
+      operationId: UpdateSchedule
+      parameters:
+      - description: Scope of the schedule to be updated
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Code of the schedule to be updated
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: UpdatedSchedule
+              description: Updated description
+              author: Updated author
+              owner: Updated owner
+              arguments:
+                UpdatedArgument: Updated value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+          application/json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: UpdatedSchedule
+              description: Updated description
+              author: Updated author
+              owner: Updated owner
+              arguments:
+                UpdatedArgument: Updated value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+          text/json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: UpdatedSchedule
+              description: Updated description
+              author: Updated author
+              owner: Updated owner
+              arguments:
+                UpdatedArgument: Updated value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+          application/*+json:
+            example:
+              jobId:
+                scope: JobScope
+                code: JobCode
+              name: UpdatedSchedule
+              description: Updated description
+              author: Updated author
+              owner: Updated owner
+              arguments:
+                UpdatedArgument: Updated value
+              trigger:
+                timeTrigger:
+                  expression: 0 0 5 ? generate justfile 3
+                  timeZone: UTC
+              notifications:
+              - fireOn: Completed
+                transport: Email
+                destination:
+                - destination
+              - fireOn: Failed
+                transport: SMS
+                destination:
+                - destination1
+                - destination2
+              enabled: true
+              useAsAuth: Schedule auth userId
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+        description: The updated schedule
+        required: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            application/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            text/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateSchedule: Update a schedule."
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/schedules/{scope}/{code}/$run:
+    post:
+      operationId: RunSchedule
+      parameters:
+      - description: The schedule scope
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The schedule cde
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            text/plain:
+              example:
+                scheduleId:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                status: Pending
+                result: Example result
+              schema:
+                $ref: '#/components/schemas/StartScheduleResponse'
+            application/json:
+              example:
+                scheduleId:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                status: Pending
+                result: Example result
+              schema:
+                $ref: '#/components/schemas/StartScheduleResponse'
+            text/json:
+              example:
+                scheduleId:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                runId: 1dab8d80-5fea-4b14-a6b9-b845cc2c1901
+                status: Pending
+                result: Example result
+              schema:
+                $ref: '#/components/schemas/StartScheduleResponse'
+          description: Accepted
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] RunSchedule: Run a schedule immediately"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+  /api/schedules/{scope}/{code}/enabled:
+    put:
+      operationId: EnabledSchedule
+      parameters:
+      - description: Scope of the schedule to be enabled/disabled
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Code of the schedule to be enabled/disabled
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Specify whether to enable or disable the schedule
+        explode: true
+        in: query
+        name: enable
+        required: true
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            application/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+            text/json:
+              example:
+                scheduleIdentifier:
+                  scope: ScheduleScope
+                  code: ScheduleCode
+                jobId:
+                  scope: JobScope
+                  code: JobCode
+                name: Schedule name
+                description: Schedule description
+                author: Schedule author
+                owner: Schedule owner
+                useAsAuth: Schedule auth userId
+                arguments:
+                  Argument: Argument value
+                trigger:
+                  timeTrigger:
+                    expression: 0 0 5 ? generate justfile 3
+                    timeZone: UTC
+                notifications:
+                - fireOn: Completed
+                  transport: Email
+                  destination:
+                  - destination
+                - fireOn: Failed
+                  transport: SMS
+                  destination:
+                  - destination1
+                  - destination2
+                enabled: true
+              schema:
+                $ref: '#/components/schemas/ScheduleDefinition'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Experimental
+      x-accepts: application/json
+components:
+  schemas:
+    AccessControlledAction:
+      additionalProperties: false
+      example:
+        limitedSet:
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        description: description
+        action:
+          activity: activity
+          scope: scope
+          entity: entity
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+      properties:
+        description:
+          minLength: 1
+          type: string
+        action:
+          $ref: '#/components/schemas/ActionId'
+        limitedSet:
+          items:
+            $ref: '#/components/schemas/IdSelectorDefinition'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - action
+      - description
+      type: object
+    AccessControlledResource:
+      additionalProperties: false
+      example:
+        application: application
+        name: name
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        actions:
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        identifierParts:
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+      properties:
+        application:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          minLength: 1
+          type: string
+        actions:
+          items:
+            $ref: '#/components/schemas/AccessControlledAction'
+          type: array
+        identifierParts:
+          items:
+            $ref: '#/components/schemas/IdentifierPartSchema'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - actions
+      - description
+      type: object
+    ActionId:
+      additionalProperties: false
+      example:
+        activity: activity
+        scope: scope
+        entity: entity
+      properties:
+        scope:
+          maxLength: 100
+          minLength: 3
+          type: string
+        activity:
+          maxLength: 25
+          minLength: 3
+          type: string
+        entity:
+          maxLength: 25
+          minLength: 3
+          type: string
+      required:
+      - activity
+      - entity
+      - scope
+      type: object
+    ArgumentDefinition:
+      additionalProperties: false
+      description: Job argument definition
+      example:
+        passedAs: passedAs
+        defaultValue: defaultValue
+        dataType: dataType
+        description: description
+        constraints: constraints
+        required: true
+        order: 6
+      properties:
+        dataType:
+          description: Data type of the argument
+          minLength: 1
+          type: string
+        required:
+          description: Optionality of the argument
+          type: boolean
+        description:
+          description: Argument description
+          maxLength: 255
+          minLength: 0
+          type: string
+        order:
+          description: The order of the argument
+          format: int32
+          type: integer
+        constraints:
+          description: Constrains of the argument value
+          nullable: true
+          type: string
+        passedAs:
+          description: "Specifies how this argument should be passed in\r\nAllowed\
+            \ values are: CommandLine or EnvironmentVariable\r\n\r\nDefaults to: CommandLine"
+          minLength: 1
+          type: string
+        defaultValue:
+          description: "Specify a default value for this argument if no value is provided\r\
+            \nThe value needs to be convertible to the associated data type"
+          nullable: true
+          type: string
+      required:
+      - dataType
+      - description
+      - order
+      - passedAs
+      type: object
+    CreateJobRequest:
+      additionalProperties: false
+      description: Definition of a job
+      example:
+        minMemory: minMemory
+        commandLineArgumentSeparator: commandLineArgumentSeparator
+        imageName: imageName
+        author: author
+        description: description
+        maxCpu: maxCpu
+        argumentDefinitions:
+          key:
+            passedAs: passedAs
+            defaultValue: defaultValue
+            dataType: dataType
+            description: description
+            constraints: constraints
+            required: true
+            order: 6
+        minCpu: minCpu
+        ttl: 0
+        maxMemory: maxMemory
+        requiredResources:
+          lusidFileSystem:
+          - lusidFileSystem
+          - lusidFileSystem
+          externalCalls:
+          - externalCalls
+          - externalCalls
+          lusidApis:
+          - lusidApis
+          - lusidApis
+        jobId:
+          code: code
+          scope: scope
+        dateCreated: 2000-01-23T04:56:07.000+00:00
+        name: name
+        imageTag: imageTag
+      properties:
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: Name of the job
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        author:
+          description: Author of the job
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        dateCreated:
+          description: Date when job was created. Defaults to now.
+          format: date-time
+          type: string
+        description:
+          description: Description of this job
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        imageName:
+          description: The name of the Docker image that contains this job
+          minLength: 1
+          type: string
+        imageTag:
+          description: The tag of the Docker image that contains this job
+          maxLength: 128
+          minLength: 0
+          type: string
+        ttl:
+          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          format: int32
+          type: integer
+        minCpu:
+          description: "Specifies minimum number of CPUs to be allocated for the job\r\
+            \nDefault to 2"
+          nullable: true
+          type: string
+        maxCpu:
+          description: Specifies maximum number of CPUs to be allocated for the job
+          nullable: true
+          type: string
+        minMemory:
+          description: Specifies the minimum amount of memory to be allocated for
+            the job
+          nullable: true
+          type: string
+        maxMemory:
+          description: Specifies the maximum amount of memory to be allocated for
+            the job
+          nullable: true
+          type: string
+        argumentDefinitions:
+          additionalProperties:
+            $ref: '#/components/schemas/ArgumentDefinition'
+          description: All arguments for this job to run
+          type: object
+        commandLineArgumentSeparator:
+          description: "Value to separate command line arguments\r\ne.g : If a job\
+            \ has a command line argument named 'folder' and the runtime value is\
+            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
+            \nDefault to a space"
+          maxLength: 5
+          minLength: 0
+          nullable: true
+          type: string
+        requiredResources:
+          $ref: '#/components/schemas/RequiredResources'
+      required:
+      - argumentDefinitions
+      - description
+      - imageName
+      - imageTag
+      - jobId
+      - name
+      - requiredResources
+      type: object
+    CreateScheduleRequest:
+      additionalProperties: false
+      description: Create a schedule definition
+      example:
+        owner: owner
+        jobId:
+          code: code
+          scope: scope
+        useAsAuth: useAsAuth
+        author: author
+        name: name
+        description: description
+        arguments:
+          key: arguments
+        trigger:
+          timeTrigger:
+            expression: expression
+            timeZone: timeZone
+        scheduleId:
+          code: code
+          scope: scope
+        notifications:
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        enabled: true
+      properties:
+        scheduleId:
+          $ref: '#/components/schemas/ResourceId'
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: A display name for this Schedule
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: A description of the Schedule
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        author:
+          description: Name of the author of this schedule
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        owner:
+          description: Name of owner of this schedule
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        arguments:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: All arguments specified by this Schedule that will be passed
+            in to the Job
+          nullable: true
+          type: object
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        notifications:
+          description: Notifications for this Schedule
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        enabled:
+          description: "Specify whether schedule is enabled or not\r\nDefaults to\
+            \ true"
+          type: boolean
+        useAsAuth:
+          description: "Id of user associated with schedule. All calls to FINBOURNE\
+            \ services\r\nas part of execution of this schedule will be authenticated\
+            \ as this \r\nuser. Can be null, in which case we'll default to that of\
+            \ the user \r\nmaking this request"
+          maxLength: 64
+          minLength: 1
+          nullable: true
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+      required:
+      - description
+      - jobId
+      - name
+      - notifications
+      - scheduleId
+      type: object
+    IdentifierPartSchema:
+      additionalProperties: false
+      example:
+        displayName: displayName
+        name: name
+        index: 0
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        required: true
+      properties:
+        index:
+          format: int32
+          type: integer
+        name:
+          minLength: 1
+          type: string
+        displayName:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - description
+      - displayName
+      - index
+      - name
+      - required
+      type: object
+    IdSelectorDefinition:
+      additionalProperties: false
+      example:
+        identifier:
+          key: identifier
+        name: name
+        description: description
+        actions:
+        - activity: activity
+          scope: scope
+          entity: entity
+        - activity: activity
+          scope: scope
+          entity: entity
+      properties:
+        identifier:
+          additionalProperties:
+            type: string
+          minLength: 1
+          type: object
+        actions:
+          items:
+            $ref: '#/components/schemas/ActionId'
+          minItems: 1
+          type: array
+        name:
+          maxLength: 100
+          minLength: 0
+          nullable: true
+          type: string
+        description:
+          maxLength: 1024
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - actions
+      - identifier
+      type: object
+    Image:
+      additionalProperties: false
+      description: Represents the metadata of an image
+      example:
+        pullTime: 2000-01-23T04:56:07.000+00:00
+        size: 0
+        scanReport:
+          severity: severity
+          summary:
+            total: 1
+            high: 5
+            critical: 5
+            low: 7
+            medium: 2
+            negligible: 9
+            fixable: 6
+            unknown: 3
+          scanDuration: 6
+          vulnerabilities:
+          - severity: severity
+            package: package
+            name: name
+            description: description
+            links:
+            - links
+            - links
+            fixVersion: fixVersion
+            version: version
+          - severity: severity
+            package: package
+            name: name
+            description: description
+            links:
+            - links
+            - links
+            fixVersion: fixVersion
+            version: version
+          startTime: 2000-01-23T04:56:07.000+00:00
+          endTime: 2000-01-23T04:56:07.000+00:00
+          status: status
+        name: name
+        digest: digest
+        pushTime: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - immutable: true
+          pullTime: 2000-01-23T04:56:07.000+00:00
+          name: name
+          signed: true
+          pushTime: 2000-01-23T04:56:07.000+00:00
+        - immutable: true
+          pullTime: 2000-01-23T04:56:07.000+00:00
+          name: name
+          signed: true
+          pushTime: 2000-01-23T04:56:07.000+00:00
+      properties:
+        name:
+          description: Name of the image
+          nullable: true
+          type: string
+        pushTime:
+          description: The push time of the image
+          format: date-time
+          nullable: true
+          type: string
+        pullTime:
+          description: The latest pull time of the image
+          format: date-time
+          nullable: true
+          type: string
+        digest:
+          description: The digest of the image
+          nullable: true
+          type: string
+        size:
+          description: The size of the image (in bytes)
+          format: int64
+          nullable: true
+          type: integer
+        tags:
+          description: The tags of the image
+          items:
+            $ref: '#/components/schemas/Tag'
+          nullable: true
+          type: array
+        scanReport:
+          $ref: '#/components/schemas/ScanReport'
+      type: object
+    ImageSummary:
+      additionalProperties: false
+      description: Represents the metadata of an image
+      example:
+        pullTime: 2000-01-23T04:56:07.000+00:00
+        size: 0
+        name: name
+        digest: digest
+        scanSummary:
+          total: 1
+          high: 5
+          critical: 5
+          low: 7
+          medium: 2
+          negligible: 9
+          fixable: 6
+          unknown: 3
+        link:
+          method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        scanStatus: scanStatus
+        pushTime: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - immutable: true
+          pullTime: 2000-01-23T04:56:07.000+00:00
+          name: name
+          signed: true
+          pushTime: 2000-01-23T04:56:07.000+00:00
+        - immutable: true
+          pullTime: 2000-01-23T04:56:07.000+00:00
+          name: name
+          signed: true
+          pushTime: 2000-01-23T04:56:07.000+00:00
+      properties:
+        name:
+          description: Name of the image
+          nullable: true
+          type: string
+        pushTime:
+          description: The push time of the image
+          format: date-time
+          nullable: true
+          type: string
+        pullTime:
+          description: The latest pull time of the image
+          format: date-time
+          nullable: true
+          type: string
+        digest:
+          description: The digest of the image
+          nullable: true
+          type: string
+        size:
+          description: The size of the image (in bytes)
+          format: int64
+          nullable: true
+          type: integer
+        tags:
+          description: The tags of the image
+          items:
+            $ref: '#/components/schemas/Tag'
+          nullable: true
+          type: array
+        scanStatus:
+          description: The Scan Status of the stated image
+          nullable: true
+          type: string
+        scanSummary:
+          $ref: '#/components/schemas/ScanSummary'
+        link:
+          $ref: '#/components/schemas/Link'
+      type: object
+    JobDefinition:
+      additionalProperties: false
+      description: Definition of a job
+      example:
+        minMemory: minMemory
+        commandLineArgumentSeparator: commandLineArgumentSeparator
+        dockerImage: dockerImage
+        author: author
+        description: description
+        maxCpu: maxCpu
+        argumentDefinitions:
+          key:
+            passedAs: passedAs
+            defaultValue: defaultValue
+            dataType: dataType
+            description: description
+            constraints: constraints
+            required: true
+            order: 6
+        minCpu: minCpu
+        ttl: 0
+        maxMemory: maxMemory
+        requiredResources:
+          lusidFileSystem:
+          - lusidFileSystem
+          - lusidFileSystem
+          externalCalls:
+          - externalCalls
+          - externalCalls
+          lusidApis:
+          - lusidApis
+          - lusidApis
+        jobId:
+          code: code
+          scope: scope
+        dateCreated: 2000-01-23T04:56:07.000+00:00
+        name: name
+      properties:
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: Name of the job
+          nullable: true
+          type: string
+        author:
+          description: Author of the job
+          nullable: true
+          type: string
+        dateCreated:
+          description: Date when job was created
+          format: date-time
+          type: string
+        description:
+          description: Description of this job
+          nullable: true
+          type: string
+        dockerImage:
+          description: Information about the docker image in the format “image_source/image_name:image_tag”
+          nullable: true
+          type: string
+        ttl:
+          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          format: int32
+          type: integer
+        minCpu:
+          description: "Specifies minimum number of CPUs to be allocated for the job\r\
+            \nDefault to 2"
+          nullable: true
+          type: string
+        maxCpu:
+          description: Specifies maximum number of CPUs to be allocated for the job
+          nullable: true
+          type: string
+        minMemory:
+          description: Specifies the minimum amount of memory (in GiB) to be allocated
+            for the job
+          nullable: true
+          type: string
+        maxMemory:
+          description: Specifies the maximum amount of memory (in GiB) to be allocated
+            for the job
+          nullable: true
+          type: string
+        argumentDefinitions:
+          additionalProperties:
+            $ref: '#/components/schemas/ArgumentDefinition'
+          description: All arguments for this job to run
+          nullable: true
+          type: object
+        commandLineArgumentSeparator:
+          description: "Value to separate command line arguments\r\ne.g : If a job\
+            \ has a command line argument named 'folder' and the runtime value is\
+            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
+            \nDefault to a space"
+          nullable: true
+          type: string
+        requiredResources:
+          $ref: '#/components/schemas/RequiredResources'
+      required:
+      - jobId
+      - requiredResources
+      type: object
+    JobHistory:
+      additionalProperties: false
+      description: Job run history
+      example:
+        jobStatus: jobStatus
+        endDate: 2000-01-23T04:56:07.000+00:00
+        description: description
+        message: message
+        jobId:
+          code: code
+          scope: scope
+        initialisedDate: 2000-01-23T04:56:07.000+00:00
+        environmentVariables:
+          key: environmentVariables
+        jobResult: jobResult
+        name: name
+        resultUrl: https://openapi-generator.tech
+        arguments:
+          key: arguments
+        runId: runId
+        manuallyTriggeredBy: manuallyTriggeredBy
+        startDate: 2000-01-23T04:56:07.000+00:00
+        scheduleId:
+          code: code
+          scope: scope
+      properties:
+        runId:
+          description: Unique id of the job run
+          nullable: true
+          type: string
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: Name of the job
+          nullable: true
+          type: string
+        initialisedDate:
+          description: The date when the job was initialised
+          format: date-time
+          type: string
+        startDate:
+          description: The date when the job started running in Scheduler
+          format: date-time
+          nullable: true
+          type: string
+        endDate:
+          description: "End date of the job\r\nDefaults to null if the job has not\
+            \ started or not completed yet\r\nIf value is null and job has not started,\
+            \ status will be `Pending`\r\nIf value is null and job has not completed,\
+            \ but is running, status will be `Running`"
+          format: date-time
+          nullable: true
+          type: string
+        arguments:
+          additionalProperties:
+            type: string
+          description: All arguments used in in this job run
+          nullable: true
+          type: object
+        environmentVariables:
+          additionalProperties:
+            type: string
+          description: All environment variables used in this job run
+          nullable: true
+          type: object
+        jobStatus:
+          description: Current job status
+          nullable: true
+          type: string
+        jobResult:
+          description: Description of the job result
+          nullable: true
+          readOnly: true
+          type: string
+        description:
+          description: Description of the job
+          nullable: true
+          type: string
+        scheduleId:
+          $ref: '#/components/schemas/ResourceId'
+        resultUrl:
+          description: URI to results. Defaults to null if not available
+          format: uri
+          nullable: true
+          type: string
+        manuallyTriggeredBy:
+          description: "UserId of the user that triggered the job.\r\nDefaults to\
+            \ null if job was ran on a Schedule"
+          nullable: true
+          type: string
+        message:
+          description: "Output message generated by the job runner\r\nValue will be\
+            \ null when the job is in a `Running` or `Pending` status"
+          nullable: true
+          type: string
+      type: object
+    JobRunResult:
+      additionalProperties: false
+      description: Represent a specific job's run
+      example:
+        jobStatus: jobStatus
+        endDate: 2000-01-23T04:56:07.000+00:00
+        consoleOutputUrl: consoleOutputUrl
+        description: description
+        message: message
+        jobId:
+          code: code
+          scope: scope
+        initialisedDate: 2000-01-23T04:56:07.000+00:00
+        environmentVariables:
+          key: environmentVariables
+        jobResult: jobResult
+        name: name
+        resultUrl: https://openapi-generator.tech
+        arguments:
+          key: arguments
+        runId: runId
+        manuallyTriggeredBy: manuallyTriggeredBy
+        startDate: 2000-01-23T04:56:07.000+00:00
+        scheduleId:
+          code: code
+          scope: scope
+      properties:
+        consoleOutputUrl:
+          description: The URL for the console output of the job run
+          nullable: true
+          type: string
+        runId:
+          description: Unique id of the job run
+          nullable: true
+          type: string
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: Name of the job
+          nullable: true
+          type: string
+        initialisedDate:
+          description: The date when the job was initialised
+          format: date-time
+          type: string
+        startDate:
+          description: The date when the job started running in Scheduler
+          format: date-time
+          nullable: true
+          type: string
+        endDate:
+          description: "End date of the job\r\nDefaults to null if the job has not\
+            \ started or not completed yet\r\nIf value is null and job has not started,\
+            \ status will be `Pending`\r\nIf value is null and job has not completed,\
+            \ but is running, status will be `Running`"
+          format: date-time
+          nullable: true
+          type: string
+        arguments:
+          additionalProperties:
+            type: string
+          description: All arguments used in in this job run
+          nullable: true
+          type: object
+        environmentVariables:
+          additionalProperties:
+            type: string
+          description: All environment variables used in this job run
+          nullable: true
+          type: object
+        jobStatus:
+          description: Current job status
+          nullable: true
+          type: string
+        jobResult:
+          description: Description of the job result
+          nullable: true
+          readOnly: true
+          type: string
+        description:
+          description: Description of the job
+          nullable: true
+          type: string
+        scheduleId:
+          $ref: '#/components/schemas/ResourceId'
+        resultUrl:
+          description: URI to results. Defaults to null if not available
+          format: uri
+          nullable: true
+          type: string
+        manuallyTriggeredBy:
+          description: "UserId of the user that triggered the job.\r\nDefaults to\
+            \ null if job was ran on a Schedule"
+          nullable: true
+          type: string
+        message:
+          description: "Output message generated by the job runner\r\nValue will be\
+            \ null when the job is in a `Running` or `Pending` status"
+          nullable: true
+          type: string
+      type: object
+    Link:
+      additionalProperties: false
+      example:
+        method: method
+        description: description
+        href: https://openapi-generator.tech
+        relation: relation
+      properties:
+        relation:
+          type: string
+        href:
+          format: uri
+          type: string
+        description:
+          nullable: true
+          type: string
+        method:
+          type: string
+      required:
+      - href
+      - method
+      - relation
+      type: object
+    LusidProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    LusidValidationProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        errors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    Notification:
+      additionalProperties: false
+      description: Notification type
+      example:
+        destination:
+        - destination
+        - destination
+        transport: transport
+        fireOn: fireOn
+      properties:
+        fireOn:
+          description: Condition for the notification
+          nullable: true
+          readOnly: true
+          type: string
+        transport:
+          description: The type of the notification
+          nullable: true
+          type: string
+        destination:
+          description: Where the notification should be sent
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    Repository:
+      additionalProperties: false
+      description: An object representation of a repository
+      example:
+        pullCount: 0
+        imageCount: 6
+        images:
+          method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        creationTime: 2000-01-23T04:56:07.000+00:00
+        lastUpdate: 2000-01-23T04:56:07.000+00:00
+        name: name
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+      properties:
+        name:
+          description: The identifier of the repository
+          nullable: true
+          type: string
+        creationTime:
+          description: Date of repository creation
+          format: date-time
+          type: string
+        lastUpdate:
+          description: The last update of the repository
+          format: date-time
+          type: string
+        description:
+          description: Description of the repository
+          nullable: true
+          type: string
+        pullCount:
+          description: Number of times images were pulled from this repository
+          format: int64
+          type: integer
+        imageCount:
+          description: The number of versions of this image
+          format: int64
+          type: integer
+        images:
+          $ref: '#/components/schemas/Link'
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      type: object
+    RequiredResources:
+      additionalProperties: false
+      description: Information related to a jobs required access to resources
+      example:
+        lusidFileSystem:
+        - lusidFileSystem
+        - lusidFileSystem
+        externalCalls:
+        - externalCalls
+        - externalCalls
+        lusidApis:
+        - lusidApis
+        - lusidApis
+      properties:
+        lusidApis:
+          description: List of LUSID APIs the job needs access to
+          items:
+            type: string
+          nullable: true
+          type: array
+        lusidFileSystem:
+          description: List of S3 bucket or folder names that the job can access
+          items:
+            type: string
+          nullable: true
+          type: array
+        externalCalls:
+          description: External URLs that the job can call
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    ResourceId:
+      additionalProperties: false
+      description: Resource Id
+      example:
+        code: code
+        scope: scope
+      properties:
+        scope:
+          description: Scope of the resource
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        code:
+          description: Code of the resource
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+      required:
+      - code
+      - scope
+      type: object
+    ResourceListOfAccessControlledResource:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/AccessControlledResource'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfImageSummary:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - pullTime: 2000-01-23T04:56:07.000+00:00
+          size: 0
+          name: name
+          digest: digest
+          scanSummary:
+            total: 1
+            high: 5
+            critical: 5
+            low: 7
+            medium: 2
+            negligible: 9
+            fixable: 6
+            unknown: 3
+          link:
+            method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          scanStatus: scanStatus
+          pushTime: 2000-01-23T04:56:07.000+00:00
+          tags:
+          - immutable: true
+            pullTime: 2000-01-23T04:56:07.000+00:00
+            name: name
+            signed: true
+            pushTime: 2000-01-23T04:56:07.000+00:00
+          - immutable: true
+            pullTime: 2000-01-23T04:56:07.000+00:00
+            name: name
+            signed: true
+            pushTime: 2000-01-23T04:56:07.000+00:00
+        - pullTime: 2000-01-23T04:56:07.000+00:00
+          size: 0
+          name: name
+          digest: digest
+          scanSummary:
+            total: 1
+            high: 5
+            critical: 5
+            low: 7
+            medium: 2
+            negligible: 9
+            fixable: 6
+            unknown: 3
+          link:
+            method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          scanStatus: scanStatus
+          pushTime: 2000-01-23T04:56:07.000+00:00
+          tags:
+          - immutable: true
+            pullTime: 2000-01-23T04:56:07.000+00:00
+            name: name
+            signed: true
+            pushTime: 2000-01-23T04:56:07.000+00:00
+          - immutable: true
+            pullTime: 2000-01-23T04:56:07.000+00:00
+            name: name
+            signed: true
+            pushTime: 2000-01-23T04:56:07.000+00:00
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ImageSummary'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfJobDefinition:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - minMemory: minMemory
+          commandLineArgumentSeparator: commandLineArgumentSeparator
+          dockerImage: dockerImage
+          author: author
+          description: description
+          maxCpu: maxCpu
+          argumentDefinitions:
+            key:
+              passedAs: passedAs
+              defaultValue: defaultValue
+              dataType: dataType
+              description: description
+              constraints: constraints
+              required: true
+              order: 6
+          minCpu: minCpu
+          ttl: 0
+          maxMemory: maxMemory
+          requiredResources:
+            lusidFileSystem:
+            - lusidFileSystem
+            - lusidFileSystem
+            externalCalls:
+            - externalCalls
+            - externalCalls
+            lusidApis:
+            - lusidApis
+            - lusidApis
+          jobId:
+            code: code
+            scope: scope
+          dateCreated: 2000-01-23T04:56:07.000+00:00
+          name: name
+        - minMemory: minMemory
+          commandLineArgumentSeparator: commandLineArgumentSeparator
+          dockerImage: dockerImage
+          author: author
+          description: description
+          maxCpu: maxCpu
+          argumentDefinitions:
+            key:
+              passedAs: passedAs
+              defaultValue: defaultValue
+              dataType: dataType
+              description: description
+              constraints: constraints
+              required: true
+              order: 6
+          minCpu: minCpu
+          ttl: 0
+          maxMemory: maxMemory
+          requiredResources:
+            lusidFileSystem:
+            - lusidFileSystem
+            - lusidFileSystem
+            externalCalls:
+            - externalCalls
+            - externalCalls
+            lusidApis:
+            - lusidApis
+            - lusidApis
+          jobId:
+            code: code
+            scope: scope
+          dateCreated: 2000-01-23T04:56:07.000+00:00
+          name: name
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/JobDefinition'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfJobHistory:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - jobStatus: jobStatus
+          endDate: 2000-01-23T04:56:07.000+00:00
+          description: description
+          message: message
+          jobId:
+            code: code
+            scope: scope
+          initialisedDate: 2000-01-23T04:56:07.000+00:00
+          environmentVariables:
+            key: environmentVariables
+          jobResult: jobResult
+          name: name
+          resultUrl: https://openapi-generator.tech
+          arguments:
+            key: arguments
+          runId: runId
+          manuallyTriggeredBy: manuallyTriggeredBy
+          startDate: 2000-01-23T04:56:07.000+00:00
+          scheduleId:
+            code: code
+            scope: scope
+        - jobStatus: jobStatus
+          endDate: 2000-01-23T04:56:07.000+00:00
+          description: description
+          message: message
+          jobId:
+            code: code
+            scope: scope
+          initialisedDate: 2000-01-23T04:56:07.000+00:00
+          environmentVariables:
+            key: environmentVariables
+          jobResult: jobResult
+          name: name
+          resultUrl: https://openapi-generator.tech
+          arguments:
+            key: arguments
+          runId: runId
+          manuallyTriggeredBy: manuallyTriggeredBy
+          startDate: 2000-01-23T04:56:07.000+00:00
+          scheduleId:
+            code: code
+            scope: scope
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/JobHistory'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfRepository:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - pullCount: 0
+          imageCount: 6
+          images:
+            method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          creationTime: 2000-01-23T04:56:07.000+00:00
+          lastUpdate: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        - pullCount: 0
+          imageCount: 6
+          images:
+            method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          creationTime: 2000-01-23T04:56:07.000+00:00
+          lastUpdate: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/Repository'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfScheduleDefinition:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - owner: owner
+          jobId:
+            code: code
+            scope: scope
+          useAsAuth: useAsAuth
+          author: author
+          scheduleIdentifier:
+            code: code
+            scope: scope
+          name: name
+          description: description
+          arguments:
+            key: arguments
+          trigger:
+            timeTrigger:
+              expression: expression
+              timeZone: timeZone
+          notifications:
+          - destination:
+            - destination
+            - destination
+            transport: transport
+            fireOn: fireOn
+          - destination:
+            - destination
+            - destination
+            transport: transport
+            fireOn: fireOn
+          enabled: true
+        - owner: owner
+          jobId:
+            code: code
+            scope: scope
+          useAsAuth: useAsAuth
+          author: author
+          scheduleIdentifier:
+            code: code
+            scope: scope
+          name: name
+          description: description
+          arguments:
+            key: arguments
+          trigger:
+            timeTrigger:
+              expression: expression
+              timeZone: timeZone
+          notifications:
+          - destination:
+            - destination
+            - destination
+            transport: transport
+            fireOn: fireOn
+          - destination:
+            - destination
+            - destination
+            transport: transport
+            fireOn: fireOn
+          enabled: true
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ScheduleDefinition'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ScanReport:
+      additionalProperties: false
+      description: Represents the details of a security scan of an image
+      example:
+        severity: severity
+        summary:
+          total: 1
+          high: 5
+          critical: 5
+          low: 7
+          medium: 2
+          negligible: 9
+          fixable: 6
+          unknown: 3
+        scanDuration: 6
+        vulnerabilities:
+        - severity: severity
+          package: package
+          name: name
+          description: description
+          links:
+          - links
+          - links
+          fixVersion: fixVersion
+          version: version
+        - severity: severity
+          package: package
+          name: name
+          description: description
+          links:
+          - links
+          - links
+          fixVersion: fixVersion
+          version: version
+        startTime: 2000-01-23T04:56:07.000+00:00
+        endTime: 2000-01-23T04:56:07.000+00:00
+        status: status
+      properties:
+        severity:
+          description: "The overall severity. For example : \"High\" or \"None\""
+          nullable: true
+          type: string
+        status:
+          description: The status of the report
+          nullable: true
+          type: string
+        startTime:
+          description: The start time of the scanning process
+          format: date-time
+          nullable: true
+          type: string
+        endTime:
+          description: The end time of the scanning process
+          format: date-time
+          nullable: true
+          type: string
+        scanDuration:
+          description: The duration of the scan in seconds
+          format: int32
+          nullable: true
+          type: integer
+        summary:
+          $ref: '#/components/schemas/ScanSummary'
+        vulnerabilities:
+          description: List of Finbourne.Scheduler.WebApi.Dtos.Images.Vulnerability
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+          nullable: true
+          type: array
+      type: object
+    ScanSummary:
+      additionalProperties: false
+      description: ""
+      example:
+        total: 1
+        high: 5
+        critical: 5
+        low: 7
+        medium: 2
+        negligible: 9
+        fixable: 6
+        unknown: 3
+      properties:
+        fixable:
+          description: The number of vulnerabilities that have a known fix
+          format: int32
+          nullable: true
+          type: integer
+        total:
+          description: The total number of vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        critical:
+          description: The number of Critical severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        high:
+          description: The number of High severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        medium:
+          description: The number of Medium severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        low:
+          description: The number of Low severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        negligible:
+          description: The number of Negligible severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+        unknown:
+          description: The number of Unknown severity vulnerabilities
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    ScheduleDefinition:
+      additionalProperties: false
+      description: Schedule
+      example:
+        owner: owner
+        jobId:
+          code: code
+          scope: scope
+        useAsAuth: useAsAuth
+        author: author
+        scheduleIdentifier:
+          code: code
+          scope: scope
+        name: name
+        description: description
+        arguments:
+          key: arguments
+        trigger:
+          timeTrigger:
+            expression: expression
+            timeZone: timeZone
+        notifications:
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        enabled: true
+      properties:
+        scheduleIdentifier:
+          $ref: '#/components/schemas/ResourceId'
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: A display name for this Schedule
+          nullable: true
+          type: string
+        description:
+          description: A description of the Schedule
+          nullable: true
+          type: string
+        author:
+          description: Name of the author of this schedule
+          nullable: true
+          type: string
+        owner:
+          description: Name of owner of this schedule
+          nullable: true
+          type: string
+        useAsAuth:
+          description: "User to runs schedule when automatically run and authenticates\
+            \ \r\nrequests in the schedule"
+          nullable: true
+          type: string
+        arguments:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: All arguments specified by this Schedule that will be passed
+            in to the Job
+          nullable: true
+          type: object
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        notifications:
+          description: Notifications for this Schedule
+          items:
+            $ref: '#/components/schemas/Notification'
+          nullable: true
+          type: array
+        enabled:
+          description: The status of this schedule
+          type: boolean
+      required:
+      - scheduleIdentifier
+      type: object
+    StartJobRequest:
+      additionalProperties: false
+      description: Job start definition
+      example:
+        useAsAuth: useAsAuth
+        arguments:
+          key: arguments
+        notifications:
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+      properties:
+        arguments:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: All arguments needed for the Job to run
+          nullable: true
+          type: object
+        notifications:
+          description: Notifications for this Job
+          items:
+            $ref: '#/components/schemas/Notification'
+          nullable: true
+          type: array
+        useAsAuth:
+          description: "Id of user associated with schedule. All calls to FINBOURNE\
+            \ services\r\nas part of execution of this schedule will be authenticated\
+            \ as this \r\nuser. Can be null, in which case we'll default to that of\
+            \ the user \r\nmaking this request"
+          nullable: true
+          type: string
+      type: object
+    StartJobResponse:
+      additionalProperties: false
+      description: Response from starting a job
+      example:
+        result: result
+        jobId:
+          code: code
+          scope: scope
+        runId: runId
+        status: status
+      properties:
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        runId:
+          description: Unique RunId of the started job run
+          nullable: true
+          type: string
+        status:
+          description: Link to the status of the started job
+          nullable: true
+          type: string
+        result:
+          description: Link to the result of the job run when completed
+          nullable: true
+          type: string
+      type: object
+    StartScheduleResponse:
+      additionalProperties: false
+      description: Response from a manual run of a schedule
+      example:
+        result: result
+        jobId:
+          code: code
+          scope: scope
+        runId: runId
+        scheduleId:
+          code: code
+          scope: scope
+        status: status
+      properties:
+        scheduleId:
+          $ref: '#/components/schemas/ResourceId'
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        runId:
+          description: Unique RunId of the started schedule
+          nullable: true
+          type: string
+        status:
+          description: Status of the started schedule
+          nullable: true
+          type: string
+        result:
+          description: Link to the result of the job run when completed
+          nullable: true
+          type: string
+      type: object
+    Tag:
+      additionalProperties: false
+      description: Represents data of an image's tag
+      example:
+        immutable: true
+        pullTime: 2000-01-23T04:56:07.000+00:00
+        name: name
+        signed: true
+        pushTime: 2000-01-23T04:56:07.000+00:00
+      properties:
+        name:
+          description: The name of the tag
+          nullable: true
+          type: string
+        pullTime:
+          description: The latest pull time
+          format: date-time
+          type: string
+        pushTime:
+          description: The date of the tag's push
+          format: date-time
+          type: string
+        signed:
+          description: Indicates whether the tag is signed
+          type: boolean
+        immutable:
+          description: Indicates whether the tag is immutable
+          type: boolean
+      type: object
+    TimeTrigger:
+      additionalProperties: false
+      description: Time-based trigger
+      example:
+        expression: expression
+        timeZone: timeZone
+      properties:
+        expression:
+          description: Cron expression
+          maxLength: 100
+          minLength: 1
+          nullable: true
+          type: string
+        timeZone:
+          description: "Time zone of the Cron expression. If not provided, defaults\
+            \ to UTC"
+          maxLength: 100
+          minLength: 1
+          nullable: true
+          type: string
+      type: object
+    Trigger:
+      additionalProperties: false
+      description: "Holds different kinds of triggers\r\nA schedule may only have\
+        \ one type of trigger"
+      example:
+        timeTrigger:
+          expression: expression
+          timeZone: timeZone
+      properties:
+        timeTrigger:
+          $ref: '#/components/schemas/TimeTrigger'
+      type: object
+    UpdateJobRequest:
+      additionalProperties: false
+      description: A request to update a job
+      example:
+        minMemory: minMemory
+        commandLineArgumentSeparator: commandLineArgumentSeparator
+        imageName: imageName
+        author: author
+        description: description
+        maxCpu: maxCpu
+        argumentDefinitions:
+          key:
+            passedAs: passedAs
+            defaultValue: defaultValue
+            dataType: dataType
+            description: description
+            constraints: constraints
+            required: true
+            order: 6
+        minCpu: minCpu
+        ttl: 0
+        maxMemory: maxMemory
+        requiredResources:
+          lusidFileSystem:
+          - lusidFileSystem
+          - lusidFileSystem
+          externalCalls:
+          - externalCalls
+          - externalCalls
+          lusidApis:
+          - lusidApis
+          - lusidApis
+        name: name
+        imageTag: imageTag
+      properties:
+        name:
+          description: Name of the job
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        author:
+          description: Author of the job
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: Description of this job
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        imageName:
+          description: The name of the Docker image that contains this job
+          minLength: 1
+          type: string
+        imageTag:
+          description: The tag of the Docker image that contains this job
+          maxLength: 128
+          minLength: 0
+          type: string
+        ttl:
+          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          format: int32
+          type: integer
+        minCpu:
+          description: "Specifies minimum number of CPUs to be allocated for the job\r\
+            \nDefault to 2"
+          nullable: true
+          type: string
+        maxCpu:
+          description: Specifies maximum number of CPUs to be allocated for the job
+          nullable: true
+          type: string
+        minMemory:
+          description: Specifies the minimum amount of memory to be allocated for
+            the job
+          nullable: true
+          type: string
+        maxMemory:
+          description: Specifies the maximum amount of memory to be allocated for
+            the job
+          nullable: true
+          type: string
+        argumentDefinitions:
+          additionalProperties:
+            $ref: '#/components/schemas/ArgumentDefinition'
+          description: All arguments for this job to run
+          type: object
+        commandLineArgumentSeparator:
+          description: "Value to separate command line arguments\r\ne.g : If a job\
+            \ has a command line argument named 'folder' and the runtime value is\
+            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
+            \nDefault to a space"
+          maxLength: 5
+          minLength: 0
+          nullable: true
+          type: string
+        requiredResources:
+          $ref: '#/components/schemas/RequiredResources'
+      required:
+      - argumentDefinitions
+      - description
+      - imageName
+      - imageTag
+      - name
+      - requiredResources
+      type: object
+    UpdateScheduleRequest:
+      additionalProperties: false
+      description: Create a schedule definition
+      example:
+        owner: owner
+        jobId:
+          code: code
+          scope: scope
+        useAsAuth: useAsAuth
+        author: author
+        name: name
+        description: description
+        arguments:
+          key: arguments
+        trigger:
+          timeTrigger:
+            expression: expression
+            timeZone: timeZone
+        notifications:
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        - destination:
+          - destination
+          - destination
+          transport: transport
+          fireOn: fireOn
+        enabled: true
+      properties:
+        jobId:
+          $ref: '#/components/schemas/ResourceId'
+        name:
+          description: The updated name of the schedule
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The updated description of the schedule
+          maxLength: 512
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        author:
+          description: The updated author of the schedule
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        owner:
+          description: The update owner of the schedule
+          maxLength: 512
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        arguments:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: "Updated arguments to be passed to the job\r\nNote: The new\
+            \ arguments will completely replace old arguments"
+          nullable: true
+          type: object
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        notifications:
+          description: Updated notifications for this schedule
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        enabled:
+          description: "Specify whether schedule is enabled or not\r\nDefaults to\
+            \ true"
+          type: boolean
+        useAsAuth:
+          description: "Id of user associated with schedule. All calls to FINBOURNE\
+            \ services\r\nas part of execution of this schedule will be authenticated\
+            \ as this \r\nuser. Can be null, in which case we'll default to that of\
+            \ the user \r\nmaking this request"
+          maxLength: 64
+          minLength: 1
+          nullable: true
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+      required:
+      - description
+      - jobId
+      - name
+      - notifications
+      type: object
+    UploadImageInstructions:
+      additionalProperties: false
+      description: ""
+      example:
+        pushVersionedDockerImageCommand: pushVersionedDockerImageCommand
+        pushLatestDockerImageCommand: pushLatestDockerImageCommand
+        tagVersionedDockerImageCommand: tagVersionedDockerImageCommand
+        tagLatestDockerImageCommand: tagLatestDockerImageCommand
+        expiryTime: 2000-01-23T04:56:07.000+00:00
+        dockerLoginCommand: dockerLoginCommand
+        buildVersionedDockerImageCommand: buildVersionedDockerImageCommand
+      properties:
+        dockerLoginCommand:
+          minLength: 1
+          type: string
+        buildVersionedDockerImageCommand:
+          minLength: 1
+          type: string
+        tagVersionedDockerImageCommand:
+          minLength: 1
+          type: string
+        pushVersionedDockerImageCommand:
+          minLength: 1
+          type: string
+        tagLatestDockerImageCommand:
+          nullable: true
+          type: string
+        pushLatestDockerImageCommand:
+          nullable: true
+          type: string
+        expiryTime:
+          format: date-time
+          type: string
+      required:
+      - buildVersionedDockerImageCommand
+      - dockerLoginCommand
+      - pushVersionedDockerImageCommand
+      - tagVersionedDockerImageCommand
+      type: object
+    UploadImageRequest:
+      additionalProperties: false
+      description: Request to upload image for Scheduler use
+      example:
+        imageName: imageName
+      properties:
+        imageName:
+          description: Name of the image to be uploaded
+          maxLength: 256
+          minLength: 1
+          pattern: "^[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\d]+))*:[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\\
+            d]+))*$"
+          type: string
+      required:
+      - imageName
+      type: object
+    Vulnerability:
+      additionalProperties: false
+      description: Represents the details of an image vulnerability
+      example:
+        severity: severity
+        package: package
+        name: name
+        description: description
+        links:
+        - links
+        - links
+        fixVersion: fixVersion
+        version: version
+      properties:
+        name:
+          description: The name of the vulnerability
+          nullable: true
+          type: string
+        package:
+          description: The package that contains the vulnerability
+          nullable: true
+          type: string
+        version:
+          description: The version of the package
+          nullable: true
+          type: string
+        fixVersion:
+          description: The version that has a fix for the vulnerability (if known)
+          nullable: true
+          type: string
+        severity:
+          description: The severity of the vulnerability
+          nullable: true
+          type: string
+        description:
+          description: The description of the vulnerability
+          nullable: true
+          type: string
+        links:
+          description: Relevant links for the vulnerability
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+  securitySchemes:
+    oauth2:
+      description: OAuth2 Implicit Grant
+      flows:
+        implicit:
+          authorizationUrl: https://lusid.okta.com/oauth2/default/v1/authorize
+          scopes: {}
+      type: oauth2
+x-tagGroups:
+  name: API
+  tags:
+  - Application Metadata
+  - Images
+  - Jobs
+  - Schedules
+x-group-parameters: true
+
