@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
 * Provides {@link FinbourneToken} used for API authentication and manages
-* token expiry to ensure continued connectivity to lusidScheduler API without the need
+* token expiry to ensure continued connectivity to scheduler API without the need
 * for explicit reauthentication by the caller.
 *
 */
@@ -23,9 +23,9 @@ public class RefreshingTokenProvider {
 
     /**
     * Creates a KeepAuthTokenProvider based on an underlying token provider
-    * that manages direct authentication with lusidScheduler.
+    * that manages direct authentication with scheduler.
     *
-    * @param httpFinbourneTokenProvider underlying provider that manages explicit authentication calls to lusidScheduler
+    * @param httpFinbourneTokenProvider underlying provider that manages explicit authentication calls to scheduler
     */
     public RefreshingTokenProvider(HttpFinbourneTokenProvider httpFinbourneTokenProvider) {
         this.httpFinbourneTokenProvider = httpFinbourneTokenProvider;

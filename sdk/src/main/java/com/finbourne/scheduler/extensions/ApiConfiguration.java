@@ -32,7 +32,7 @@ public class ApiConfiguration {
     private String clientSecret;
 
     /**
-     * lusidScheduler API Url
+     * scheduler API Url
      */
     private String apiUrl;
 

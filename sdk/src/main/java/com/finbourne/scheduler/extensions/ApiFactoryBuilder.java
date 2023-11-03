@@ -36,8 +36,8 @@ public class ApiFactoryBuilder {
                 System.getenv("FBN_PASSWORD") != null &&
                 System.getenv("FBN_CLIENT_ID") != null &&
                 System.getenv("FBN_CLIENT_SECRET") != null &&
-                System.getenv("FBN_LUSID-SCHEDULER_API_URL") != null) ||
-                (System.getenv("FBN_LUSID-SCHEDULER_API_URL") != null &&
+                System.getenv("FBN_SCHEDULER_API_URL") != null) ||
+                (System.getenv("FBN_SCHEDULER_API_URL") != null &&
                 System.getenv("FBN_ACCESS_TOKEN") != null));
     }
 }
