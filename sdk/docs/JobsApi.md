@@ -589,7 +589,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Accepted |  -  |
+| **200** | Success |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 

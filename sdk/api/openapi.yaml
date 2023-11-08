@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.835
+  version: 0.0.836
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1348,7 +1348,7 @@ paths:
         description: The request for starting job
         required: true
       responses:
-        "202":
+        "200":
           content:
             application/json:
               example:
@@ -1360,7 +1360,7 @@ paths:
                 result: TestResult
               schema:
                 $ref: '#/components/schemas/StartJobResponse'
-          description: Accepted
+          description: Success
         "400":
           content:
             application/json:
