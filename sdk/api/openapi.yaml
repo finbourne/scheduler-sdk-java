@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.851
+  version: 0.0.853
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -613,11 +613,9 @@ paths:
                   passedAs: EnvironmentVariable
               commandLineArgumentSeparator: ' '
               requiredResources:
-                lusidApis:
-                - "Shrine, IBOR"
+                lusidApis: []
                 lusidFileSystem: []
-                externalCalls:
-                - AWS
+                externalCalls: []
             schema:
               $ref: '#/components/schemas/CreateJobRequest'
           application/json:
@@ -646,11 +644,9 @@ paths:
                   passedAs: EnvironmentVariable
               commandLineArgumentSeparator: ' '
               requiredResources:
-                lusidApis:
-                - "Shrine, IBOR"
+                lusidApis: []
                 lusidFileSystem: []
-                externalCalls:
-                - AWS
+                externalCalls: []
             schema:
               $ref: '#/components/schemas/CreateJobRequest'
           text/json:
@@ -679,11 +675,9 @@ paths:
                   passedAs: EnvironmentVariable
               commandLineArgumentSeparator: ' '
               requiredResources:
-                lusidApis:
-                - "Shrine, IBOR"
+                lusidApis: []
                 lusidFileSystem: []
-                externalCalls:
-                - AWS
+                externalCalls: []
             schema:
               $ref: '#/components/schemas/CreateJobRequest'
           application/*+json:
@@ -712,11 +706,9 @@ paths:
                   passedAs: EnvironmentVariable
               commandLineArgumentSeparator: ' '
               requiredResources:
-                lusidApis:
-                - "Shrine, IBOR"
+                lusidApis: []
                 lusidFileSystem: []
-                externalCalls:
-                - AWS
+                externalCalls: []
             schema:
               $ref: '#/components/schemas/CreateJobRequest'
         description: The request to create a new job
@@ -2922,7 +2914,6 @@ components:
       - imageTag
       - jobId
       - name
-      - requiredResources
       type: object
     CreateScheduleRequest:
       additionalProperties: false
@@ -3368,7 +3359,6 @@ components:
           $ref: '#/components/schemas/RequiredResources'
       required:
       - jobId
-      - requiredResources
       type: object
     JobHistory:
       additionalProperties: false
@@ -5014,7 +5004,6 @@ components:
       - imageName
       - imageTag
       - name
-      - requiredResources
       type: object
     UpdateScheduleRequest:
       additionalProperties: false

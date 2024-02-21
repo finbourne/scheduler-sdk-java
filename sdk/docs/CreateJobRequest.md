@@ -22,7 +22,7 @@ Definition of a job
 |**maxMemory** | **String** | Specifies the maximum amount of memory to be allocated for the job |  [optional] |
 |**argumentDefinitions** | [**Map&lt;String, ArgumentDefinition&gt;**](ArgumentDefinition.md) | All arguments for this job to run |  |
 |**commandLineArgumentSeparator** | **String** | Value to separate command line arguments  e.g : If a job has a command line argument named &#39;folder&#39; and the runtime value is &#39;s3://path&#39; then this  would be supplied to the command as &#39;folder{separatorValue}s3://path&#39;  Default to a space |  [optional] |
-|**requiredResources** | [**RequiredResources**](RequiredResources.md) |  |  |
+|**requiredResources** | [**RequiredResources**](RequiredResources.md) |  |  [optional] |
 
 
 

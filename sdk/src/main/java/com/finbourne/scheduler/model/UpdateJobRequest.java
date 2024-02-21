@@ -379,7 +379,7 @@ public class UpdateJobRequest {
    * Get requiredResources
    * @return requiredResources
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public RequiredResources getRequiredResources() {
     return requiredResources;
   }
@@ -491,7 +491,6 @@ public class UpdateJobRequest {
     openapiRequiredFields.add("imageName");
     openapiRequiredFields.add("imageTag");
     openapiRequiredFields.add("argumentDefinitions");
-    openapiRequiredFields.add("requiredResources");
   }
 
  /**
@@ -544,8 +543,10 @@ public class UpdateJobRequest {
       if ((jsonObj.get("commandLineArgumentSeparator") != null && !jsonObj.get("commandLineArgumentSeparator").isJsonNull()) && !jsonObj.get("commandLineArgumentSeparator").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `commandLineArgumentSeparator` to be a primitive type in the JSON string but got `%s`", jsonObj.get("commandLineArgumentSeparator").toString()));
       }
-      // validate the required field `requiredResources`
-      RequiredResources.validateJsonElement(jsonObj.get("requiredResources"));
+      // validate the optional field `requiredResources`
+      if (jsonObj.get("requiredResources") != null && !jsonObj.get("requiredResources").isJsonNull()) {
+        RequiredResources.validateJsonElement(jsonObj.get("requiredResources"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
