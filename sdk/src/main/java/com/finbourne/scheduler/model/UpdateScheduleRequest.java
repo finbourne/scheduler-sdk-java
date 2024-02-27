@@ -87,7 +87,7 @@ public class UpdateScheduleRequest {
 
   public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
   @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
-  private List<Notification> notifications = new ArrayList<>();
+  private List<Notification> notifications;
 
   public static final String SERIALIZED_NAME_ENABLED = "enabled";
   @SerializedName(SERIALIZED_NAME_ENABLED)
@@ -273,7 +273,7 @@ public class UpdateScheduleRequest {
    * Updated notifications for this schedule
    * @return notifications
   **/
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   public List<Notification> getNotifications() {
     return notifications;
   }
@@ -416,7 +416,6 @@ public class UpdateScheduleRequest {
     openapiRequiredFields.add("jobId");
     openapiRequiredFields.add("name");
     openapiRequiredFields.add("description");
-    openapiRequiredFields.add("notifications");
   }
 
  /**
@@ -457,16 +456,20 @@ public class UpdateScheduleRequest {
       if (jsonObj.get("trigger") != null && !jsonObj.get("trigger").isJsonNull()) {
         Trigger.validateJsonElement(jsonObj.get("trigger"));
       }
-      // ensure the json data is an array
-      if (!jsonObj.get("notifications").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-      }
+      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
+        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
+        if (jsonArraynotifications != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("notifications").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
+          }
 
-      JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-      // validate the required field `notifications` (array)
-      for (int i = 0; i < jsonArraynotifications.size(); i++) {
-        Notification.validateJsonElement(jsonArraynotifications.get(i));
-      };
+          // validate the optional field `notifications` (array)
+          for (int i = 0; i < jsonArraynotifications.size(); i++) {
+            Notification.validateJsonElement(jsonArraynotifications.get(i));
+          };
+        }
+      }
       if ((jsonObj.get("useAsAuth") != null && !jsonObj.get("useAsAuth").isJsonNull()) && !jsonObj.get("useAsAuth").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `useAsAuth` to be a primitive type in the JSON string but got `%s`", jsonObj.get("useAsAuth").toString()));
       }

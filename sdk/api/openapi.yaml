@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.854
+  version: 0.0.856
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1579,18 +1579,9 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
+              notifications: []
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/CreateScheduleRequest'
           application/json:
@@ -1611,18 +1602,9 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
+              notifications: []
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/CreateScheduleRequest'
           text/json:
@@ -1643,18 +1625,9 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
+              notifications: []
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/CreateScheduleRequest'
           application/*+json:
@@ -1675,18 +1648,9 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
+              notifications: []
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/CreateScheduleRequest'
         required: true
@@ -1712,16 +1676,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -1744,16 +1698,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -1776,16 +1720,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -1905,16 +1839,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -1937,16 +1861,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -1969,16 +1883,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2044,18 +1948,8 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/UpdateScheduleRequest'
           application/json:
@@ -2073,18 +1967,8 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/UpdateScheduleRequest'
           text/json:
@@ -2102,18 +1986,8 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/UpdateScheduleRequest'
           application/*+json:
@@ -2131,18 +2005,8 @@ paths:
                 timeTrigger:
                   expression: 0 0 5 ? generate justfile test_sdk 3
                   timeZone: UTC
-              notifications:
-              - fireOn: Completed
-                transport: Email
-                destination:
-                - destination
-              - fireOn: Failed
-                transport: SMS
-                destination:
-                - destination1
-                - destination2
               enabled: true
-              useAsAuth: Schedule auth userId
+              useAsAuth: ScheduleAuthUserId
             schema:
               $ref: '#/components/schemas/UpdateScheduleRequest'
         description: The updated schedule
@@ -2169,16 +2033,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2201,16 +2055,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2233,16 +2077,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2411,16 +2245,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2443,16 +2267,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2475,16 +2289,6 @@ paths:
                   timeTrigger:
                     expression: 0 0 5 ? generate justfile test_sdk 3
                     timeZone: UTC
-                notifications:
-                - fireOn: Completed
-                  transport: Email
-                  destination:
-                  - destination
-                - fireOn: Failed
-                  transport: SMS
-                  destination:
-                  - destination1
-                  - destination2
                 enabled: true
               schema:
                 $ref: '#/components/schemas/ScheduleDefinition'
@@ -2993,6 +2797,7 @@ components:
           description: Notifications for this Schedule
           items:
             $ref: '#/components/schemas/Notification'
+          nullable: true
           type: array
         enabled:
           description: "Specify whether schedule is enabled or not\r\nDefaults to\
@@ -3012,7 +2817,6 @@ components:
       - description
       - jobId
       - name
-      - notifications
       - scheduleId
       type: object
     IdentifierPartSchema:
@@ -5078,6 +4882,7 @@ components:
           description: Updated notifications for this schedule
           items:
             $ref: '#/components/schemas/Notification'
+          nullable: true
           type: array
         enabled:
           description: "Specify whether schedule is enabled or not\r\nDefaults to\
@@ -5097,7 +4902,6 @@ components:
       - description
       - jobId
       - name
-      - notifications
       type: object
     UploadImageInstructions:
       additionalProperties: false

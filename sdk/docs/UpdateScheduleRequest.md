@@ -15,7 +15,7 @@ Create a schedule definition
 |**owner** | **String** | The update owner of the schedule |  [optional] |
 |**arguments** | **Map&lt;String, String&gt;** | Updated arguments to be passed to the job  Note: The new arguments will completely replace old arguments |  [optional] |
 |**trigger** | [**Trigger**](Trigger.md) |  |  [optional] |
-|**notifications** | [**List&lt;Notification&gt;**](Notification.md) | Updated notifications for this schedule |  |
+|**notifications** | [**List&lt;Notification&gt;**](Notification.md) | Updated notifications for this schedule |  [optional] |
 |**enabled** | **Boolean** | Specify whether schedule is enabled or not  Defaults to true |  [optional] |
 |**useAsAuth** | **String** | Id of user associated with schedule. All calls to FINBOURNE services  as part of execution of this schedule will be authenticated as this   user. Can be null, in which case we&#39;ll default to that of the user   making this request |  [optional] |
 
