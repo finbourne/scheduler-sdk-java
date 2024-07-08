@@ -1577,7 +1577,9 @@ paths:
                 Argument: Argument value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               notifications: []
               enabled: true
@@ -1600,7 +1602,9 @@ paths:
                 Argument: Argument value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               notifications: []
               enabled: true
@@ -1623,7 +1627,9 @@ paths:
                 Argument: Argument value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               notifications: []
               enabled: true
@@ -1646,7 +1652,9 @@ paths:
                 Argument: Argument value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               notifications: []
               enabled: true
@@ -1674,7 +1682,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1696,7 +1706,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1718,7 +1730,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1837,7 +1851,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1859,7 +1875,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1881,7 +1899,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -1946,7 +1966,9 @@ paths:
                 UpdatedArgument: Updated value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               enabled: true
               useAsAuth: ScheduleAuthUserId
@@ -1965,7 +1987,9 @@ paths:
                 UpdatedArgument: Updated value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               enabled: true
               useAsAuth: ScheduleAuthUserId
@@ -1984,7 +2008,9 @@ paths:
                 UpdatedArgument: Updated value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               enabled: true
               useAsAuth: ScheduleAuthUserId
@@ -2003,7 +2029,9 @@ paths:
                 UpdatedArgument: Updated value
               trigger:
                 timeTrigger:
-                  expression: 0 0 5 ? generate justfile test_sdk 3
+                  expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                    docker-compose.yml docs generate justfile publish resources test_sdk
+                    3
                   timeZone: UTC
               enabled: true
               useAsAuth: ScheduleAuthUserId
@@ -2031,7 +2059,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -2053,7 +2083,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -2075,7 +2107,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -2243,7 +2277,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -2265,7 +2301,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
@@ -2287,7 +2325,9 @@ paths:
                   Argument: Argument value
                 trigger:
                   timeTrigger:
-                    expression: 0 0 5 ? generate justfile test_sdk 3
+                    expression: 0 0 5 ? Dockerfile Dockerfile.cicd LICENSE.md README.md
+                      docker-compose.yml docs generate justfile publish resources
+                      test_sdk 3
                     timeZone: UTC
                 enabled: true
               schema:
