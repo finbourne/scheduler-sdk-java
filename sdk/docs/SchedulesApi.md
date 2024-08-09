@@ -13,49 +13,60 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 | [**updateSchedule**](SchedulesApi.md#updateSchedule) | **PUT** /api/schedules/{scope}/{code} | [EXPERIMENTAL] UpdateSchedule: Update a schedule. |
 
 
-<a id="createSchedule"></a>
-# **createSchedule**
-> ScheduleDefinition createSchedule(createScheduleRequest).execute();
+
+## createSchedule
+
+> ScheduleDefinition createSchedule(createScheduleRequest)
 
 [EXPERIMENTAL] CreateSchedule: Create a Schedule for a job
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    CreateScheduleRequest createScheduleRequest = new CreateScheduleRequest(); // CreateScheduleRequest | 
-    try {
-      ScheduleDefinition result = apiInstance.createSchedule(createScheduleRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#createSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        CreateScheduleRequest createScheduleRequest = new CreateScheduleRequest(); // CreateScheduleRequest | 
+        try {
+            ScheduleDefinition result = apiInstance.createSchedule(createScheduleRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#createSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -65,14 +76,11 @@ public class Example {
 
 [**ScheduleDefinition**](ScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -81,49 +89,62 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="deleteSchedule"></a>
-# **deleteSchedule**
-> deleteSchedule(scope, code).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteSchedule
+
+> deleteSchedule(scope, code)
 
 [EXPERIMENTAL] DeleteSchedule: Delete a schedule
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String scope = "scope_example"; // String | Scope of the schedule to be deleted
-    String code = "code_example"; // String | Code of the schedule to be deleted
-    try {
-      apiInstance.deleteSchedule(scope, code)
-            .execute();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#deleteSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | Scope of the schedule to be deleted
+        String code = "code_example"; // String | Code of the schedule to be deleted
+        try {
+            apiInstance.deleteSchedule(scope, code).execute();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#deleteSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -134,14 +155,11 @@ public class Example {
 
 null (empty response body)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -150,51 +168,64 @@ null (empty response body)
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="enabledSchedule"></a>
-# **enabledSchedule**
-> ScheduleDefinition enabledSchedule(scope, code, enable).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## enabledSchedule
+
+> ScheduleDefinition enabledSchedule(scope, code, enable)
 
 [EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String scope = "scope_example"; // String | Scope of the schedule to be enabled/disabled
-    String code = "code_example"; // String | Code of the schedule to be enabled/disabled
-    Boolean enable = true; // Boolean | Specify whether to enable or disable the schedule
-    try {
-      ScheduleDefinition result = apiInstance.enabledSchedule(scope, code, enable)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#enabledSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | Scope of the schedule to be enabled/disabled
+        String code = "code_example"; // String | Code of the schedule to be enabled/disabled
+        Boolean enable = true; // Boolean | Specify whether to enable or disable the schedule
+        try {
+            ScheduleDefinition result = apiInstance.enabledSchedule(scope, code, enable).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#enabledSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -206,14 +237,11 @@ public class Example {
 
 [**ScheduleDefinition**](ScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -222,50 +250,63 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getSchedule"></a>
-# **getSchedule**
-> ScheduleDefinition getSchedule(scope, code).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getSchedule
+
+> ScheduleDefinition getSchedule(scope, code)
 
 [EXPERIMENTAL] GetSchedule: Get a single Schedule
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String scope = "scope_example"; // String | The scope of Schedule
-    String code = "code_example"; // String | The code of the Schedule
-    try {
-      ScheduleDefinition result = apiInstance.getSchedule(scope, code)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#getSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | The scope of Schedule
+        String code = "code_example"; // String | The code of the Schedule
+        try {
+            ScheduleDefinition result = apiInstance.getSchedule(scope, code).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#getSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -276,14 +317,11 @@ public class Example {
 
 [**ScheduleDefinition**](ScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -292,58 +330,66 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="listSchedules"></a>
-# **listSchedules**
-> ResourceListOfScheduleDefinition listSchedules().page(page).sortBy(sortBy).start(start).limit(limit).filter(filter).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## listSchedules
+
+> ResourceListOfScheduleDefinition listSchedules(page, sortBy, start, limit, filter)
 
 [EXPERIMENTAL] ListSchedules: List the available Schedules
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
-    List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
-    Integer start = 56; // Integer | When paginating, skip this number of results.
-    Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
-    String filter = "filter_example"; // String | Expression to filter the result set.
-    try {
-      ResourceListOfScheduleDefinition result = apiInstance.listSchedules()
-            .page(page)
-            .sortBy(sortBy)
-            .start(start)
-            .limit(limit)
-            .filter(filter)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#listSchedules");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
+        List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
+        Integer start = 56; // Integer | When paginating, skip this number of results.
+        Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
+        String filter = "filter_example"; // String | Expression to filter the result set.
+        try {
+            ResourceListOfScheduleDefinition result = apiInstance.listSchedules(page, sortBy, start, limit, filter).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#listSchedules");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -357,14 +403,11 @@ public class Example {
 
 [**ResourceListOfScheduleDefinition**](ResourceListOfScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -373,50 +416,63 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="runSchedule"></a>
-# **runSchedule**
-> StartScheduleResponse runSchedule(scope, code).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## runSchedule
+
+> StartScheduleResponse runSchedule(scope, code)
 
 [EXPERIMENTAL] RunSchedule: Run a schedule immediately
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String scope = "scope_example"; // String | The schedule scope
-    String code = "code_example"; // String | The schedule cde
-    try {
-      StartScheduleResponse result = apiInstance.runSchedule(scope, code)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#runSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | The schedule scope
+        String code = "code_example"; // String | The schedule cde
+        try {
+            StartScheduleResponse result = apiInstance.runSchedule(scope, code).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#runSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -427,14 +483,11 @@ public class Example {
 
 [**StartScheduleResponse**](StartScheduleResponse.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -443,51 +496,64 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="updateSchedule"></a>
-# **updateSchedule**
-> ScheduleDefinition updateSchedule(scope, code, updateScheduleRequest).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## updateSchedule
+
+> ScheduleDefinition updateSchedule(scope, code, updateScheduleRequest)
 
 [EXPERIMENTAL] UpdateSchedule: Update a schedule.
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    SchedulesApi apiInstance = new SchedulesApi(defaultClient);
-    String scope = "scope_example"; // String | Scope of the schedule to be updated
-    String code = "code_example"; // String | Code of the schedule to be updated
-    UpdateScheduleRequest updateScheduleRequest = new UpdateScheduleRequest(); // UpdateScheduleRequest | The updated schedule
-    try {
-      ScheduleDefinition result = apiInstance.updateSchedule(scope, code, updateScheduleRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling SchedulesApi#updateSchedule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | Scope of the schedule to be updated
+        String code = "code_example"; // String | Code of the schedule to be updated
+        UpdateScheduleRequest updateScheduleRequest = new UpdateScheduleRequest(); // UpdateScheduleRequest | The updated schedule
+        try {
+            ScheduleDefinition result = apiInstance.updateSchedule(scope, code, updateScheduleRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#updateSchedule");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -499,14 +565,11 @@ public class Example {
 
 [**ScheduleDefinition**](ScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -514,4 +577,6 @@ public class Example {
 | **200** | Success |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 

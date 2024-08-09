@@ -15,49 +15,60 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 | [**updateJob**](JobsApi.md#updateJob) | **PUT** /api/jobs/{scope}/{code} | [EXPERIMENTAL] UpdateJob: Update a JobDefinition |
 
 
-<a id="createJob"></a>
-# **createJob**
-> JobDefinition createJob(createJobRequest).execute();
+
+## createJob
+
+> JobDefinition createJob(createJobRequest)
 
 [EXPERIMENTAL] CreateJob: Create a new job
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    CreateJobRequest createJobRequest = new CreateJobRequest(); // CreateJobRequest | The request to create a new job
-    try {
-      JobDefinition result = apiInstance.createJob(createJobRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#createJob");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        CreateJobRequest createJobRequest = new CreateJobRequest(); // CreateJobRequest | The request to create a new job
+        try {
+            JobDefinition result = apiInstance.createJob(createJobRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#createJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -67,14 +78,11 @@ public class Example {
 
 [**JobDefinition**](JobDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -83,50 +91,63 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="deleteJob"></a>
-# **deleteJob**
-> ResourceListOfScheduleDefinition deleteJob(scope, code).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteJob
+
+> ResourceListOfScheduleDefinition deleteJob(scope, code)
 
 [EXPERIMENTAL] DeleteJob: Delete a job
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String scope = "scope_example"; // String | The scope of the job
-    String code = "code_example"; // String | The code of the job
-    try {
-      ResourceListOfScheduleDefinition result = apiInstance.deleteJob(scope, code)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#deleteJob");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String scope = "scope_example"; // String | The scope of the job
+        String code = "code_example"; // String | The code of the job
+        try {
+            ResourceListOfScheduleDefinition result = apiInstance.deleteJob(scope, code).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#deleteJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -137,14 +158,11 @@ public class Example {
 
 [**ResourceListOfScheduleDefinition**](ResourceListOfScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -153,58 +171,66 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getHistory"></a>
-# **getHistory**
-> ResourceListOfJobHistory getHistory().page(page).sortBy(sortBy).start(start).limit(limit).filter(filter).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getHistory
+
+> ResourceListOfJobHistory getHistory(page, sortBy, start, limit, filter)
 
 [EXPERIMENTAL] GetHistory: Get the history of job runs
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
-    List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
-    Integer start = 56; // Integer | This field is obsolete, the value of this field would not be considered.
-    Integer limit = 56; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
-    String filter = "filter_example"; // String | Expression to filter the result set.
-    try {
-      ResourceListOfJobHistory result = apiInstance.getHistory()
-            .page(page)
-            .sortBy(sortBy)
-            .start(start)
-            .limit(limit)
-            .filter(filter)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#getHistory");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
+        List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
+        Integer start = 56; // Integer | This field is obsolete, the value of this field would not be considered.
+        Integer limit = 56; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
+        String filter = "filter_example"; // String | Expression to filter the result set.
+        try {
+            ResourceListOfJobHistory result = apiInstance.getHistory(page, sortBy, start, limit, filter).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#getHistory");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -218,14 +244,11 @@ public class Example {
 
 [**ResourceListOfJobHistory**](ResourceListOfJobHistory.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -234,49 +257,62 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getJobConsoleOutput"></a>
-# **getJobConsoleOutput**
-> String getJobConsoleOutput(runId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getJobConsoleOutput
+
+> String getJobConsoleOutput(runId)
 
 [EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific job run
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String runId = "runId_example"; // String | The RunId of the job run
-    try {
-      String result = apiInstance.getJobConsoleOutput(runId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#getJobConsoleOutput");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String runId = "runId_example"; // String | The RunId of the job run
+        try {
+            String result = apiInstance.getJobConsoleOutput(runId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#getJobConsoleOutput");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -286,14 +322,11 @@ public class Example {
 
 **String**
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -302,49 +335,62 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getRunHistory"></a>
-# **getRunHistory**
-> JobRunResult getRunHistory(runId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getRunHistory
+
+> JobRunResult getRunHistory(runId)
 
 [EXPERIMENTAL] GetRunHistory: Get the history for a single job run
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String runId = "runId_example"; // String | The unique ID of the run
-    try {
-      JobRunResult result = apiInstance.getRunHistory(runId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#getRunHistory");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String runId = "runId_example"; // String | The unique ID of the run
+        try {
+            JobRunResult result = apiInstance.getRunHistory(runId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#getRunHistory");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -354,14 +400,11 @@ public class Example {
 
 [**JobRunResult**](JobRunResult.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -370,50 +413,63 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getSchedulesForAJob"></a>
-# **getSchedulesForAJob**
-> ResourceListOfScheduleDefinition getSchedulesForAJob(scope, code).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getSchedulesForAJob
+
+> ResourceListOfScheduleDefinition getSchedulesForAJob(scope, code)
 
 [EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String scope = "scope_example"; // String | The scope of the job
-    String code = "code_example"; // String | The code of the job
-    try {
-      ResourceListOfScheduleDefinition result = apiInstance.getSchedulesForAJob(scope, code)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#getSchedulesForAJob");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String scope = "scope_example"; // String | The scope of the job
+        String code = "code_example"; // String | The code of the job
+        try {
+            ResourceListOfScheduleDefinition result = apiInstance.getSchedulesForAJob(scope, code).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#getSchedulesForAJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -424,14 +480,11 @@ public class Example {
 
 [**ResourceListOfScheduleDefinition**](ResourceListOfScheduleDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -440,58 +493,66 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="listJobs"></a>
-# **listJobs**
-> ResourceListOfJobDefinition listJobs().page(page).sortBy(sortBy).start(start).limit(limit).filter(filter).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## listJobs
+
+> ResourceListOfJobDefinition listJobs(page, sortBy, start, limit, filter)
 
 [EXPERIMENTAL] ListJobs: List the available jobs
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
-    List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
-    Integer start = 56; // Integer | When paginating, skip this number of results.
-    Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
-    String filter = "filter_example"; // String | Expression to filter the result set.
-    try {
-      ResourceListOfJobDefinition result = apiInstance.listJobs()
-            .page(page)
-            .sortBy(sortBy)
-            .start(start)
-            .limit(limit)
-            .filter(filter)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#listJobs");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
+        List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
+        Integer start = 56; // Integer | When paginating, skip this number of results.
+        Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
+        String filter = "filter_example"; // String | Expression to filter the result set.
+        try {
+            ResourceListOfJobDefinition result = apiInstance.listJobs(page, sortBy, start, limit, filter).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#listJobs");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -505,14 +566,11 @@ public class Example {
 
 [**ResourceListOfJobDefinition**](ResourceListOfJobDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -521,51 +579,64 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="runJob"></a>
-# **runJob**
-> StartJobResponse runJob(scope, code, startJobRequest).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## runJob
+
+> StartJobResponse runJob(scope, code, startJobRequest)
 
 [EXPERIMENTAL] RunJob: Run a job immediately
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String scope = "scope_example"; // String | The scope of the job
-    String code = "code_example"; // String | The code of the job
-    StartJobRequest startJobRequest = new StartJobRequest(); // StartJobRequest | The request for starting job
-    try {
-      StartJobResponse result = apiInstance.runJob(scope, code, startJobRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#runJob");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String scope = "scope_example"; // String | The scope of the job
+        String code = "code_example"; // String | The code of the job
+        StartJobRequest startJobRequest = new StartJobRequest(); // StartJobRequest | The request for starting job
+        try {
+            StartJobResponse result = apiInstance.runJob(scope, code, startJobRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#runJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -577,14 +648,11 @@ public class Example {
 
 [**StartJobResponse**](StartJobResponse.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -593,51 +661,64 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="updateJob"></a>
-# **updateJob**
-> JobDefinition updateJob(scope, code, updateJobRequest).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## updateJob
+
+> JobDefinition updateJob(scope, code, updateJobRequest)
 
 [EXPERIMENTAL] UpdateJob: Update a JobDefinition
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.scheduler.ApiClient;
-import com.finbourne.scheduler.ApiException;
-import com.finbourne.scheduler.Configuration;
-import com.finbourne.scheduler.auth.*;
-import com.finbourne.scheduler.models.*;
+import com.finbourne.scheduler.model.*;
 import com.finbourne.scheduler.api.JobsApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/scheduler2");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    JobsApi apiInstance = new JobsApi(defaultClient);
-    String scope = "scope_example"; // String | 
-    String code = "code_example"; // String | 
-    UpdateJobRequest updateJobRequest = new UpdateJobRequest(); // UpdateJobRequest | 
-    try {
-      JobDefinition result = apiInstance.updateJob(scope, code, updateJobRequest)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling JobsApi#updateJob");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class JobsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
+        String scope = "scope_example"; // String | 
+        String code = "code_example"; // String | 
+        UpdateJobRequest updateJobRequest = new UpdateJobRequest(); // UpdateJobRequest | 
+        try {
+            JobDefinition result = apiInstance.updateJob(scope, code, updateJobRequest).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling JobsApi#updateJob");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -649,14 +730,11 @@ public class Example {
 
 [**JobDefinition**](JobDefinition.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: application/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -664,4 +742,6 @@ public class Example {
 | **200** | Success |  -  |
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
