@@ -19,7 +19,7 @@ Class | Method | HTTP request | Description
 *JobsApi* | [**getRunHistory**](docs/JobsApi.md#getrunhistory) | **GET** /api/jobs/history/{runId} | [EXPERIMENTAL] GetRunHistory: Get the history for a single job run
 *JobsApi* | [**getSchedulesForAJob**](docs/JobsApi.md#getschedulesforajob) | **GET** /api/jobs/{scope}/{code}/schedules | [EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job
 *JobsApi* | [**listJobs**](docs/JobsApi.md#listjobs) | **GET** /api/jobs | [EXPERIMENTAL] ListJobs: List the available jobs
-*JobsApi* | [**runJob**](docs/JobsApi.md#runjob) | **POST** /api/jobs/{scope}/{code}/$run | [EXPERIMENTAL] RunJob: Run a job immediately
+*JobsApi* | [**runJob**](docs/JobsApi.md#runjob) | **POST** /api/jobs/{scope}/{code}/$run | RunJob: Run a job immediately
 *JobsApi* | [**updateJob**](docs/JobsApi.md#updatejob) | **PUT** /api/jobs/{scope}/{code} | [EXPERIMENTAL] UpdateJob: Update a JobDefinition
 *SchedulesApi* | [**createSchedule**](docs/SchedulesApi.md#createschedule) | **POST** /api/schedules | [EXPERIMENTAL] CreateSchedule: Create a Schedule for a job
 *SchedulesApi* | [**deleteSchedule**](docs/SchedulesApi.md#deleteschedule) | **DELETE** /api/schedules/{scope}/{code} | [EXPERIMENTAL] DeleteSchedule: Delete a schedule

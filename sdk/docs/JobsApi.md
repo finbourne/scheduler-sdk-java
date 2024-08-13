@@ -11,7 +11,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 | [**getRunHistory**](JobsApi.md#getRunHistory) | **GET** /api/jobs/history/{runId} | [EXPERIMENTAL] GetRunHistory: Get the history for a single job run |
 | [**getSchedulesForAJob**](JobsApi.md#getSchedulesForAJob) | **GET** /api/jobs/{scope}/{code}/schedules | [EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job |
 | [**listJobs**](JobsApi.md#listJobs) | **GET** /api/jobs | [EXPERIMENTAL] ListJobs: List the available jobs |
-| [**runJob**](JobsApi.md#runJob) | **POST** /api/jobs/{scope}/{code}/$run | [EXPERIMENTAL] RunJob: Run a job immediately |
+| [**runJob**](JobsApi.md#runJob) | **POST** /api/jobs/{scope}/{code}/$run | RunJob: Run a job immediately |
 | [**updateJob**](JobsApi.md#updateJob) | **PUT** /api/jobs/{scope}/{code} | [EXPERIMENTAL] UpdateJob: Update a JobDefinition |
 
 
@@ -586,7 +586,7 @@ public class JobsApiExample {
 
 > StartJobResponse runJob(scope, code, startJobRequest)
 
-[EXPERIMENTAL] RunJob: Run a job immediately
+RunJob: Run a job immediately
 
 ### Example
 

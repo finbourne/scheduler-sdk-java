@@ -1533,7 +1533,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] RunJob: Run a job immediately
+     * RunJob: Run a job immediately
      * 
      * @param scope The scope of the job (required)
      * @param code The code of the job (required)
