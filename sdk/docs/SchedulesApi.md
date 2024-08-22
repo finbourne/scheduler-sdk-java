@@ -50,9 +50,20 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         CreateScheduleRequest createScheduleRequest = new CreateScheduleRequest(); // CreateScheduleRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // ScheduleDefinition result = apiInstance.createSchedule(createScheduleRequest).execute(opts);
+
             ScheduleDefinition result = apiInstance.createSchedule(createScheduleRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -128,10 +139,21 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String scope = "scope_example"; // String | Scope of the schedule to be deleted
         String code = "code_example"; // String | Code of the schedule to be deleted
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.deleteSchedule(scope, code).execute(opts);
+
             apiInstance.deleteSchedule(scope, code).execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling SchedulesApi#deleteSchedule");
@@ -207,11 +229,22 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String scope = "scope_example"; // String | Scope of the schedule to be enabled/disabled
         String code = "code_example"; // String | Code of the schedule to be enabled/disabled
         Boolean enable = true; // Boolean | Specify whether to enable or disable the schedule
         try {
+            // uncomment the below to set overrides at the request level
+            // ScheduleDefinition result = apiInstance.enabledSchedule(scope, code, enable).execute(opts);
+
             ScheduleDefinition result = apiInstance.enabledSchedule(scope, code, enable).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -289,10 +322,21 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String scope = "scope_example"; // String | The scope of Schedule
         String code = "code_example"; // String | The code of the Schedule
         try {
+            // uncomment the below to set overrides at the request level
+            // ScheduleDefinition result = apiInstance.getSchedule(scope, code).execute(opts);
+
             ScheduleDefinition result = apiInstance.getSchedule(scope, code).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -369,6 +413,14 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
@@ -376,6 +428,9 @@ public class SchedulesApiExample {
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
         String filter = "filter_example"; // String | Expression to filter the result set.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfScheduleDefinition result = apiInstance.listSchedules(page, sortBy, start, limit, filter).execute(opts);
+
             ResourceListOfScheduleDefinition result = apiInstance.listSchedules(page, sortBy, start, limit, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -455,10 +510,21 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String scope = "scope_example"; // String | The schedule scope
         String code = "code_example"; // String | The schedule cde
         try {
+            // uncomment the below to set overrides at the request level
+            // StartScheduleResponse result = apiInstance.runSchedule(scope, code).execute(opts);
+
             StartScheduleResponse result = apiInstance.runSchedule(scope, code).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -535,11 +601,22 @@ public class SchedulesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
         String scope = "scope_example"; // String | Scope of the schedule to be updated
         String code = "code_example"; // String | Code of the schedule to be updated
         UpdateScheduleRequest updateScheduleRequest = new UpdateScheduleRequest(); // UpdateScheduleRequest | The updated schedule
         try {
+            // uncomment the below to set overrides at the request level
+            // ScheduleDefinition result = apiInstance.updateSchedule(scope, code, updateScheduleRequest).execute(opts);
+
             ScheduleDefinition result = apiInstance.updateSchedule(scope, code, updateScheduleRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {

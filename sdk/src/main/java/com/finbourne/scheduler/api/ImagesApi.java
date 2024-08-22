@@ -18,6 +18,7 @@ import com.finbourne.scheduler.Configuration;
 import com.finbourne.scheduler.Pair;
 import com.finbourne.scheduler.ProgressRequestBody;
 import com.finbourne.scheduler.ProgressResponseBody;
+import com.finbourne.scheduler.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -77,6 +78,10 @@ public class ImagesApi {
     }
 
     private okhttp3.Call deleteImageCall(String name, final ApiCallback _callback) throws ApiException {
+        return deleteImageCall(name,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteImageCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -118,30 +123,44 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteImageValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteImageValidateBeforeCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling deleteImage(Async)");
         }
 
-        return deleteImageCall(name, _callback);
+        return deleteImageCall(name, _callback, opts);
 
     }
 
 
     private ApiResponse<String> deleteImageWithHttpInfo(String name) throws ApiException {
-        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, null);
+        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<String> deleteImageWithHttpInfo(String name, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, null, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call deleteImageAsync(String name, final ApiCallback<String> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, _callback);
+        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteImageAsync(String name, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteImageValidateBeforeCall(name, _callback, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -191,6 +210,24 @@ public class ImagesApi {
         }
 
         /**
+         * Execute deleteImage request. Use any specified configuration options to override any other configuration for this request only.
+         * @return String
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No image with this name and tag exists </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public String execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<String> localVarResp = deleteImageWithHttpInfo(name, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute deleteImage request with HTTP info returned
          * @return ApiResponse&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -205,6 +242,23 @@ public class ImagesApi {
          */
         public ApiResponse<String> executeWithHttpInfo() throws ApiException {
             return deleteImageWithHttpInfo(name);
+        }
+
+        /**
+         * Execute deleteImage request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;String&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No image with this name and tag exists </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteImageWithHttpInfo(name, opts);
         }
 
         /**
@@ -223,6 +277,24 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
             return deleteImageAsync(name, _callback);
+        }
+
+        /**
+         * Execute deleteImage request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No image with this name and tag exists </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteImageAsync(name, _callback, opts);
         }
     }
 
@@ -244,6 +316,10 @@ public class ImagesApi {
         return new APIdeleteImageRequest(name);
     }
     private okhttp3.Call downloadImageCall(String name, final ApiCallback _callback) throws ApiException {
+        return downloadImageCall(name,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call downloadImageCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -285,30 +361,44 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call downloadImageValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call downloadImageValidateBeforeCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling downloadImage(Async)");
         }
 
-        return downloadImageCall(name, _callback);
+        return downloadImageCall(name, _callback, opts);
 
     }
 
 
     private ApiResponse<File> downloadImageWithHttpInfo(String name) throws ApiException {
-        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, null);
+        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<File>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<File> downloadImageWithHttpInfo(String name, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, null, opts);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call downloadImageAsync(String name, final ApiCallback<File> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, _callback);
+        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<File>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call downloadImageAsync(String name, final ApiCallback<File> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = downloadImageValidateBeforeCall(name, _callback, opts);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -356,6 +446,23 @@ public class ImagesApi {
         }
 
         /**
+         * Execute downloadImage request. Use any specified configuration options to override any other configuration for this request only.
+         * @return File
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public File execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<File> localVarResp = downloadImageWithHttpInfo(name, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute downloadImage request with HTTP info returned
          * @return ApiResponse&lt;File&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -369,6 +476,22 @@ public class ImagesApi {
          */
         public ApiResponse<File> executeWithHttpInfo() throws ApiException {
             return downloadImageWithHttpInfo(name);
+        }
+
+        /**
+         * Execute downloadImage request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;File&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<File> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return downloadImageWithHttpInfo(name, opts);
         }
 
         /**
@@ -386,6 +509,23 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<File> _callback) throws ApiException {
             return downloadImageAsync(name, _callback);
+        }
+
+        /**
+         * Execute downloadImage request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<File> _callback, ConfigurationOptions opts) throws ApiException {
+            return downloadImageAsync(name, _callback, opts);
         }
     }
 
@@ -406,6 +546,10 @@ public class ImagesApi {
         return new APIdownloadImageRequest(name);
     }
     private okhttp3.Call getImageCall(String name, final ApiCallback _callback) throws ApiException {
+        return getImageCall(name,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getImageCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -447,30 +591,44 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getImageValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getImageValidateBeforeCall(String name, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling getImage(Async)");
         }
 
-        return getImageCall(name, _callback);
+        return getImageCall(name, _callback, opts);
 
     }
 
 
     private ApiResponse<Image> getImageWithHttpInfo(String name) throws ApiException {
-        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, null);
+        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Image>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<Image> getImageWithHttpInfo(String name, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, null, opts);
         Type localVarReturnType = new TypeToken<Image>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getImageAsync(String name, final ApiCallback<Image> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, _callback);
+        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<Image>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getImageAsync(String name, final ApiCallback<Image> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getImageValidateBeforeCall(name, _callback, opts);
         Type localVarReturnType = new TypeToken<Image>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -518,6 +676,23 @@ public class ImagesApi {
         }
 
         /**
+         * Execute getImage request. Use any specified configuration options to override any other configuration for this request only.
+         * @return Image
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public Image execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<Image> localVarResp = getImageWithHttpInfo(name, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getImage request with HTTP info returned
          * @return ApiResponse&lt;Image&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -531,6 +706,22 @@ public class ImagesApi {
          */
         public ApiResponse<Image> executeWithHttpInfo() throws ApiException {
             return getImageWithHttpInfo(name);
+        }
+
+        /**
+         * Execute getImage request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Image&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Image> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getImageWithHttpInfo(name, opts);
         }
 
         /**
@@ -548,6 +739,23 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Image> _callback) throws ApiException {
             return getImageAsync(name, _callback);
+        }
+
+        /**
+         * Execute getImage request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Image> _callback, ConfigurationOptions opts) throws ApiException {
+            return getImageAsync(name, _callback, opts);
         }
     }
 
@@ -568,6 +776,10 @@ public class ImagesApi {
         return new APIgetImageRequest(name);
     }
     private okhttp3.Call listImagesCall(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+        return listImagesCall(name, page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listImagesCall(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -629,30 +841,44 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listImagesValidateBeforeCall(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call listImagesValidateBeforeCall(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling listImages(Async)");
         }
 
-        return listImagesCall(name, page, sortBy, start, limit, filter, _callback);
+        return listImagesCall(name, page, sortBy, start, limit, filter, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfImageSummary> listImagesWithHttpInfo(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter) throws ApiException {
-        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, null);
+        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfImageSummary>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfImageSummary> listImagesWithHttpInfo(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfImageSummary>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listImagesAsync(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfImageSummary> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, _callback);
+        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfImageSummary>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listImagesAsync(String name, String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfImageSummary> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listImagesValidateBeforeCall(name, page, sortBy, start, limit, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfImageSummary>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -755,6 +981,23 @@ public class ImagesApi {
         }
 
         /**
+         * Execute listImages request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfImageSummary
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfImageSummary execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfImageSummary> localVarResp = listImagesWithHttpInfo(name, page, sortBy, start, limit, filter, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listImages request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfImageSummary&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -768,6 +1011,22 @@ public class ImagesApi {
          */
         public ApiResponse<ResourceListOfImageSummary> executeWithHttpInfo() throws ApiException {
             return listImagesWithHttpInfo(name, page, sortBy, start, limit, filter);
+        }
+
+        /**
+         * Execute listImages request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfImageSummary&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfImageSummary> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listImagesWithHttpInfo(name, page, sortBy, start, limit, filter, opts);
         }
 
         /**
@@ -785,6 +1044,23 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfImageSummary> _callback) throws ApiException {
             return listImagesAsync(name, page, sortBy, start, limit, filter, _callback);
+        }
+
+        /**
+         * Execute listImages request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfImageSummary> _callback, ConfigurationOptions opts) throws ApiException {
+            return listImagesAsync(name, page, sortBy, start, limit, filter, _callback, opts);
         }
     }
 
@@ -805,6 +1081,10 @@ public class ImagesApi {
         return new APIlistImagesRequest(name);
     }
     private okhttp3.Call listRepositoriesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+        return listRepositoriesCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listRepositoriesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -865,25 +1145,39 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listRepositoriesValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
-        return listRepositoriesCall(page, sortBy, start, limit, filter, _callback);
+    private okhttp3.Call listRepositoriesValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listRepositoriesCall(page, sortBy, start, limit, filter, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfRepository> listRepositoriesWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter) throws ApiException {
-        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, null);
+        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfRepository>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfRepository> listRepositoriesWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfRepository>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listRepositoriesAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfRepository> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, _callback);
+        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfRepository>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listRepositoriesAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfRepository> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listRepositoriesValidateBeforeCall(page, sortBy, start, limit, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfRepository>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -984,6 +1278,23 @@ public class ImagesApi {
         }
 
         /**
+         * Execute listRepositories request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfRepository
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfRepository execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfRepository> localVarResp = listRepositoriesWithHttpInfo(page, sortBy, start, limit, filter, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listRepositories request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfRepository&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -997,6 +1308,22 @@ public class ImagesApi {
          */
         public ApiResponse<ResourceListOfRepository> executeWithHttpInfo() throws ApiException {
             return listRepositoriesWithHttpInfo(page, sortBy, start, limit, filter);
+        }
+
+        /**
+         * Execute listRepositories request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfRepository&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfRepository> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listRepositoriesWithHttpInfo(page, sortBy, start, limit, filter, opts);
         }
 
         /**
@@ -1014,6 +1341,23 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfRepository> _callback) throws ApiException {
             return listRepositoriesAsync(page, sortBy, start, limit, filter, _callback);
+        }
+
+        /**
+         * Execute listRepositories request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfRepository> _callback, ConfigurationOptions opts) throws ApiException {
+            return listRepositoriesAsync(page, sortBy, start, limit, filter, _callback, opts);
         }
     }
 
@@ -1033,6 +1377,10 @@ public class ImagesApi {
         return new APIlistRepositoriesRequest();
     }
     private okhttp3.Call uploadImageCall(UploadImageRequest uploadImageRequest, final ApiCallback _callback) throws ApiException {
+        return uploadImageCall(uploadImageRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call uploadImageCall(UploadImageRequest uploadImageRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1077,30 +1425,44 @@ public class ImagesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call uploadImageValidateBeforeCall(UploadImageRequest uploadImageRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call uploadImageValidateBeforeCall(UploadImageRequest uploadImageRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'uploadImageRequest' is set
         if (uploadImageRequest == null) {
             throw new ApiException("Missing the required parameter 'uploadImageRequest' when calling uploadImage(Async)");
         }
 
-        return uploadImageCall(uploadImageRequest, _callback);
+        return uploadImageCall(uploadImageRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<UploadImageInstructions> uploadImageWithHttpInfo(UploadImageRequest uploadImageRequest) throws ApiException {
-        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, null);
+        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<UploadImageInstructions>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<UploadImageInstructions> uploadImageWithHttpInfo(UploadImageRequest uploadImageRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, null, opts);
         Type localVarReturnType = new TypeToken<UploadImageInstructions>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call uploadImageAsync(UploadImageRequest uploadImageRequest, final ApiCallback<UploadImageInstructions> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, _callback);
+        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<UploadImageInstructions>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call uploadImageAsync(UploadImageRequest uploadImageRequest, final ApiCallback<UploadImageInstructions> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = uploadImageValidateBeforeCall(uploadImageRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<UploadImageInstructions>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1148,6 +1510,23 @@ public class ImagesApi {
         }
 
         /**
+         * Execute uploadImage request. Use any specified configuration options to override any other configuration for this request only.
+         * @return UploadImageInstructions
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public UploadImageInstructions execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<UploadImageInstructions> localVarResp = uploadImageWithHttpInfo(uploadImageRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute uploadImage request with HTTP info returned
          * @return ApiResponse&lt;UploadImageInstructions&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1161,6 +1540,22 @@ public class ImagesApi {
          */
         public ApiResponse<UploadImageInstructions> executeWithHttpInfo() throws ApiException {
             return uploadImageWithHttpInfo(uploadImageRequest);
+        }
+
+        /**
+         * Execute uploadImage request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;UploadImageInstructions&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<UploadImageInstructions> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return uploadImageWithHttpInfo(uploadImageRequest, opts);
         }
 
         /**
@@ -1178,6 +1573,23 @@ public class ImagesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<UploadImageInstructions> _callback) throws ApiException {
             return uploadImageAsync(uploadImageRequest, _callback);
+        }
+
+        /**
+         * Execute uploadImage request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<UploadImageInstructions> _callback, ConfigurationOptions opts) throws ApiException {
+            return uploadImageAsync(uploadImageRequest, _callback, opts);
         }
     }
 

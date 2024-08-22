@@ -18,6 +18,7 @@ import com.finbourne.scheduler.Configuration;
 import com.finbourne.scheduler.Pair;
 import com.finbourne.scheduler.ProgressRequestBody;
 import com.finbourne.scheduler.ProgressResponseBody;
+import com.finbourne.scheduler.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -80,6 +81,10 @@ public class JobsApi {
     }
 
     private okhttp3.Call createJobCall(CreateJobRequest createJobRequest, final ApiCallback _callback) throws ApiException {
+        return createJobCall(createJobRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createJobCall(CreateJobRequest createJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -124,30 +129,44 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createJobValidateBeforeCall(CreateJobRequest createJobRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createJobValidateBeforeCall(CreateJobRequest createJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'createJobRequest' is set
         if (createJobRequest == null) {
             throw new ApiException("Missing the required parameter 'createJobRequest' when calling createJob(Async)");
         }
 
-        return createJobCall(createJobRequest, _callback);
+        return createJobCall(createJobRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<JobDefinition> createJobWithHttpInfo(CreateJobRequest createJobRequest) throws ApiException {
-        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, null);
+        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<JobDefinition> createJobWithHttpInfo(CreateJobRequest createJobRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, null, opts);
         Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createJobAsync(CreateJobRequest createJobRequest, final ApiCallback<JobDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, _callback);
+        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createJobAsync(CreateJobRequest createJobRequest, final ApiCallback<JobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createJobValidateBeforeCall(createJobRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -195,6 +214,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute createJob request. Use any specified configuration options to override any other configuration for this request only.
+         * @return JobDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public JobDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<JobDefinition> localVarResp = createJobWithHttpInfo(createJobRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createJob request with HTTP info returned
          * @return ApiResponse&lt;JobDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -208,6 +244,22 @@ public class JobsApi {
          */
         public ApiResponse<JobDefinition> executeWithHttpInfo() throws ApiException {
             return createJobWithHttpInfo(createJobRequest);
+        }
+
+        /**
+         * Execute createJob request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;JobDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<JobDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createJobWithHttpInfo(createJobRequest, opts);
         }
 
         /**
@@ -225,6 +277,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<JobDefinition> _callback) throws ApiException {
             return createJobAsync(createJobRequest, _callback);
+        }
+
+        /**
+         * Execute createJob request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<JobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return createJobAsync(createJobRequest, _callback, opts);
         }
     }
 
@@ -245,6 +314,10 @@ public class JobsApi {
         return new APIcreateJobRequest(createJobRequest);
     }
     private okhttp3.Call deleteJobCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return deleteJobCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteJobCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -287,11 +360,11 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteJobValidateBeforeCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteJobValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling deleteJob(Async)");
@@ -302,20 +375,34 @@ public class JobsApi {
             throw new ApiException("Missing the required parameter 'code' when calling deleteJob(Async)");
         }
 
-        return deleteJobCall(scope, code, _callback);
+        return deleteJobCall(scope, code, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfScheduleDefinition> deleteJobWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, null);
+        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfScheduleDefinition> deleteJobWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call deleteJobAsync(String scope, String code, final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, _callback);
+        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteJobAsync(String scope, String code, final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteJobValidateBeforeCall(scope, code, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -365,6 +452,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute deleteJob request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfScheduleDefinition> localVarResp = deleteJobWithHttpInfo(scope, code, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute deleteJob request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -378,6 +482,22 @@ public class JobsApi {
          */
         public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return deleteJobWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute deleteJob request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteJobWithHttpInfo(scope, code, opts);
         }
 
         /**
@@ -395,6 +515,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
             return deleteJobAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute deleteJob request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteJobAsync(scope, code, _callback, opts);
         }
     }
 
@@ -416,6 +553,10 @@ public class JobsApi {
         return new APIdeleteJobRequest(scope, code);
     }
     private okhttp3.Call getHistoryCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+        return getHistoryCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getHistoryCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -476,25 +617,39 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getHistoryValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
-        return getHistoryCall(page, sortBy, start, limit, filter, _callback);
+    private okhttp3.Call getHistoryValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getHistoryCall(page, sortBy, start, limit, filter, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfJobHistory> getHistoryWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter) throws ApiException {
-        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, null);
+        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfJobHistory>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfJobHistory> getHistoryWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfJobHistory>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getHistoryAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfJobHistory> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, _callback);
+        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfJobHistory>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getHistoryAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfJobHistory> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getHistoryValidateBeforeCall(page, sortBy, start, limit, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfJobHistory>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -595,6 +750,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute getHistory request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfJobHistory
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfJobHistory execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfJobHistory> localVarResp = getHistoryWithHttpInfo(page, sortBy, start, limit, filter, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getHistory request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfJobHistory&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -608,6 +780,22 @@ public class JobsApi {
          */
         public ApiResponse<ResourceListOfJobHistory> executeWithHttpInfo() throws ApiException {
             return getHistoryWithHttpInfo(page, sortBy, start, limit, filter);
+        }
+
+        /**
+         * Execute getHistory request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfJobHistory&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfJobHistory> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getHistoryWithHttpInfo(page, sortBy, start, limit, filter, opts);
         }
 
         /**
@@ -625,6 +813,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfJobHistory> _callback) throws ApiException {
             return getHistoryAsync(page, sortBy, start, limit, filter, _callback);
+        }
+
+        /**
+         * Execute getHistory request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfJobHistory> _callback, ConfigurationOptions opts) throws ApiException {
+            return getHistoryAsync(page, sortBy, start, limit, filter, _callback, opts);
         }
     }
 
@@ -644,6 +849,10 @@ public class JobsApi {
         return new APIgetHistoryRequest();
     }
     private okhttp3.Call getJobConsoleOutputCall(String runId, final ApiCallback _callback) throws ApiException {
+        return getJobConsoleOutputCall(runId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getJobConsoleOutputCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -686,30 +895,44 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getJobConsoleOutputValidateBeforeCall(String runId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getJobConsoleOutputValidateBeforeCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'runId' is set
         if (runId == null) {
             throw new ApiException("Missing the required parameter 'runId' when calling getJobConsoleOutput(Async)");
         }
 
-        return getJobConsoleOutputCall(runId, _callback);
+        return getJobConsoleOutputCall(runId, _callback, opts);
 
     }
 
 
     private ApiResponse<String> getJobConsoleOutputWithHttpInfo(String runId) throws ApiException {
-        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, null);
+        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<String> getJobConsoleOutputWithHttpInfo(String runId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, null, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getJobConsoleOutputAsync(String runId, final ApiCallback<String> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, _callback);
+        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getJobConsoleOutputAsync(String runId, final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getJobConsoleOutputValidateBeforeCall(runId, _callback, opts);
         Type localVarReturnType = new TypeToken<String>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -757,6 +980,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute getJobConsoleOutput request. Use any specified configuration options to override any other configuration for this request only.
+         * @return String
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public String execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<String> localVarResp = getJobConsoleOutputWithHttpInfo(runId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getJobConsoleOutput request with HTTP info returned
          * @return ApiResponse&lt;String&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -770,6 +1010,22 @@ public class JobsApi {
          */
         public ApiResponse<String> executeWithHttpInfo() throws ApiException {
             return getJobConsoleOutputWithHttpInfo(runId);
+        }
+
+        /**
+         * Execute getJobConsoleOutput request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;String&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<String> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getJobConsoleOutputWithHttpInfo(runId, opts);
         }
 
         /**
@@ -787,6 +1043,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<String> _callback) throws ApiException {
             return getJobConsoleOutputAsync(runId, _callback);
+        }
+
+        /**
+         * Execute getJobConsoleOutput request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<String> _callback, ConfigurationOptions opts) throws ApiException {
+            return getJobConsoleOutputAsync(runId, _callback, opts);
         }
     }
 
@@ -807,6 +1080,10 @@ public class JobsApi {
         return new APIgetJobConsoleOutputRequest(runId);
     }
     private okhttp3.Call getRunHistoryCall(String runId, final ApiCallback _callback) throws ApiException {
+        return getRunHistoryCall(runId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getRunHistoryCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -848,30 +1125,44 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRunHistoryValidateBeforeCall(String runId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getRunHistoryValidateBeforeCall(String runId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'runId' is set
         if (runId == null) {
             throw new ApiException("Missing the required parameter 'runId' when calling getRunHistory(Async)");
         }
 
-        return getRunHistoryCall(runId, _callback);
+        return getRunHistoryCall(runId, _callback, opts);
 
     }
 
 
     private ApiResponse<JobRunResult> getRunHistoryWithHttpInfo(String runId) throws ApiException {
-        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, null);
+        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobRunResult>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<JobRunResult> getRunHistoryWithHttpInfo(String runId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, null, opts);
         Type localVarReturnType = new TypeToken<JobRunResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getRunHistoryAsync(String runId, final ApiCallback<JobRunResult> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, _callback);
+        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobRunResult>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getRunHistoryAsync(String runId, final ApiCallback<JobRunResult> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getRunHistoryValidateBeforeCall(runId, _callback, opts);
         Type localVarReturnType = new TypeToken<JobRunResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -919,6 +1210,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute getRunHistory request. Use any specified configuration options to override any other configuration for this request only.
+         * @return JobRunResult
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public JobRunResult execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<JobRunResult> localVarResp = getRunHistoryWithHttpInfo(runId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getRunHistory request with HTTP info returned
          * @return ApiResponse&lt;JobRunResult&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -932,6 +1240,22 @@ public class JobsApi {
          */
         public ApiResponse<JobRunResult> executeWithHttpInfo() throws ApiException {
             return getRunHistoryWithHttpInfo(runId);
+        }
+
+        /**
+         * Execute getRunHistory request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;JobRunResult&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<JobRunResult> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getRunHistoryWithHttpInfo(runId, opts);
         }
 
         /**
@@ -949,6 +1273,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<JobRunResult> _callback) throws ApiException {
             return getRunHistoryAsync(runId, _callback);
+        }
+
+        /**
+         * Execute getRunHistory request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<JobRunResult> _callback, ConfigurationOptions opts) throws ApiException {
+            return getRunHistoryAsync(runId, _callback, opts);
         }
     }
 
@@ -969,6 +1310,10 @@ public class JobsApi {
         return new APIgetRunHistoryRequest(runId);
     }
     private okhttp3.Call getSchedulesForAJobCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return getSchedulesForAJobCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getSchedulesForAJobCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1011,11 +1356,11 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSchedulesForAJobValidateBeforeCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSchedulesForAJobValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling getSchedulesForAJob(Async)");
@@ -1026,20 +1371,34 @@ public class JobsApi {
             throw new ApiException("Missing the required parameter 'code' when calling getSchedulesForAJob(Async)");
         }
 
-        return getSchedulesForAJobCall(scope, code, _callback);
+        return getSchedulesForAJobCall(scope, code, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfScheduleDefinition> getSchedulesForAJobWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, null);
+        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfScheduleDefinition> getSchedulesForAJobWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getSchedulesForAJobAsync(String scope, String code, final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, _callback);
+        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getSchedulesForAJobAsync(String scope, String code, final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getSchedulesForAJobValidateBeforeCall(scope, code, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1089,6 +1448,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute getSchedulesForAJob request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfScheduleDefinition> localVarResp = getSchedulesForAJobWithHttpInfo(scope, code, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getSchedulesForAJob request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1102,6 +1478,22 @@ public class JobsApi {
          */
         public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return getSchedulesForAJobWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute getSchedulesForAJob request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getSchedulesForAJobWithHttpInfo(scope, code, opts);
         }
 
         /**
@@ -1119,6 +1511,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
             return getSchedulesForAJobAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute getSchedulesForAJob request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return getSchedulesForAJobAsync(scope, code, _callback, opts);
         }
     }
 
@@ -1140,6 +1549,10 @@ public class JobsApi {
         return new APIgetSchedulesForAJobRequest(scope, code);
     }
     private okhttp3.Call listJobsCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+        return listJobsCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listJobsCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1200,25 +1613,39 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listJobsValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
-        return listJobsCall(page, sortBy, start, limit, filter, _callback);
+    private okhttp3.Call listJobsValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listJobsCall(page, sortBy, start, limit, filter, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfJobDefinition> listJobsWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter) throws ApiException {
-        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, null);
+        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfJobDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfJobDefinition> listJobsWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfJobDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listJobsAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfJobDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, _callback);
+        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfJobDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listJobsAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfJobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listJobsValidateBeforeCall(page, sortBy, start, limit, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfJobDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1319,6 +1746,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute listJobs request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfJobDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfJobDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfJobDefinition> localVarResp = listJobsWithHttpInfo(page, sortBy, start, limit, filter, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listJobs request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfJobDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1332,6 +1776,22 @@ public class JobsApi {
          */
         public ApiResponse<ResourceListOfJobDefinition> executeWithHttpInfo() throws ApiException {
             return listJobsWithHttpInfo(page, sortBy, start, limit, filter);
+        }
+
+        /**
+         * Execute listJobs request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfJobDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfJobDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listJobsWithHttpInfo(page, sortBy, start, limit, filter, opts);
         }
 
         /**
@@ -1349,6 +1809,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfJobDefinition> _callback) throws ApiException {
             return listJobsAsync(page, sortBy, start, limit, filter, _callback);
+        }
+
+        /**
+         * Execute listJobs request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfJobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return listJobsAsync(page, sortBy, start, limit, filter, _callback, opts);
         }
     }
 
@@ -1368,6 +1845,10 @@ public class JobsApi {
         return new APIlistJobsRequest();
     }
     private okhttp3.Call runJobCall(String scope, String code, StartJobRequest startJobRequest, final ApiCallback _callback) throws ApiException {
+        return runJobCall(scope, code, startJobRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call runJobCall(String scope, String code, StartJobRequest startJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1414,11 +1895,11 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call runJobValidateBeforeCall(String scope, String code, StartJobRequest startJobRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call runJobValidateBeforeCall(String scope, String code, StartJobRequest startJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling runJob(Async)");
@@ -1434,20 +1915,34 @@ public class JobsApi {
             throw new ApiException("Missing the required parameter 'startJobRequest' when calling runJob(Async)");
         }
 
-        return runJobCall(scope, code, startJobRequest, _callback);
+        return runJobCall(scope, code, startJobRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<StartJobResponse> runJobWithHttpInfo(String scope, String code, StartJobRequest startJobRequest) throws ApiException {
-        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, null);
+        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<StartJobResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<StartJobResponse> runJobWithHttpInfo(String scope, String code, StartJobRequest startJobRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, null, opts);
         Type localVarReturnType = new TypeToken<StartJobResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call runJobAsync(String scope, String code, StartJobRequest startJobRequest, final ApiCallback<StartJobResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, _callback);
+        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<StartJobResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call runJobAsync(String scope, String code, StartJobRequest startJobRequest, final ApiCallback<StartJobResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = runJobValidateBeforeCall(scope, code, startJobRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<StartJobResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1499,6 +1994,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute runJob request. Use any specified configuration options to override any other configuration for this request only.
+         * @return StartJobResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public StartJobResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<StartJobResponse> localVarResp = runJobWithHttpInfo(scope, code, startJobRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute runJob request with HTTP info returned
          * @return ApiResponse&lt;StartJobResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1512,6 +2024,22 @@ public class JobsApi {
          */
         public ApiResponse<StartJobResponse> executeWithHttpInfo() throws ApiException {
             return runJobWithHttpInfo(scope, code, startJobRequest);
+        }
+
+        /**
+         * Execute runJob request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;StartJobResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<StartJobResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return runJobWithHttpInfo(scope, code, startJobRequest, opts);
         }
 
         /**
@@ -1529,6 +2057,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<StartJobResponse> _callback) throws ApiException {
             return runJobAsync(scope, code, startJobRequest, _callback);
+        }
+
+        /**
+         * Execute runJob request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<StartJobResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return runJobAsync(scope, code, startJobRequest, _callback, opts);
         }
     }
 
@@ -1551,6 +2096,10 @@ public class JobsApi {
         return new APIrunJobRequest(scope, code, startJobRequest);
     }
     private okhttp3.Call updateJobCall(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback _callback) throws ApiException {
+        return updateJobCall(scope, code, updateJobRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call updateJobCall(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1597,11 +2146,11 @@ public class JobsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateJobValidateBeforeCall(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateJobValidateBeforeCall(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling updateJob(Async)");
@@ -1617,20 +2166,34 @@ public class JobsApi {
             throw new ApiException("Missing the required parameter 'updateJobRequest' when calling updateJob(Async)");
         }
 
-        return updateJobCall(scope, code, updateJobRequest, _callback);
+        return updateJobCall(scope, code, updateJobRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<JobDefinition> updateJobWithHttpInfo(String scope, String code, UpdateJobRequest updateJobRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, null);
+        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<JobDefinition> updateJobWithHttpInfo(String scope, String code, UpdateJobRequest updateJobRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, null, opts);
         Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call updateJobAsync(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback<JobDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, _callback);
+        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call updateJobAsync(String scope, String code, UpdateJobRequest updateJobRequest, final ApiCallback<JobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = updateJobValidateBeforeCall(scope, code, updateJobRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<JobDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1682,6 +2245,23 @@ public class JobsApi {
         }
 
         /**
+         * Execute updateJob request. Use any specified configuration options to override any other configuration for this request only.
+         * @return JobDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public JobDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<JobDefinition> localVarResp = updateJobWithHttpInfo(scope, code, updateJobRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute updateJob request with HTTP info returned
          * @return ApiResponse&lt;JobDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1695,6 +2275,22 @@ public class JobsApi {
          */
         public ApiResponse<JobDefinition> executeWithHttpInfo() throws ApiException {
             return updateJobWithHttpInfo(scope, code, updateJobRequest);
+        }
+
+        /**
+         * Execute updateJob request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;JobDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<JobDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateJobWithHttpInfo(scope, code, updateJobRequest, opts);
         }
 
         /**
@@ -1712,6 +2308,23 @@ public class JobsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<JobDefinition> _callback) throws ApiException {
             return updateJobAsync(scope, code, updateJobRequest, _callback);
+        }
+
+        /**
+         * Execute updateJob request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<JobDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateJobAsync(scope, code, updateJobRequest, _callback, opts);
         }
     }
 

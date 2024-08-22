@@ -18,6 +18,7 @@ import com.finbourne.scheduler.Configuration;
 import com.finbourne.scheduler.Pair;
 import com.finbourne.scheduler.ProgressRequestBody;
 import com.finbourne.scheduler.ProgressResponseBody;
+import com.finbourne.scheduler.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -76,6 +77,10 @@ public class SchedulesApi {
     }
 
     private okhttp3.Call createScheduleCall(CreateScheduleRequest createScheduleRequest, final ApiCallback _callback) throws ApiException {
+        return createScheduleCall(createScheduleRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createScheduleCall(CreateScheduleRequest createScheduleRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -122,30 +127,44 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createScheduleValidateBeforeCall(CreateScheduleRequest createScheduleRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createScheduleValidateBeforeCall(CreateScheduleRequest createScheduleRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'createScheduleRequest' is set
         if (createScheduleRequest == null) {
             throw new ApiException("Missing the required parameter 'createScheduleRequest' when calling createSchedule(Async)");
         }
 
-        return createScheduleCall(createScheduleRequest, _callback);
+        return createScheduleCall(createScheduleRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<ScheduleDefinition> createScheduleWithHttpInfo(CreateScheduleRequest createScheduleRequest) throws ApiException {
-        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, null);
+        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ScheduleDefinition> createScheduleWithHttpInfo(CreateScheduleRequest createScheduleRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, null, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createScheduleAsync(CreateScheduleRequest createScheduleRequest, final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, _callback);
+        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createScheduleAsync(CreateScheduleRequest createScheduleRequest, final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createScheduleValidateBeforeCall(createScheduleRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -193,6 +212,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute createSchedule request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> The newly created schedule </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ScheduleDefinition> localVarResp = createScheduleWithHttpInfo(createScheduleRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createSchedule request with HTTP info returned
          * @return ApiResponse&lt;ScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -206,6 +242,22 @@ public class SchedulesApi {
          */
         public ApiResponse<ScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return createScheduleWithHttpInfo(createScheduleRequest);
+        }
+
+        /**
+         * Execute createSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> The newly created schedule </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createScheduleWithHttpInfo(createScheduleRequest, opts);
         }
 
         /**
@@ -223,6 +275,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
             return createScheduleAsync(createScheduleRequest, _callback);
+        }
+
+        /**
+         * Execute createSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> The newly created schedule </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return createScheduleAsync(createScheduleRequest, _callback, opts);
         }
     }
 
@@ -243,6 +312,10 @@ public class SchedulesApi {
         return new APIcreateScheduleRequest(createScheduleRequest);
     }
     private okhttp3.Call deleteScheduleCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return deleteScheduleCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteScheduleCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -287,11 +360,11 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling deleteSchedule(Async)");
@@ -302,19 +375,31 @@ public class SchedulesApi {
             throw new ApiException("Missing the required parameter 'code' when calling deleteSchedule(Async)");
         }
 
-        return deleteScheduleCall(scope, code, _callback);
+        return deleteScheduleCall(scope, code, _callback, opts);
 
     }
 
 
     private ApiResponse<Void> deleteScheduleWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, null);
+        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> deleteScheduleWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call deleteScheduleAsync(String scope, String code, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, _callback);
+        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteScheduleAsync(String scope, String code, final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteScheduleValidateBeforeCall(scope, code, _callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -361,6 +446,21 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute deleteSchedule request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            deleteScheduleWithHttpInfo(scope, code, opts);
+        }
+
+        /**
          * Execute deleteSchedule request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -374,6 +474,22 @@ public class SchedulesApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return deleteScheduleWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute deleteSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteScheduleWithHttpInfo(scope, code, opts);
         }
 
         /**
@@ -391,6 +507,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return deleteScheduleAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute deleteSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteScheduleAsync(scope, code, _callback, opts);
         }
     }
 
@@ -412,6 +545,10 @@ public class SchedulesApi {
         return new APIdeleteScheduleRequest(scope, code);
     }
     private okhttp3.Call enabledScheduleCall(String scope, String code, Boolean enable, final ApiCallback _callback) throws ApiException {
+        return enabledScheduleCall(scope, code, enable,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call enabledScheduleCall(String scope, String code, Boolean enable, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -460,11 +597,11 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call enabledScheduleValidateBeforeCall(String scope, String code, Boolean enable, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call enabledScheduleValidateBeforeCall(String scope, String code, Boolean enable, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling enabledSchedule(Async)");
@@ -480,20 +617,34 @@ public class SchedulesApi {
             throw new ApiException("Missing the required parameter 'enable' when calling enabledSchedule(Async)");
         }
 
-        return enabledScheduleCall(scope, code, enable, _callback);
+        return enabledScheduleCall(scope, code, enable, _callback, opts);
 
     }
 
 
     private ApiResponse<ScheduleDefinition> enabledScheduleWithHttpInfo(String scope, String code, Boolean enable) throws ApiException {
-        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, null);
+        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ScheduleDefinition> enabledScheduleWithHttpInfo(String scope, String code, Boolean enable, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, null, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call enabledScheduleAsync(String scope, String code, Boolean enable, final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, _callback);
+        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call enabledScheduleAsync(String scope, String code, Boolean enable, final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = enabledScheduleValidateBeforeCall(scope, code, enable, _callback, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -545,6 +696,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute enabledSchedule request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ScheduleDefinition> localVarResp = enabledScheduleWithHttpInfo(scope, code, enable, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute enabledSchedule request with HTTP info returned
          * @return ApiResponse&lt;ScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -558,6 +726,22 @@ public class SchedulesApi {
          */
         public ApiResponse<ScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return enabledScheduleWithHttpInfo(scope, code, enable);
+        }
+
+        /**
+         * Execute enabledSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return enabledScheduleWithHttpInfo(scope, code, enable, opts);
         }
 
         /**
@@ -575,6 +759,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
             return enabledScheduleAsync(scope, code, enable, _callback);
+        }
+
+        /**
+         * Execute enabledSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return enabledScheduleAsync(scope, code, enable, _callback, opts);
         }
     }
 
@@ -597,6 +798,10 @@ public class SchedulesApi {
         return new APIenabledScheduleRequest(scope, code, enable);
     }
     private okhttp3.Call getScheduleCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return getScheduleCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getScheduleCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -641,11 +846,11 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling getSchedule(Async)");
@@ -656,20 +861,34 @@ public class SchedulesApi {
             throw new ApiException("Missing the required parameter 'code' when calling getSchedule(Async)");
         }
 
-        return getScheduleCall(scope, code, _callback);
+        return getScheduleCall(scope, code, _callback, opts);
 
     }
 
 
     private ApiResponse<ScheduleDefinition> getScheduleWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, null);
+        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ScheduleDefinition> getScheduleWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, null, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getScheduleAsync(String scope, String code, final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, _callback);
+        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getScheduleAsync(String scope, String code, final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getScheduleValidateBeforeCall(scope, code, _callback, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -719,6 +938,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute getSchedule request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ScheduleDefinition> localVarResp = getScheduleWithHttpInfo(scope, code, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getSchedule request with HTTP info returned
          * @return ApiResponse&lt;ScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -732,6 +968,22 @@ public class SchedulesApi {
          */
         public ApiResponse<ScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return getScheduleWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute getSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getScheduleWithHttpInfo(scope, code, opts);
         }
 
         /**
@@ -749,6 +1001,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
             return getScheduleAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute getSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return getScheduleAsync(scope, code, _callback, opts);
         }
     }
 
@@ -770,6 +1039,10 @@ public class SchedulesApi {
         return new APIgetScheduleRequest(scope, code);
     }
     private okhttp3.Call listSchedulesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
+        return listSchedulesCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listSchedulesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -832,25 +1105,39 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listSchedulesValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
-        return listSchedulesCall(page, sortBy, start, limit, filter, _callback);
+    private okhttp3.Call listSchedulesValidateBeforeCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listSchedulesCall(page, sortBy, start, limit, filter, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfScheduleDefinition> listSchedulesWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter) throws ApiException {
-        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, null);
+        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfScheduleDefinition> listSchedulesWithHttpInfo(String page, List<String> sortBy, Integer start, Integer limit, String filter, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listSchedulesAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, _callback);
+        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listSchedulesAsync(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listSchedulesValidateBeforeCall(page, sortBy, start, limit, filter, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -951,6 +1238,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute listSchedules request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfScheduleDefinition> localVarResp = listSchedulesWithHttpInfo(page, sortBy, start, limit, filter, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listSchedules request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -964,6 +1268,22 @@ public class SchedulesApi {
          */
         public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return listSchedulesWithHttpInfo(page, sortBy, start, limit, filter);
+        }
+
+        /**
+         * Execute listSchedules request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listSchedulesWithHttpInfo(page, sortBy, start, limit, filter, opts);
         }
 
         /**
@@ -981,6 +1301,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback) throws ApiException {
             return listSchedulesAsync(page, sortBy, start, limit, filter, _callback);
+        }
+
+        /**
+         * Execute listSchedules request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return listSchedulesAsync(page, sortBy, start, limit, filter, _callback, opts);
         }
     }
 
@@ -1000,6 +1337,10 @@ public class SchedulesApi {
         return new APIlistSchedulesRequest();
     }
     private okhttp3.Call runScheduleCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return runScheduleCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call runScheduleCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1044,11 +1385,11 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call runScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call runScheduleValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling runSchedule(Async)");
@@ -1059,20 +1400,34 @@ public class SchedulesApi {
             throw new ApiException("Missing the required parameter 'code' when calling runSchedule(Async)");
         }
 
-        return runScheduleCall(scope, code, _callback);
+        return runScheduleCall(scope, code, _callback, opts);
 
     }
 
 
     private ApiResponse<StartScheduleResponse> runScheduleWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, null);
+        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<StartScheduleResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<StartScheduleResponse> runScheduleWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, null, opts);
         Type localVarReturnType = new TypeToken<StartScheduleResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call runScheduleAsync(String scope, String code, final ApiCallback<StartScheduleResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, _callback);
+        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<StartScheduleResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call runScheduleAsync(String scope, String code, final ApiCallback<StartScheduleResponse> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = runScheduleValidateBeforeCall(scope, code, _callback, opts);
         Type localVarReturnType = new TypeToken<StartScheduleResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1122,6 +1477,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute runSchedule request. Use any specified configuration options to override any other configuration for this request only.
+         * @return StartScheduleResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public StartScheduleResponse execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<StartScheduleResponse> localVarResp = runScheduleWithHttpInfo(scope, code, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute runSchedule request with HTTP info returned
          * @return ApiResponse&lt;StartScheduleResponse&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1135,6 +1507,22 @@ public class SchedulesApi {
          */
         public ApiResponse<StartScheduleResponse> executeWithHttpInfo() throws ApiException {
             return runScheduleWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute runSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;StartScheduleResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<StartScheduleResponse> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return runScheduleWithHttpInfo(scope, code, opts);
         }
 
         /**
@@ -1152,6 +1540,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<StartScheduleResponse> _callback) throws ApiException {
             return runScheduleAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute runSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<StartScheduleResponse> _callback, ConfigurationOptions opts) throws ApiException {
+            return runScheduleAsync(scope, code, _callback, opts);
         }
     }
 
@@ -1173,6 +1578,10 @@ public class SchedulesApi {
         return new APIrunScheduleRequest(scope, code);
     }
     private okhttp3.Call updateScheduleCall(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback _callback) throws ApiException {
+        return updateScheduleCall(scope, code, updateScheduleRequest,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call updateScheduleCall(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1221,11 +1630,11 @@ public class SchedulesApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateScheduleValidateBeforeCall(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateScheduleValidateBeforeCall(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'scope' is set
         if (scope == null) {
             throw new ApiException("Missing the required parameter 'scope' when calling updateSchedule(Async)");
@@ -1241,20 +1650,34 @@ public class SchedulesApi {
             throw new ApiException("Missing the required parameter 'updateScheduleRequest' when calling updateSchedule(Async)");
         }
 
-        return updateScheduleCall(scope, code, updateScheduleRequest, _callback);
+        return updateScheduleCall(scope, code, updateScheduleRequest, _callback, opts);
 
     }
 
 
     private ApiResponse<ScheduleDefinition> updateScheduleWithHttpInfo(String scope, String code, UpdateScheduleRequest updateScheduleRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, null);
+        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ScheduleDefinition> updateScheduleWithHttpInfo(String scope, String code, UpdateScheduleRequest updateScheduleRequest, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, null, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call updateScheduleAsync(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, _callback);
+        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call updateScheduleAsync(String scope, String code, UpdateScheduleRequest updateScheduleRequest, final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = updateScheduleValidateBeforeCall(scope, code, updateScheduleRequest, _callback, opts);
         Type localVarReturnType = new TypeToken<ScheduleDefinition>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1306,6 +1729,23 @@ public class SchedulesApi {
         }
 
         /**
+         * Execute updateSchedule request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ScheduleDefinition
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ScheduleDefinition execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ScheduleDefinition> localVarResp = updateScheduleWithHttpInfo(scope, code, updateScheduleRequest, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute updateSchedule request with HTTP info returned
          * @return ApiResponse&lt;ScheduleDefinition&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1319,6 +1759,22 @@ public class SchedulesApi {
          */
         public ApiResponse<ScheduleDefinition> executeWithHttpInfo() throws ApiException {
             return updateScheduleWithHttpInfo(scope, code, updateScheduleRequest);
+        }
+
+        /**
+         * Execute updateSchedule request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ScheduleDefinition&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ScheduleDefinition> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateScheduleWithHttpInfo(scope, code, updateScheduleRequest, opts);
         }
 
         /**
@@ -1336,6 +1792,23 @@ public class SchedulesApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback) throws ApiException {
             return updateScheduleAsync(scope, code, updateScheduleRequest, _callback);
+        }
+
+        /**
+         * Execute updateSchedule request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ScheduleDefinition> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateScheduleAsync(scope, code, updateScheduleRequest, _callback, opts);
         }
     }
 

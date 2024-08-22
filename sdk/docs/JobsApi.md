@@ -52,9 +52,20 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         CreateJobRequest createJobRequest = new CreateJobRequest(); // CreateJobRequest | The request to create a new job
         try {
+            // uncomment the below to set overrides at the request level
+            // JobDefinition result = apiInstance.createJob(createJobRequest).execute(opts);
+
             JobDefinition result = apiInstance.createJob(createJobRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -130,10 +141,21 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String scope = "scope_example"; // String | The scope of the job
         String code = "code_example"; // String | The code of the job
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfScheduleDefinition result = apiInstance.deleteJob(scope, code).execute(opts);
+
             ResourceListOfScheduleDefinition result = apiInstance.deleteJob(scope, code).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -210,6 +232,14 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
@@ -217,6 +247,9 @@ public class JobsApiExample {
         Integer limit = 56; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
         String filter = "filter_example"; // String | Expression to filter the result set.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfJobHistory result = apiInstance.getHistory(page, sortBy, start, limit, filter).execute(opts);
+
             ResourceListOfJobHistory result = apiInstance.getHistory(page, sortBy, start, limit, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -296,9 +329,20 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String runId = "runId_example"; // String | The RunId of the job run
         try {
+            // uncomment the below to set overrides at the request level
+            // String result = apiInstance.getJobConsoleOutput(runId).execute(opts);
+
             String result = apiInstance.getJobConsoleOutput(runId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -374,9 +418,20 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String runId = "runId_example"; // String | The unique ID of the run
         try {
+            // uncomment the below to set overrides at the request level
+            // JobRunResult result = apiInstance.getRunHistory(runId).execute(opts);
+
             JobRunResult result = apiInstance.getRunHistory(runId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -452,10 +507,21 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String scope = "scope_example"; // String | The scope of the job
         String code = "code_example"; // String | The code of the job
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfScheduleDefinition result = apiInstance.getSchedulesForAJob(scope, code).execute(opts);
+
             ResourceListOfScheduleDefinition result = apiInstance.getSchedulesForAJob(scope, code).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -532,6 +598,14 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String page = "page_example"; // String | The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
@@ -539,6 +613,9 @@ public class JobsApiExample {
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
         String filter = "filter_example"; // String | Expression to filter the result set.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfJobDefinition result = apiInstance.listJobs(page, sortBy, start, limit, filter).execute(opts);
+
             ResourceListOfJobDefinition result = apiInstance.listJobs(page, sortBy, start, limit, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -618,11 +695,22 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String scope = "scope_example"; // String | The scope of the job
         String code = "code_example"; // String | The code of the job
         StartJobRequest startJobRequest = new StartJobRequest(); // StartJobRequest | The request for starting job
         try {
+            // uncomment the below to set overrides at the request level
+            // StartJobResponse result = apiInstance.runJob(scope, code, startJobRequest).execute(opts);
+
             StartJobResponse result = apiInstance.runJob(scope, code, startJobRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -700,11 +788,22 @@ public class JobsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // JobsApi apiInstance = apiFactory.build(JobsApi.class);
+
         JobsApi apiInstance = ApiFactoryBuilder.build(fileName).build(JobsApi.class);
         String scope = "scope_example"; // String | 
         String code = "code_example"; // String | 
         UpdateJobRequest updateJobRequest = new UpdateJobRequest(); // UpdateJobRequest | 
         try {
+            // uncomment the below to set overrides at the request level
+            // JobDefinition result = apiInstance.updateJob(scope, code, updateJobRequest).execute(opts);
+
             JobDefinition result = apiInstance.updateJob(scope, code, updateJobRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {

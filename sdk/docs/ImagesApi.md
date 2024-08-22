@@ -49,9 +49,20 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String name = "name_example"; // String | The name and tag of the image. Format \"ExampleImageName:0.1\"
         try {
+            // uncomment the below to set overrides at the request level
+            // String result = apiInstance.deleteImage(name).execute(opts);
+
             String result = apiInstance.deleteImage(name).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -128,9 +139,20 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String name = "name_example"; // String | The name and tag of the image of the image. Format \"ExampleImageName:latest\"
         try {
+            // uncomment the below to set overrides at the request level
+            // File result = apiInstance.downloadImage(name).execute(opts);
+
             File result = apiInstance.downloadImage(name).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -206,9 +228,20 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String name = "name_example"; // String | The name and tag of a Docker image. Format \"ExampleImageName:latest\"
         try {
+            // uncomment the below to set overrides at the request level
+            // Image result = apiInstance.getImage(name).execute(opts);
+
             Image result = apiInstance.getImage(name).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -284,6 +317,14 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String name = "name_example"; // String | The name of the Repository
         String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
@@ -292,6 +333,9 @@ public class ImagesApiExample {
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
         String filter = "filter_example"; // String | Expression to filter the result set.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfImageSummary result = apiInstance.listImages(name, page, sortBy, start, limit, filter).execute(opts);
+
             ResourceListOfImageSummary result = apiInstance.listImages(name, page, sortBy, start, limit, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -372,6 +416,14 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
@@ -379,6 +431,9 @@ public class ImagesApiExample {
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
         String filter = "filter_example"; // String | Expression to filter the result set.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfRepository result = apiInstance.listRepositories(page, sortBy, start, limit, filter).execute(opts);
+
             ResourceListOfRepository result = apiInstance.listRepositories(page, sortBy, start, limit, filter).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -460,9 +515,20 @@ public class ImagesApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
+
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         UploadImageRequest uploadImageRequest = new UploadImageRequest(); // UploadImageRequest | Request to upload image
         try {
+            // uncomment the below to set overrides at the request level
+            // UploadImageInstructions result = apiInstance.uploadImage(uploadImageRequest).execute(opts);
+
             UploadImageInstructions result = apiInstance.uploadImage(uploadImageRequest).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
