@@ -4,9 +4,21 @@ info:
     email: info@finbourne.com
     name: FINBOURNE Technology
     url: https://www.finbourne.com
+  description: "### Introduction \n\n# Error Codes\n\n | Code|Name|Description |\n\
+    | ---|---|--- |\n| <a name=\"-1\">-1</a>|Unknown error|An unexpected error was\
+    \ encountered on our side. |\n| <a name=\"144\">144</a>|Duplicate In Parameter\
+    \ Set| |\n| <a name=\"151\">151</a>|Invalid Parameter Value| |\n| <a name=\"152\"\
+    >152</a>|Action Execution Failure| |\n| <a name=\"157\">157</a>|Invalid Request|\
+    \ |\n| <a name=\"186\">186</a>|Access Denied| |\n| <a name=\"187\">187</a>|Invalid\
+    \ Identity Token| |\n| <a name=\"689\">689</a>|The supplied pagination token is\
+    \ invalid| |\n| <a name=\"692\">692</a>|This endpoint does not support impersonation|\
+    \ |\n| <a name=\"704\">704</a>|Cannot Delete Job| |\n| <a name=\"731\">731</a>|Unable\
+    \ to process images associated with request.| |\n| <a name=\"756\">756</a>|Image\
+    \ Scan Failure| |\n| <a name=\"871\">871</a>|The specified impersonated user does\
+    \ not exist| |\n"
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.931
+  version: 0.0.932
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
