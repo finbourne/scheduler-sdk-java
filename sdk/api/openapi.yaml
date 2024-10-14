@@ -18,7 +18,7 @@ info:
     \ not exist| |\n"
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.938
+  version: 0.0.940
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
