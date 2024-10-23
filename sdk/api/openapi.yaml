@@ -4,24 +4,64 @@ info:
     email: info@finbourne.com
     name: FINBOURNE Technology
     url: https://www.finbourne.com
-  description: "### Introduction \n\n# Error Codes\n\n | Code|Name|Description |\n\
-    | ---|---|--- |\n| <a name=\"-1\">-1</a>|Unknown error|An unexpected error was\
-    \ encountered on our side. |\n| <a name=\"144\">144</a>|Duplicate In Parameter\
-    \ Set| |\n| <a name=\"151\">151</a>|Invalid Parameter Value| |\n| <a name=\"152\"\
-    >152</a>|Action Execution Failure| |\n| <a name=\"157\">157</a>|Invalid Request|\
-    \ |\n| <a name=\"186\">186</a>|Access Denied| |\n| <a name=\"187\">187</a>|Invalid\
-    \ Identity Token| |\n| <a name=\"689\">689</a>|The supplied pagination token is\
-    \ invalid| |\n| <a name=\"692\">692</a>|This endpoint does not support impersonation|\
-    \ |\n| <a name=\"704\">704</a>|Cannot Delete Job| |\n| <a name=\"731\">731</a>|Unable\
-    \ to process images associated with request.| |\n| <a name=\"756\">756</a>|Image\
-    \ Scan Failure| |\n| <a name=\"871\">871</a>|The specified impersonated user does\
-    \ not exist| |\n"
+  description: |2
+
+    Scheduler is a job automation tool for LUSID. You can write code to perform operations, create jobs with container images, and schedule them to run automatically.
+
+    ### Error Codes
+
+    | Code|Name|Description |
+    | ---|---|--- |
+    | <a name="-1">-1</a>|Unknown error|An unexpected error was encountered on our side. |
+    | <a name="144">144</a>|Duplicate In Parameter Set| |
+    | <a name="151">151</a>|Invalid Parameter Value| |
+    | <a name="152">152</a>|Action Execution Failure| |
+    | <a name="157">157</a>|Invalid Request| |
+    | <a name="186">186</a>|Access Denied| |
+    | <a name="187">187</a>|Invalid Identity Token| |
+    | <a name="689">689</a>|The supplied pagination token is invalid| |
+    | <a name="692">692</a>|This endpoint does not support impersonation| |
+    | <a name="704">704</a>|Cannot Delete Job| |
+    | <a name="731">731</a>|Unable to process images associated with request.| |
+    | <a name="756">756</a>|Image Scan Failure| |
+    | <a name="871">871</a>|The specified impersonated user does not exist| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.941
+  version: 0.0.943
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
+  x-fbn-error-codes:
+    "-1":
+      title: Unknown error
+      description: An unexpected error was encountered on our side.
+    "144":
+      title: Duplicate In Parameter Set
+    "151":
+      title: Invalid Parameter Value
+    "152":
+      title: Action Execution Failure
+    "157":
+      title: Invalid Request
+    "186":
+      title: Access Denied
+    "187":
+      title: Invalid Identity Token
+    "689":
+      title: The supplied pagination token is invalid
+    "692":
+      title: This endpoint does not support impersonation
+    "704":
+      title: Cannot Delete Job
+    "731":
+      title: Unable to process images associated with request.
+    "756":
+      title: Image Scan Failure
+    "871":
+      title: The specified impersonated user does not exist
+  x-fbn-description: "Scheduler is a job automation tool for LUSID. You can write\
+    \ code to perform operations, create jobs with container images, and schedule\
+    \ them to run automatically."
 servers:
 - url: https://fbn-prd.lusid.com/scheduler2
 security:
