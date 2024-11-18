@@ -27,7 +27,7 @@ info:
     | <a name="871">871</a>|The specified impersonated user does not exist| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.950
+  version: 0.0.951
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
