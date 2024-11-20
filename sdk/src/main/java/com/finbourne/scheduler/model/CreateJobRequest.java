@@ -274,6 +274,8 @@ public class CreateJobRequest {
 
    /**
    * Time To Live of the job run in seconds  Defaults to 5 minutes(300)
+   * minimum: 0
+   * maximum: 18000
    * @return ttl
   **/
   @jakarta.annotation.Nullable
