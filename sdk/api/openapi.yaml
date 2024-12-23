@@ -25,9 +25,10 @@ info:
     | <a name="731">731</a>|Unable to process images associated with request.| |
     | <a name="756">756</a>|Image Scan Failure| |
     | <a name="871">871</a>|The specified impersonated user does not exist| |
+    | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.962
+  version: 0.0.964
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -59,6 +60,8 @@ info:
       title: Image Scan Failure
     "871":
       title: The specified impersonated user does not exist
+    "939":
+      title: Blocked by a Network Zone
   x-fbn-description: "Scheduler is a job automation tool for LUSID. You can write\
     \ code to perform operations, create jobs with container images, and schedule\
     \ them to run automatically."
