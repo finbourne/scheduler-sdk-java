@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.981
+  version: 0.0.982
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -129,11 +129,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] UploadImage: Upload a Docker Image used for Scheduler\
-        \ jobs"
+      summary: "UploadImage: Upload a Docker Image used for Scheduler jobs"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/images/repository:
@@ -242,10 +241,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListRepositories: List all Docker image repositories"
+      summary: "ListRepositories: List all Docker image repositories"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/images/repository/{name}:
     get:
@@ -371,10 +370,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListImages: List all images under same image repository"
+      summary: "ListImages: List all images under same image repository"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/images/{name}:
     delete:
@@ -419,10 +418,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] DeleteImage: Delete a Docker Image"
+      summary: "DeleteImage: Delete a Docker Image"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     get:
       operationId: GetImage
@@ -501,10 +500,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetImage: Get metadata of a Docker Image"
+      summary: "GetImage: Get metadata of a Docker Image"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/images/{name}/contents:
     get:
@@ -540,10 +539,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] DownloadImage: Download Docker Image"
+      summary: "DownloadImage: Download Docker Image"
       tags:
       - Images
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/jobs:
     get:
@@ -633,10 +632,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListJobs: List the available jobs"
+      summary: "ListJobs: List the available jobs"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     post:
       operationId: CreateJob
@@ -818,10 +817,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] CreateJob: Create a new job"
+      summary: "CreateJob: Create a new job"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/jobs/history:
@@ -935,10 +934,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetHistory: Get the history of job runs"
+      summary: "GetHistory: Get the history of job runs"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/jobs/history/{runId}:
     get:
@@ -999,10 +998,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetRunHistory: Get the history for a single job run"
+      summary: "GetRunHistory: Get the history for a single job run"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/jobs/history/{runId}/console:
     get:
@@ -1046,11 +1045,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific\
-        \ job run"
+      summary: "GetJobConsoleOutput: Gets the console output of a specific job run"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/jobs/{scope}/{code}:
     delete:
@@ -1093,10 +1091,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] DeleteJob: Delete a job"
+      summary: "DeleteJob: Delete a job"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     put:
       operationId: UpdateJob
@@ -1316,10 +1314,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] UpdateJob: Update a JobDefinition"
+      summary: "UpdateJob: Update a JobDefinition"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/jobs/{scope}/{code}/$run:
@@ -1469,11 +1467,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single\
-        \ job"
+      summary: "GetSchedulesForAJob: Get all the schedules for a single job"
       tags:
       - Jobs
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/metadata/access/resources:
     get:
@@ -1607,10 +1604,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListSchedules: List the available Schedules"
+      summary: "ListSchedules: List the available Schedules"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     post:
       operationId: CreateSchedule
@@ -1813,10 +1810,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] CreateSchedule: Create a Schedule for a job"
+      summary: "CreateSchedule: Create a Schedule for a job"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/schedules/{scope}/{code}:
@@ -1862,10 +1859,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] DeleteSchedule: Delete a schedule"
+      summary: "DeleteSchedule: Delete a schedule"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     get:
       operationId: GetSchedule
@@ -1982,10 +1979,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] GetSchedule: Get a single Schedule"
+      summary: "GetSchedule: Get a single Schedule"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     put:
       operationId: UpdateSchedule
@@ -2190,10 +2187,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] UpdateSchedule: Update a schedule."
+      summary: "UpdateSchedule: Update a schedule."
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
   /api/schedules/{scope}/{code}/$run:
@@ -2279,10 +2276,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] RunSchedule: Run a schedule immediately"
+      summary: "RunSchedule: Run a schedule immediately"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/schedules/{scope}/{code}/enabled:
     put:
@@ -2408,10 +2405,10 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule"
+      summary: "EnabledSchedule: Enable/disable a schedule"
       tags:
       - Schedules
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
 components:
   schemas:

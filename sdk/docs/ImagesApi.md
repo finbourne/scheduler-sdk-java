@@ -4,12 +4,12 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteImage**](ImagesApi.md#deleteImage) | **DELETE** /api/images/{name} | [EXPERIMENTAL] DeleteImage: Delete a Docker Image |
-| [**downloadImage**](ImagesApi.md#downloadImage) | **GET** /api/images/{name}/contents | [EXPERIMENTAL] DownloadImage: Download Docker Image |
-| [**getImage**](ImagesApi.md#getImage) | **GET** /api/images/{name} | [EXPERIMENTAL] GetImage: Get metadata of a Docker Image |
-| [**listImages**](ImagesApi.md#listImages) | **GET** /api/images/repository/{name} | [EXPERIMENTAL] ListImages: List all images under same image repository |
-| [**listRepositories**](ImagesApi.md#listRepositories) | **GET** /api/images/repository | [EXPERIMENTAL] ListRepositories: List all Docker image repositories |
-| [**uploadImage**](ImagesApi.md#uploadImage) | **POST** /api/images | [EXPERIMENTAL] UploadImage: Upload a Docker Image used for Scheduler jobs |
+| [**deleteImage**](ImagesApi.md#deleteImage) | **DELETE** /api/images/{name} | DeleteImage: Delete a Docker Image |
+| [**downloadImage**](ImagesApi.md#downloadImage) | **GET** /api/images/{name}/contents | DownloadImage: Download Docker Image |
+| [**getImage**](ImagesApi.md#getImage) | **GET** /api/images/{name} | GetImage: Get metadata of a Docker Image |
+| [**listImages**](ImagesApi.md#listImages) | **GET** /api/images/repository/{name} | ListImages: List all images under same image repository |
+| [**listRepositories**](ImagesApi.md#listRepositories) | **GET** /api/images/repository | ListRepositories: List all Docker image repositories |
+| [**uploadImage**](ImagesApi.md#uploadImage) | **POST** /api/images | UploadImage: Upload a Docker Image used for Scheduler jobs |
 
 
 
@@ -17,7 +17,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 > String deleteImage(name)
 
-[EXPERIMENTAL] DeleteImage: Delete a Docker Image
+DeleteImage: Delete a Docker Image
 
 ### Example
 
@@ -107,7 +107,7 @@ public class ImagesApiExample {
 
 > File downloadImage(name)
 
-[EXPERIMENTAL] DownloadImage: Download Docker Image
+DownloadImage: Download Docker Image
 
 ### Example
 
@@ -196,7 +196,7 @@ public class ImagesApiExample {
 
 > Image getImage(name)
 
-[EXPERIMENTAL] GetImage: Get metadata of a Docker Image
+GetImage: Get metadata of a Docker Image
 
 ### Example
 
@@ -285,7 +285,7 @@ public class ImagesApiExample {
 
 > ResourceListOfImageSummary listImages(name, page, sortBy, start, limit, filter)
 
-[EXPERIMENTAL] ListImages: List all images under same image repository
+ListImages: List all images under same image repository
 
 ### Example
 
@@ -384,7 +384,7 @@ public class ImagesApiExample {
 
 > ResourceListOfRepository listRepositories(page, sortBy, start, limit, filter)
 
-[EXPERIMENTAL] ListRepositories: List all Docker image repositories
+ListRepositories: List all Docker image repositories
 
 ### Example
 
@@ -481,7 +481,7 @@ public class ImagesApiExample {
 
 > UploadImageInstructions uploadImage(uploadImageRequest)
 
-[EXPERIMENTAL] UploadImage: Upload a Docker Image used for Scheduler jobs
+UploadImage: Upload a Docker Image used for Scheduler jobs
 
 Every image must have at least one tag. Note: your image will not be available until the returned Docker commands are executed.
 

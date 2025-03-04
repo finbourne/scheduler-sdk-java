@@ -296,7 +296,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] CreateSchedule: Create a Schedule for a job
+     * CreateSchedule: Create a Schedule for a job
      * 
      * @param createScheduleRequest  (required)
      * @return APIcreateScheduleRequest
@@ -528,7 +528,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] DeleteSchedule: Delete a schedule
+     * DeleteSchedule: Delete a schedule
      * 
      * @param scope Scope of the schedule to be deleted (required)
      * @param code Code of the schedule to be deleted (required)
@@ -780,7 +780,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule
+     * EnabledSchedule: Enable/disable a schedule
      * 
      * @param scope Scope of the schedule to be enabled/disabled (required)
      * @param code Code of the schedule to be enabled/disabled (required)
@@ -1022,7 +1022,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetSchedule: Get a single Schedule
+     * GetSchedule: Get a single Schedule
      * 
      * @param scope The scope of Schedule (required)
      * @param code The code of the Schedule (required)
@@ -1322,7 +1322,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] ListSchedules: List the available Schedules
+     * ListSchedules: List the available Schedules
      * 
      * @return APIlistSchedulesRequest
      * @http.response.details
@@ -1561,7 +1561,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] RunSchedule: Run a schedule immediately
+     * RunSchedule: Run a schedule immediately
      * 
      * @param scope The schedule scope (required)
      * @param code The schedule cde (required)
@@ -1813,7 +1813,7 @@ public class SchedulesApi {
     }
 
     /**
-     * [EXPERIMENTAL] UpdateSchedule: Update a schedule.
+     * UpdateSchedule: Update a schedule.
      * 
      * @param scope Scope of the schedule to be updated (required)
      * @param code Code of the schedule to be updated (required)

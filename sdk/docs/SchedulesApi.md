@@ -4,13 +4,13 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createSchedule**](SchedulesApi.md#createSchedule) | **POST** /api/schedules | [EXPERIMENTAL] CreateSchedule: Create a Schedule for a job |
-| [**deleteSchedule**](SchedulesApi.md#deleteSchedule) | **DELETE** /api/schedules/{scope}/{code} | [EXPERIMENTAL] DeleteSchedule: Delete a schedule |
-| [**enabledSchedule**](SchedulesApi.md#enabledSchedule) | **PUT** /api/schedules/{scope}/{code}/enabled | [EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule |
-| [**getSchedule**](SchedulesApi.md#getSchedule) | **GET** /api/schedules/{scope}/{code} | [EXPERIMENTAL] GetSchedule: Get a single Schedule |
-| [**listSchedules**](SchedulesApi.md#listSchedules) | **GET** /api/schedules | [EXPERIMENTAL] ListSchedules: List the available Schedules |
-| [**runSchedule**](SchedulesApi.md#runSchedule) | **POST** /api/schedules/{scope}/{code}/$run | [EXPERIMENTAL] RunSchedule: Run a schedule immediately |
-| [**updateSchedule**](SchedulesApi.md#updateSchedule) | **PUT** /api/schedules/{scope}/{code} | [EXPERIMENTAL] UpdateSchedule: Update a schedule. |
+| [**createSchedule**](SchedulesApi.md#createSchedule) | **POST** /api/schedules | CreateSchedule: Create a Schedule for a job |
+| [**deleteSchedule**](SchedulesApi.md#deleteSchedule) | **DELETE** /api/schedules/{scope}/{code} | DeleteSchedule: Delete a schedule |
+| [**enabledSchedule**](SchedulesApi.md#enabledSchedule) | **PUT** /api/schedules/{scope}/{code}/enabled | EnabledSchedule: Enable/disable a schedule |
+| [**getSchedule**](SchedulesApi.md#getSchedule) | **GET** /api/schedules/{scope}/{code} | GetSchedule: Get a single Schedule |
+| [**listSchedules**](SchedulesApi.md#listSchedules) | **GET** /api/schedules | ListSchedules: List the available Schedules |
+| [**runSchedule**](SchedulesApi.md#runSchedule) | **POST** /api/schedules/{scope}/{code}/$run | RunSchedule: Run a schedule immediately |
+| [**updateSchedule**](SchedulesApi.md#updateSchedule) | **PUT** /api/schedules/{scope}/{code} | UpdateSchedule: Update a schedule. |
 
 
 
@@ -18,7 +18,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 > ScheduleDefinition createSchedule(createScheduleRequest)
 
-[EXPERIMENTAL] CreateSchedule: Create a Schedule for a job
+CreateSchedule: Create a Schedule for a job
 
 ### Example
 
@@ -107,7 +107,7 @@ public class SchedulesApiExample {
 
 > deleteSchedule(scope, code)
 
-[EXPERIMENTAL] DeleteSchedule: Delete a schedule
+DeleteSchedule: Delete a schedule
 
 ### Example
 
@@ -197,7 +197,7 @@ null (empty response body)
 
 > ScheduleDefinition enabledSchedule(scope, code, enable)
 
-[EXPERIMENTAL] EnabledSchedule: Enable/disable a schedule
+EnabledSchedule: Enable/disable a schedule
 
 ### Example
 
@@ -290,7 +290,7 @@ public class SchedulesApiExample {
 
 > ScheduleDefinition getSchedule(scope, code)
 
-[EXPERIMENTAL] GetSchedule: Get a single Schedule
+GetSchedule: Get a single Schedule
 
 ### Example
 
@@ -381,7 +381,7 @@ public class SchedulesApiExample {
 
 > ResourceListOfScheduleDefinition listSchedules(page, sortBy, start, limit, filter)
 
-[EXPERIMENTAL] ListSchedules: List the available Schedules
+ListSchedules: List the available Schedules
 
 ### Example
 
@@ -478,7 +478,7 @@ public class SchedulesApiExample {
 
 > StartScheduleResponse runSchedule(scope, code)
 
-[EXPERIMENTAL] RunSchedule: Run a schedule immediately
+RunSchedule: Run a schedule immediately
 
 ### Example
 
@@ -569,7 +569,7 @@ public class SchedulesApiExample {
 
 > ScheduleDefinition updateSchedule(scope, code, updateScheduleRequest)
 
-[EXPERIMENTAL] UpdateSchedule: Update a schedule.
+UpdateSchedule: Update a schedule.
 
 ### Example
 

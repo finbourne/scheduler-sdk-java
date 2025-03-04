@@ -298,7 +298,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] CreateJob: Create a new job
+     * CreateJob: Create a new job
      * 
      * @param createJobRequest The request to create a new job (required)
      * @return APIcreateJobRequest
@@ -536,7 +536,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] DeleteJob: Delete a job
+     * DeleteJob: Delete a job
      * 
      * @param scope The scope of the job (required)
      * @param code The code of the job (required)
@@ -834,7 +834,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetHistory: Get the history of job runs
+     * GetHistory: Get the history of job runs
      * 
      * @return APIgetHistoryRequest
      * @http.response.details
@@ -1064,7 +1064,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific job run
+     * GetJobConsoleOutput: Gets the console output of a specific job run
      * 
      * @param runId The RunId of the job run (required)
      * @return APIgetJobConsoleOutputRequest
@@ -1294,7 +1294,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetRunHistory: Get the history for a single job run
+     * GetRunHistory: Get the history for a single job run
      * 
      * @param runId The unique ID of the run (required)
      * @return APIgetRunHistoryRequest
@@ -1532,7 +1532,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job
+     * GetSchedulesForAJob: Get all the schedules for a single job
      * 
      * @param scope The scope of the job (required)
      * @param code The code of the job (required)
@@ -1830,7 +1830,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] ListJobs: List the available jobs
+     * ListJobs: List the available jobs
      * 
      * @return APIlistJobsRequest
      * @http.response.details
@@ -2329,7 +2329,7 @@ public class JobsApi {
     }
 
     /**
-     * [EXPERIMENTAL] UpdateJob: Update a JobDefinition
+     * UpdateJob: Update a JobDefinition
      * 
      * @param scope  (required)
      * @param code  (required)

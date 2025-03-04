@@ -4,15 +4,15 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createJob**](JobsApi.md#createJob) | **POST** /api/jobs | [EXPERIMENTAL] CreateJob: Create a new job |
-| [**deleteJob**](JobsApi.md#deleteJob) | **DELETE** /api/jobs/{scope}/{code} | [EXPERIMENTAL] DeleteJob: Delete a job |
-| [**getHistory**](JobsApi.md#getHistory) | **GET** /api/jobs/history | [EXPERIMENTAL] GetHistory: Get the history of job runs |
-| [**getJobConsoleOutput**](JobsApi.md#getJobConsoleOutput) | **GET** /api/jobs/history/{runId}/console | [EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific job run |
-| [**getRunHistory**](JobsApi.md#getRunHistory) | **GET** /api/jobs/history/{runId} | [EXPERIMENTAL] GetRunHistory: Get the history for a single job run |
-| [**getSchedulesForAJob**](JobsApi.md#getSchedulesForAJob) | **GET** /api/jobs/{scope}/{code}/schedules | [EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job |
-| [**listJobs**](JobsApi.md#listJobs) | **GET** /api/jobs | [EXPERIMENTAL] ListJobs: List the available jobs |
+| [**createJob**](JobsApi.md#createJob) | **POST** /api/jobs | CreateJob: Create a new job |
+| [**deleteJob**](JobsApi.md#deleteJob) | **DELETE** /api/jobs/{scope}/{code} | DeleteJob: Delete a job |
+| [**getHistory**](JobsApi.md#getHistory) | **GET** /api/jobs/history | GetHistory: Get the history of job runs |
+| [**getJobConsoleOutput**](JobsApi.md#getJobConsoleOutput) | **GET** /api/jobs/history/{runId}/console | GetJobConsoleOutput: Gets the console output of a specific job run |
+| [**getRunHistory**](JobsApi.md#getRunHistory) | **GET** /api/jobs/history/{runId} | GetRunHistory: Get the history for a single job run |
+| [**getSchedulesForAJob**](JobsApi.md#getSchedulesForAJob) | **GET** /api/jobs/{scope}/{code}/schedules | GetSchedulesForAJob: Get all the schedules for a single job |
+| [**listJobs**](JobsApi.md#listJobs) | **GET** /api/jobs | ListJobs: List the available jobs |
 | [**runJob**](JobsApi.md#runJob) | **POST** /api/jobs/{scope}/{code}/$run | RunJob: Run a job immediately |
-| [**updateJob**](JobsApi.md#updateJob) | **PUT** /api/jobs/{scope}/{code} | [EXPERIMENTAL] UpdateJob: Update a JobDefinition |
+| [**updateJob**](JobsApi.md#updateJob) | **PUT** /api/jobs/{scope}/{code} | UpdateJob: Update a JobDefinition |
 
 
 
@@ -20,7 +20,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 > JobDefinition createJob(createJobRequest)
 
-[EXPERIMENTAL] CreateJob: Create a new job
+CreateJob: Create a new job
 
 ### Example
 
@@ -109,7 +109,7 @@ public class JobsApiExample {
 
 > ResourceListOfScheduleDefinition deleteJob(scope, code)
 
-[EXPERIMENTAL] DeleteJob: Delete a job
+DeleteJob: Delete a job
 
 ### Example
 
@@ -200,7 +200,7 @@ public class JobsApiExample {
 
 > ResourceListOfJobHistory getHistory(page, sortBy, start, limit, filter)
 
-[EXPERIMENTAL] GetHistory: Get the history of job runs
+GetHistory: Get the history of job runs
 
 ### Example
 
@@ -297,7 +297,7 @@ public class JobsApiExample {
 
 > String getJobConsoleOutput(runId)
 
-[EXPERIMENTAL] GetJobConsoleOutput: Gets the console output of a specific job run
+GetJobConsoleOutput: Gets the console output of a specific job run
 
 ### Example
 
@@ -386,7 +386,7 @@ public class JobsApiExample {
 
 > JobRunResult getRunHistory(runId)
 
-[EXPERIMENTAL] GetRunHistory: Get the history for a single job run
+GetRunHistory: Get the history for a single job run
 
 ### Example
 
@@ -475,7 +475,7 @@ public class JobsApiExample {
 
 > ResourceListOfScheduleDefinition getSchedulesForAJob(scope, code)
 
-[EXPERIMENTAL] GetSchedulesForAJob: Get all the schedules for a single job
+GetSchedulesForAJob: Get all the schedules for a single job
 
 ### Example
 
@@ -566,7 +566,7 @@ public class JobsApiExample {
 
 > ResourceListOfJobDefinition listJobs(page, sortBy, start, limit, filter)
 
-[EXPERIMENTAL] ListJobs: List the available jobs
+ListJobs: List the available jobs
 
 ### Example
 
@@ -756,7 +756,7 @@ public class JobsApiExample {
 
 > JobDefinition updateJob(scope, code, updateJobRequest)
 
-[EXPERIMENTAL] UpdateJob: Update a JobDefinition
+UpdateJob: Update a JobDefinition
 
 ### Example
 

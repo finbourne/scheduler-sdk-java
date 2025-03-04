@@ -299,7 +299,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] DeleteImage: Delete a Docker Image
+     * DeleteImage: Delete a Docker Image
      * 
      * @param name The name and tag of the image. Format \&quot;ExampleImageName:0.1\&quot; (required)
      * @return APIdeleteImageRequest
@@ -530,7 +530,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] DownloadImage: Download Docker Image
+     * DownloadImage: Download Docker Image
      * 
      * @param name The name and tag of the image of the image. Format \&quot;ExampleImageName:latest\&quot; (required)
      * @return APIdownloadImageRequest
@@ -760,7 +760,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] GetImage: Get metadata of a Docker Image
+     * GetImage: Get metadata of a Docker Image
      * 
      * @param name The name and tag of a Docker image. Format \&quot;ExampleImageName:latest\&quot; (required)
      * @return APIgetImageRequest
@@ -1065,7 +1065,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] ListImages: List all images under same image repository
+     * ListImages: List all images under same image repository
      * 
      * @param name The name of the Repository (required)
      * @return APIlistImagesRequest
@@ -1362,7 +1362,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] ListRepositories: List all Docker image repositories
+     * ListRepositories: List all Docker image repositories
      * 
      * @return APIlistRepositoriesRequest
      * @http.response.details
@@ -1594,7 +1594,7 @@ public class ImagesApi {
     }
 
     /**
-     * [EXPERIMENTAL] UploadImage: Upload a Docker Image used for Scheduler jobs
+     * UploadImage: Upload a Docker Image used for Scheduler jobs
      * Every image must have at least one tag. Note: your image will not be available until the returned Docker commands are executed.
      * @param uploadImageRequest Request to upload image (required)
      * @return APIuploadImageRequest
