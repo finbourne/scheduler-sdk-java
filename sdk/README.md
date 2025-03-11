@@ -5,7 +5,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ApplicationMetadataApi* | [**listAccessControlledResources**](docs/ApplicationMetadataApi.md#listaccesscontrolledresources) | **GET** /api/metadata/access/resources | [EXPERIMENTAL] ListAccessControlledResources: Get resources available for access control
+*ApplicationMetadataApi* | [**listAccessControlledResources**](docs/ApplicationMetadataApi.md#listaccesscontrolledresources) | **GET** /api/metadata/access/resources | ListAccessControlledResources: Get resources available for access control
 *ImagesApi* | [**deleteImage**](docs/ImagesApi.md#deleteimage) | **DELETE** /api/images/{name} | DeleteImage: Delete a Docker Image
 *ImagesApi* | [**downloadImage**](docs/ImagesApi.md#downloadimage) | **GET** /api/images/{name}/contents | DownloadImage: Download Docker Image
 *ImagesApi* | [**getImage**](docs/ImagesApi.md#getimage) | **GET** /api/images/{name} | GetImage: Get metadata of a Docker Image

@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.985
+  version: 0.0.986
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1498,11 +1498,11 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EXPERIMENTAL] ListAccessControlledResources: Get resources available\
-        \ for access control"
+      summary: "ListAccessControlledResources: Get resources available for access\
+        \ control"
       tags:
       - Application Metadata
-      x-fbn-apistatus: Experimental
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/schedules:
     get:
