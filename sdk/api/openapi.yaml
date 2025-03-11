@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.983
+  version: 0.0.985
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2282,6 +2282,49 @@ paths:
       x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/schedules/{scope}/{code}/enabled:
+    get:
+      operationId: GetValidTimezones
+      parameters:
+      - explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "GetValidTimezones: Get a list of valid timezones"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Stable
+      x-accepts: application/json
     put:
       operationId: EnabledSchedule
       parameters:
@@ -4416,6 +4459,47 @@ components:
         values:
           items:
             $ref: '#/components/schemas/ScheduleDefinition'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfString:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - values
+        - values
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            type: string
           type: array
         href:
           format: uri

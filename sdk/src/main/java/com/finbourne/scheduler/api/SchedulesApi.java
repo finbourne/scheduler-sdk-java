@@ -29,6 +29,7 @@ import com.finbourne.scheduler.model.CreateScheduleRequest;
 import com.finbourne.scheduler.model.LusidProblemDetails;
 import com.finbourne.scheduler.model.LusidValidationProblemDetails;
 import com.finbourne.scheduler.model.ResourceListOfScheduleDefinition;
+import com.finbourne.scheduler.model.ResourceListOfString;
 import com.finbourne.scheduler.model.ScheduleDefinition;
 import com.finbourne.scheduler.model.StartScheduleResponse;
 import com.finbourne.scheduler.model.UpdateScheduleRequest;
@@ -1037,6 +1038,239 @@ public class SchedulesApi {
      */
     public APIgetScheduleRequest getSchedule(String scope, String code) {
         return new APIgetScheduleRequest(scope, code);
+    }
+    private okhttp3.Call getValidTimezonesCall(String scope, String code, final ApiCallback _callback) throws ApiException {
+        return getValidTimezonesCall(scope, code,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getValidTimezonesCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/schedules/{scope}/{code}/enabled"
+            .replace("{" + "scope" + "}", localVarApiClient.escapeString(scope.toString()))
+            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "text/plain",
+            "application/json",
+            "text/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getValidTimezonesValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        // verify the required parameter 'scope' is set
+        if (scope == null) {
+            throw new ApiException("Missing the required parameter 'scope' when calling getValidTimezones(Async)");
+        }
+
+        // verify the required parameter 'code' is set
+        if (code == null) {
+            throw new ApiException("Missing the required parameter 'code' when calling getValidTimezones(Async)");
+        }
+
+        return getValidTimezonesCall(scope, code, _callback, opts);
+
+    }
+
+
+    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo(String scope, String code) throws ApiException {
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, null, opts);
+        Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private okhttp3.Call getValidTimezonesAsync(String scope, String code, final ApiCallback<ResourceListOfString> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getValidTimezonesAsync(String scope, String code, final ApiCallback<ResourceListOfString> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, _callback, opts);
+        Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIgetValidTimezonesRequest {
+        private final String scope;
+        private final String code;
+
+        private APIgetValidTimezonesRequest(String scope, String code) {
+            this.scope = scope;
+            this.code = code;
+        }
+
+        /**
+         * Build call for getValidTimezones
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return getValidTimezonesCall(scope, code, _callback);
+        }
+
+        /**
+         * Execute getValidTimezones request
+         * @return ResourceListOfString
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfString execute() throws ApiException {
+            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo(scope, code);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getValidTimezones request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfString
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfString execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo(scope, code, opts);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute getValidTimezones request with HTTP info returned
+         * @return ApiResponse&lt;ResourceListOfString&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfString> executeWithHttpInfo() throws ApiException {
+            return getValidTimezonesWithHttpInfo(scope, code);
+        }
+
+        /**
+         * Execute getValidTimezones request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfString&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfString> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getValidTimezonesWithHttpInfo(scope, code, opts);
+        }
+
+        /**
+         * Execute getValidTimezones request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfString> _callback) throws ApiException {
+            return getValidTimezonesAsync(scope, code, _callback);
+        }
+
+        /**
+         * Execute getValidTimezones request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfString> _callback, ConfigurationOptions opts) throws ApiException {
+            return getValidTimezonesAsync(scope, code, _callback, opts);
+        }
+    }
+
+    /**
+     * GetValidTimezones: Get a list of valid timezones
+     * 
+     * @param scope  (required)
+     * @param code  (required)
+     * @return APIgetValidTimezonesRequest
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public APIgetValidTimezonesRequest getValidTimezones(String scope, String code) {
+        return new APIgetValidTimezonesRequest(scope, code);
     }
     private okhttp3.Call listSchedulesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
         return listSchedulesCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());

@@ -8,6 +8,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 | [**deleteSchedule**](SchedulesApi.md#deleteSchedule) | **DELETE** /api/schedules/{scope}/{code} | DeleteSchedule: Delete a schedule |
 | [**enabledSchedule**](SchedulesApi.md#enabledSchedule) | **PUT** /api/schedules/{scope}/{code}/enabled | EnabledSchedule: Enable/disable a schedule |
 | [**getSchedule**](SchedulesApi.md#getSchedule) | **GET** /api/schedules/{scope}/{code} | GetSchedule: Get a single Schedule |
+| [**getValidTimezones**](SchedulesApi.md#getValidTimezones) | **GET** /api/schedules/{scope}/{code}/enabled | GetValidTimezones: Get a list of valid timezones |
 | [**listSchedules**](SchedulesApi.md#listSchedules) | **GET** /api/schedules | ListSchedules: List the available Schedules |
 | [**runSchedule**](SchedulesApi.md#runSchedule) | **POST** /api/schedules/{scope}/{code}/$run | RunSchedule: Run a schedule immediately |
 | [**updateSchedule**](SchedulesApi.md#updateSchedule) | **PUT** /api/schedules/{scope}/{code} | UpdateSchedule: Update a schedule. |
@@ -372,6 +373,96 @@ public class SchedulesApiExample {
 |-------------|-------------|------------------|
 | **200** | OK |  -  |
 | **400** | The details of the input related failure |  -  |
+| **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getValidTimezones
+
+> ResourceListOfString getValidTimezones(scope, code)
+
+GetValidTimezones: Get a list of valid timezones
+
+### Example
+
+```java
+import com.finbourne.scheduler.model.*;
+import com.finbourne.scheduler.api.SchedulesApi;
+import com.finbourne.scheduler.extensions.ApiConfigurationException;
+import com.finbourne.scheduler.extensions.ApiFactoryBuilder;
+import com.finbourne.scheduler.extensions.auth.FinbourneTokenException;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+public class SchedulesApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"schedulerUrl\": \"https://<your-domain>.lusid.com/scheduler2\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
+
+        SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
+        String scope = "scope_example"; // String | 
+        String code = "code_example"; // String | 
+        try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfString result = apiInstance.getValidTimezones(scope, code).execute(opts);
+
+            ResourceListOfString result = apiInstance.getValidTimezones(scope, code).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling SchedulesApi#getValidTimezones");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scope** | **String**|  | |
+| **code** | **String**|  | |
+
+### Return type
+
+[**ResourceListOfString**](ResourceListOfString.md)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
 | **0** | Error response |  -  |
 
 [Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)

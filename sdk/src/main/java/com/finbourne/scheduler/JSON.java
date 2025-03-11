@@ -116,6 +116,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ResourceListOfJobHistory.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ResourceListOfRepository.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ResourceListOfScheduleDefinition.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ResourceListOfString.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScanReport.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScanSummary.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScheduleDefinition.CustomTypeAdapterFactory());
