@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1043
+  version: 0.0.1057
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -5118,6 +5118,7 @@ components:
           type: string
         expiryTime:
           format: date-time
+          nullable: true
           type: string
       required:
       - buildVersionedDockerImageCommand
