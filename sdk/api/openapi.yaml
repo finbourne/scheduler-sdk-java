@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1066
+  version: 0.0.1069
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -376,53 +376,6 @@ paths:
       x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/images/{name}:
-    delete:
-      operationId: DeleteImage
-      parameters:
-      - description: The name and tag of the image. Format "ExampleImageName:0.1"
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          maxLength: 256
-          minLength: 1
-          pattern: "^[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\d]+))*:[a-z\\d]+((([.]{1}|[_]{1,2}|[-])+)([a-z\\\
-            d]+))*$"
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        "404":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: No image with this name and tag exists
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "DeleteImage: Delete a Docker Image"
-      tags:
-      - Images
-      x-fbn-apistatus: Stable
-      x-accepts: application/json
     get:
       operationId: GetImage
       parameters:
@@ -501,45 +454,6 @@ paths:
       security:
       - oauth2: []
       summary: "GetImage: Get metadata of a Docker Image"
-      tags:
-      - Images
-      x-fbn-apistatus: Stable
-      x-accepts: application/json
-  /api/images/{name}/contents:
-    get:
-      operationId: DownloadImage
-      parameters:
-      - description: The name and tag of the image of the image. Format "ExampleImageName:latest"
-        explode: false
-        in: path
-        name: name
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                format: binary
-                type: string
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidValidationProblemDetails'
-          description: The details of the input related failure
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "DownloadImage: Download Docker Image"
       tags:
       - Images
       x-fbn-apistatus: Stable
