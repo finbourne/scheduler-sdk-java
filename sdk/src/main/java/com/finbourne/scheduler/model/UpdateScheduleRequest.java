@@ -220,7 +220,7 @@ public class UpdateScheduleRequest {
   }
 
    /**
-   * Updated arguments to be passed to the job  Note: The new arguments will completely replace old arguments
+   * Updated arguments to be passed to the job Note: The new arguments will completely replace old arguments
    * @return arguments
   **/
   @jakarta.annotation.Nullable
@@ -291,7 +291,7 @@ public class UpdateScheduleRequest {
   }
 
    /**
-   * Specify whether schedule is enabled or not  Defaults to true
+   * Specify whether schedule is enabled or not Defaults to true
    * @return enabled
   **/
   @jakarta.annotation.Nullable
@@ -312,7 +312,7 @@ public class UpdateScheduleRequest {
   }
 
    /**
-   * Id of user associated with schedule. All calls to FINBOURNE services  as part of execution of this schedule will be authenticated as this   user. Can be null, in which case we&#39;ll default to that of the user   making this request
+   * Id of user associated with schedule. All calls to FINBOURNE services as part of execution of this schedule will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request
    * @return useAsAuth
   **/
   @jakarta.annotation.Nullable

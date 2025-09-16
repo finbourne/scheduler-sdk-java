@@ -429,7 +429,7 @@ public class ImagesApi {
 
         /**
          * Set page
-         * @param page The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+         * @param page The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
          * @return APIlistImagesRequest
          */
         public APIlistImagesRequest page(String page) {
@@ -726,7 +726,7 @@ public class ImagesApi {
 
         /**
          * Set page
-         * @param page The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+         * @param page The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
          * @return APIlistRepositoriesRequest
          */
         public APIlistRepositoriesRequest page(String page) {

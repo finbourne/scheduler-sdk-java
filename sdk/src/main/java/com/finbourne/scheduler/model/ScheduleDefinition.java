@@ -237,7 +237,7 @@ public class ScheduleDefinition {
   }
 
    /**
-   * User to runs schedule when automatically run and authenticates   requests in the schedule
+   * User to runs schedule when automatically run and authenticates  requests in the schedule
    * @return useAsAuth
   **/
   @jakarta.annotation.Nullable

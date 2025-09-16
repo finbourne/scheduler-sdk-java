@@ -1389,7 +1389,7 @@ public class SchedulesApi {
 
         /**
          * Set page
-         * @param page The pagination token to use to continue listing instruments from a previous call to list instruments.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
+         * @param page The pagination token to use to continue listing instruments from a previous call to list instruments.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided. (optional)
          * @return APIlistSchedulesRequest
          */
         public APIlistSchedulesRequest page(String page) {

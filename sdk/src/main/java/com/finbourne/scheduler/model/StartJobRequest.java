@@ -135,7 +135,7 @@ public class StartJobRequest {
   }
 
    /**
-   * Id of user associated with schedule. All calls to FINBOURNE services  as part of execution of this schedule will be authenticated as this   user. Can be null, in which case we&#39;ll default to that of the user   making this request
+   * Id of user associated with schedule. All calls to FINBOURNE services as part of execution of this schedule will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request
    * @return useAsAuth
   **/
   @jakarta.annotation.Nullable

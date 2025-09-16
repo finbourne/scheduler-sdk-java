@@ -146,7 +146,7 @@ public class ImagesApiExample {
 
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
         String name = "name_example"; // String | The name of the Repository
-        String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
+        String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
         Integer start = 56; // Integer | When paginating, skip this number of results.
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
@@ -173,7 +173,7 @@ public class ImagesApiExample {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **name** | **String**| The name of the Repository | |
-| **page** | **String**| The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] |
+| **page** | **String**| The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| Order the results by these fields. Use use the &#39;-&#39; sign to denote descending order e.g. -MyFieldName. | [optional] |
 | **start** | **Integer**| When paginating, skip this number of results. | [optional] |
 | **limit** | **Integer**| When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000. | [optional] [default to 2000] |
@@ -244,7 +244,7 @@ public class ImagesApiExample {
         // ImagesApi apiInstance = apiFactory.build(ImagesApi.class);
 
         ImagesApi apiInstance = ApiFactoryBuilder.build(fileName).build(ImagesApi.class);
-        String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided.
+        String page = "page_example"; // String | The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided.
         List<String> sortBy = Arrays.asList(); // List<String> | Order the results by these fields. Use use the '-' sign to denote descending order e.g. -MyFieldName.
         Integer start = 56; // Integer | When paginating, skip this number of results.
         Integer limit = 2000; // Integer | When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000.
@@ -270,7 +270,7 @@ public class ImagesApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **page** | **String**| The pagination token to use to continue listing images from a previous call to list images.   This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields   must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] |
+| **page** | **String**| The pagination token to use to continue listing images from a previous call to list images.  This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields  must not have changed since the original request. Also, if set, a start value cannot be provided. | [optional] |
 | **sortBy** | [**List&lt;String&gt;**](String.md)| Order the results by these fields. Use use the &#39;-&#39; sign to denote descending order e.g. -MyFieldName. | [optional] |
 | **start** | **Integer**| When paginating, skip this number of results. | [optional] |
 | **limit** | **Integer**| When paginating, limit the number of returned results to this many. Defaults to 2000 if not specified. Maximum is 5000. | [optional] [default to 2000] |

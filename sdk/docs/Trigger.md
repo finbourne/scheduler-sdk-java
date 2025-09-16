@@ -2,7 +2,7 @@
 
 # Trigger
 
-Holds different kinds of triggers  A schedule may only have one type of trigger
+Holds different kinds of triggers A schedule may only have one type of trigger
 
 ## Properties
 

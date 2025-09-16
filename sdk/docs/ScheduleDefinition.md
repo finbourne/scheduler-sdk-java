@@ -14,7 +14,7 @@ Schedule
 |**description** | **String** | A description of the Schedule |  [optional] |
 |**author** | **String** | Name of the author of this schedule |  [optional] |
 |**owner** | **String** | Name of owner of this schedule |  [optional] |
-|**useAsAuth** | **String** | User to runs schedule when automatically run and authenticates   requests in the schedule |  [optional] |
+|**useAsAuth** | **String** | User to runs schedule when automatically run and authenticates  requests in the schedule |  [optional] |
 |**arguments** | **Map&lt;String, String&gt;** | All arguments specified by this Schedule that will be passed in to the Job |  [optional] |
 |**trigger** | [**Trigger**](Trigger.md) |  |  [optional] |
 |**notifications** | [**List&lt;Notification&gt;**](Notification.md) | Notifications for this Schedule |  [optional] |

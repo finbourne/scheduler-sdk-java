@@ -248,7 +248,7 @@ public class JobDefinition {
   }
 
    /**
-   * Time To Live of the job run in seconds  Defaults to 5 minutes(300)
+   * Time To Live of the job run in seconds Defaults to 5 minutes(300)
    * @return ttl
   **/
   @jakarta.annotation.Nullable
@@ -269,7 +269,7 @@ public class JobDefinition {
   }
 
    /**
-   * Specifies minimum number of CPUs to be allocated for the job  Default to 2
+   * Specifies minimum number of CPUs to be allocated for the job Default to 2
    * @return minCpu
   **/
   @jakarta.annotation.Nullable
@@ -382,7 +382,7 @@ public class JobDefinition {
   }
 
    /**
-   * Value to separate command line arguments  e.g : If a job has a command line argument named &#39;folder&#39; and the runtime value is &#39;s3://path&#39; then this  would be supplied to the command as &#39;folder{separatorValue}s3://path&#39;  Default to a space
+   * Value to separate command line arguments e.g : If a job has a command line argument named &#39;folder&#39; and the runtime value is &#39;s3://path&#39; then this would be supplied to the command as &#39;folder{separatorValue}s3://path&#39; Default to a space
    * @return commandLineArgumentSeparator
   **/
   @jakarta.annotation.Nullable

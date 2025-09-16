@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   contact:
     email: info@finbourne.com
@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1076
+  version: 0.0.1077
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -139,11 +139,10 @@ paths:
     get:
       operationId: ListRepositories
       parameters:
-      - description: "The pagination token to use to continue listing images from\
-          \ a previous call to list images.\r\n This value is returned from the previous\
-          \ call. If a pagination token is provided the sortBy and filter fields\r\
-          \n must not have changed since the original request. Also, if set, a start\
-          \ value cannot be provided."
+      - description: |-
+          The pagination token to use to continue listing images from a previous call to list images.
+           This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields
+           must not have changed since the original request. Also, if set, a start value cannot be provided.
         explode: true
         in: query
         name: page
@@ -258,11 +257,10 @@ paths:
         schema:
           type: string
         style: simple
-      - description: "The pagination token to use to continue listing images from\
-          \ a previous call to list images.\r\n This value is returned from the previous\
-          \ call. If a pagination token is provided the sortBy and filter fields\r\
-          \n must not have changed since the original request. Also, if set, a start\
-          \ value cannot be provided."
+      - description: |-
+          The pagination token to use to continue listing images from a previous call to list images.
+           This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields
+           must not have changed since the original request. Also, if set, a start value cannot be provided.
         explode: true
         in: query
         name: page
@@ -462,11 +460,10 @@ paths:
     get:
       operationId: ListJobs
       parameters:
-      - description: "The pagination token to use to continue listing instruments\
-          \ from a previous call to list instruments.\r\n This value is returned from\
-          \ the previous call. If a pagination token is provided the sortBy and filter\
-          \ fields\r\n must not have changed since the original request. Also, if\
-          \ set, a start value cannot be provided."
+      - description: |-
+          The pagination token to use to continue listing instruments from a previous call to list instruments.
+           This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields
+           must not have changed since the original request. Also, if set, a start value cannot be provided.
         explode: true
         in: query
         name: page
@@ -741,11 +738,10 @@ paths:
     get:
       operationId: GetHistory
       parameters:
-      - description: "The pagination token to use to continue listing instruments\
-          \ from a previous call to list instruments.\r\n This value is returned from\
-          \ the previous call. If a pagination token is provided the sortBy and filter\
-          \ fields\r\n must not have changed since the original request. Also, if\
-          \ set, a start value cannot be provided."
+      - description: |-
+          The pagination token to use to continue listing instruments from a previous call to list instruments.
+           This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields
+           must not have changed since the original request. Also, if set, a start value cannot be provided.
         explode: true
         in: query
         name: page
@@ -1422,11 +1418,10 @@ paths:
     get:
       operationId: ListSchedules
       parameters:
-      - description: "The pagination token to use to continue listing instruments\
-          \ from a previous call to list instruments.\r\n This value is returned from\
-          \ the previous call. If a pagination token is provided the sortBy and filter\
-          \ fields\r\n must not have changed since the original request. Also, if\
-          \ set, a start value cannot be provided."
+      - description: |-
+          The pagination token to use to continue listing instruments from a previous call to list instruments.
+           This value is returned from the previous call. If a pagination token is provided the sortBy and filter fields
+           must not have changed since the original request. Also, if set, a start value cannot be provided.
         explode: true
         in: query
         name: page
@@ -2633,13 +2628,17 @@ components:
           nullable: true
           type: string
         passedAs:
-          description: "Specifies how this argument should be passed in\r\nAllowed\
-            \ values are: CommandLine or EnvironmentVariable\r\n\r\nDefaults to: CommandLine"
+          description: |-
+            Specifies how this argument should be passed in
+            Allowed values are: CommandLine or EnvironmentVariable
+
+            Defaults to: CommandLine
           minLength: 1
           type: string
         defaultValue:
-          description: "Specify a default value for this argument if no value is provided\r\
-            \nThe value needs to be convertible to the associated data type"
+          description: |-
+            Specify a default value for this argument if no value is provided
+            The value needs to be convertible to the associated data type
           nullable: true
           type: string
       required:
@@ -2722,14 +2721,17 @@ components:
           minLength: 0
           type: string
         ttl:
-          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          description: |-
+            Time To Live of the job run in seconds
+            Defaults to 5 minutes(300)
           format: int32
           maximum: 18000
           minimum: 0
           type: integer
         minCpu:
-          description: "Specifies minimum number of CPUs to be allocated for the job\r\
-            \nDefault to 2"
+          description: |-
+            Specifies minimum number of CPUs to be allocated for the job
+            Default to 2
           nullable: true
           type: string
         maxCpu:
@@ -2752,10 +2754,11 @@ components:
           description: All arguments for this job to run
           type: object
         commandLineArgumentSeparator:
-          description: "Value to separate command line arguments\r\ne.g : If a job\
-            \ has a command line argument named 'folder' and the runtime value is\
-            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
-            \nDefault to a space"
+          description: |-
+            Value to separate command line arguments
+            e.g : If a job has a command line argument named 'folder' and the runtime value is 's3://path' then this
+            would be supplied to the command as 'folder{separatorValue}s3://path'
+            Default to a space
           maxLength: 5
           minLength: 0
           nullable: true
@@ -2851,14 +2854,15 @@ components:
           nullable: true
           type: array
         enabled:
-          description: "Specify whether schedule is enabled or not\r\nDefaults to\
-            \ true"
+          description: |-
+            Specify whether schedule is enabled or not
+            Defaults to true
           type: boolean
         useAsAuth:
           description: "Id of user associated with schedule. All calls to FINBOURNE\
-            \ services\r\nas part of execution of this schedule will be authenticated\
-            \ as this \r\nuser. Can be null, in which case we'll default to that of\
-            \ the user \r\nmaking this request"
+            \ services\nas part of execution of this schedule will be authenticated\
+            \ as this \nuser. Can be null, in which case we'll default to that of\
+            \ the user \nmaking this request"
           maxLength: 64
           minLength: 1
           nullable: true
@@ -3176,12 +3180,15 @@ components:
           nullable: true
           type: string
         ttl:
-          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          description: |-
+            Time To Live of the job run in seconds
+            Defaults to 5 minutes(300)
           format: int32
           type: integer
         minCpu:
-          description: "Specifies minimum number of CPUs to be allocated for the job\r\
-            \nDefault to 2"
+          description: |-
+            Specifies minimum number of CPUs to be allocated for the job
+            Default to 2
           nullable: true
           type: string
         maxCpu:
@@ -3205,10 +3212,11 @@ components:
           nullable: true
           type: object
         commandLineArgumentSeparator:
-          description: "Value to separate command line arguments\r\ne.g : If a job\
-            \ has a command line argument named 'folder' and the runtime value is\
-            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
-            \nDefault to a space"
+          description: |-
+            Value to separate command line arguments
+            e.g : If a job has a command line argument named 'folder' and the runtime value is 's3://path' then this
+            would be supplied to the command as 'folder{separatorValue}s3://path'
+            Default to a space
           nullable: true
           type: string
         requiredResources:
@@ -3262,10 +3270,11 @@ components:
           nullable: true
           type: string
         endDate:
-          description: "End date of the job\r\nDefaults to null if the job has not\
-            \ started or not completed yet\r\nIf value is null and job has not started,\
-            \ status will be `Pending`\r\nIf value is null and job has not completed,\
-            \ but is running, status will be `Running`"
+          description: |-
+            End date of the job
+            Defaults to null if the job has not started or not completed yet
+            If value is null and job has not started, status will be `Pending`
+            If value is null and job has not completed, but is running, status will be `Running`
           format: date-time
           nullable: true
           type: string
@@ -3304,13 +3313,15 @@ components:
           nullable: true
           type: string
         manuallyTriggeredBy:
-          description: "UserId of the user that triggered the job.\r\nDefaults to\
-            \ null if job was ran on a Schedule"
+          description: |-
+            UserId of the user that triggered the job.
+            Defaults to null if job was ran on a Schedule
           nullable: true
           type: string
         message:
-          description: "Output message generated by the job runner\r\nValue will be\
-            \ null when the job is in a `Running` or `Pending` status"
+          description: |-
+            Output message generated by the job runner
+            Value will be null when the job is in a `Running` or `Pending` status
           nullable: true
           type: string
       type: object
@@ -3365,10 +3376,11 @@ components:
           nullable: true
           type: string
         endDate:
-          description: "End date of the job\r\nDefaults to null if the job has not\
-            \ started or not completed yet\r\nIf value is null and job has not started,\
-            \ status will be `Pending`\r\nIf value is null and job has not completed,\
-            \ but is running, status will be `Running`"
+          description: |-
+            End date of the job
+            Defaults to null if the job has not started or not completed yet
+            If value is null and job has not started, status will be `Pending`
+            If value is null and job has not completed, but is running, status will be `Running`
           format: date-time
           nullable: true
           type: string
@@ -3407,13 +3419,15 @@ components:
           nullable: true
           type: string
         manuallyTriggeredBy:
-          description: "UserId of the user that triggered the job.\r\nDefaults to\
-            \ null if job was ran on a Schedule"
+          description: |-
+            UserId of the user that triggered the job.
+            Defaults to null if job was ran on a Schedule
           nullable: true
           type: string
         message:
-          description: "Output message generated by the job runner\r\nValue will be\
-            \ null when the job is in a `Running` or `Pending` status"
+          description: |-
+            Output message generated by the job runner
+            Value will be null when the job is in a `Running` or `Pending` status
           nullable: true
           type: string
       type: object
@@ -4613,7 +4627,7 @@ components:
           type: string
         useAsAuth:
           description: "User to runs schedule when automatically run and authenticates\
-            \ \r\nrequests in the schedule"
+            \ \nrequests in the schedule"
           nullable: true
           type: string
         arguments:
@@ -4672,9 +4686,9 @@ components:
           type: array
         useAsAuth:
           description: "Id of user associated with schedule. All calls to FINBOURNE\
-            \ services\r\nas part of execution of this schedule will be authenticated\
-            \ as this \r\nuser. Can be null, in which case we'll default to that of\
-            \ the user \r\nmaking this request"
+            \ services\nas part of execution of this schedule will be authenticated\
+            \ as this \nuser. Can be null, in which case we'll default to that of\
+            \ the user \nmaking this request"
           nullable: true
           type: string
       type: object
@@ -4787,8 +4801,9 @@ components:
       type: object
     Trigger:
       additionalProperties: false
-      description: "Holds different kinds of triggers\r\nA schedule may only have\
-        \ one type of trigger"
+      description: |-
+        Holds different kinds of triggers
+        A schedule may only have one type of trigger
       example:
         timeTrigger:
           expression: expression
@@ -4861,12 +4876,15 @@ components:
           minLength: 0
           type: string
         ttl:
-          description: "Time To Live of the job run in seconds\r\nDefaults to 5 minutes(300)"
+          description: |-
+            Time To Live of the job run in seconds
+            Defaults to 5 minutes(300)
           format: int32
           type: integer
         minCpu:
-          description: "Specifies minimum number of CPUs to be allocated for the job\r\
-            \nDefault to 2"
+          description: |-
+            Specifies minimum number of CPUs to be allocated for the job
+            Default to 2
           nullable: true
           type: string
         maxCpu:
@@ -4889,10 +4907,11 @@ components:
           description: All arguments for this job to run
           type: object
         commandLineArgumentSeparator:
-          description: "Value to separate command line arguments\r\ne.g : If a job\
-            \ has a command line argument named 'folder' and the runtime value is\
-            \ 's3://path' then this\r\nwould be supplied to the command as 'folder{separatorValue}s3://path'\r\
-            \nDefault to a space"
+          description: |-
+            Value to separate command line arguments
+            e.g : If a job has a command line argument named 'folder' and the runtime value is 's3://path' then this
+            would be supplied to the command as 'folder{separatorValue}s3://path'
+            Default to a space
           maxLength: 5
           minLength: 0
           nullable: true
@@ -4969,8 +4988,9 @@ components:
           additionalProperties:
             nullable: true
             type: string
-          description: "Updated arguments to be passed to the job\r\nNote: The new\
-            \ arguments will completely replace old arguments"
+          description: |-
+            Updated arguments to be passed to the job
+            Note: The new arguments will completely replace old arguments
           nullable: true
           type: object
         trigger:
@@ -4982,14 +5002,15 @@ components:
           nullable: true
           type: array
         enabled:
-          description: "Specify whether schedule is enabled or not\r\nDefaults to\
-            \ true"
+          description: |-
+            Specify whether schedule is enabled or not
+            Defaults to true
           type: boolean
         useAsAuth:
           description: "Id of user associated with schedule. All calls to FINBOURNE\
-            \ services\r\nas part of execution of this schedule will be authenticated\
-            \ as this \r\nuser. Can be null, in which case we'll default to that of\
-            \ the user \r\nmaking this request"
+            \ services\nas part of execution of this schedule will be authenticated\
+            \ as this \nuser. Can be null, in which case we'll default to that of\
+            \ the user \nmaking this request"
           maxLength: 64
           minLength: 1
           nullable: true

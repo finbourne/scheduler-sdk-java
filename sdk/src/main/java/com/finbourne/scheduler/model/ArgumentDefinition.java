@@ -193,7 +193,7 @@ public class ArgumentDefinition {
   }
 
    /**
-   * Specifies how this argument should be passed in  Allowed values are: CommandLine or EnvironmentVariable    Defaults to: CommandLine
+   * Specifies how this argument should be passed in Allowed values are: CommandLine or EnvironmentVariable  Defaults to: CommandLine
    * @return passedAs
   **/
   @jakarta.annotation.Nonnull
@@ -214,7 +214,7 @@ public class ArgumentDefinition {
   }
 
    /**
-   * Specify a default value for this argument if no value is provided  The value needs to be convertible to the associated data type
+   * Specify a default value for this argument if no value is provided The value needs to be convertible to the associated data type
    * @return defaultValue
   **/
   @jakarta.annotation.Nullable

@@ -46,7 +46,7 @@ import java.util.Set;
 import com.finbourne.scheduler.JSON;
 
 /**
- * Holds different kinds of triggers  A schedule may only have one type of trigger
+ * Holds different kinds of triggers A schedule may only have one type of trigger
  */
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Trigger {
