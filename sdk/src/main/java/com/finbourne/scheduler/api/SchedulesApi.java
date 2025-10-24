@@ -1039,11 +1039,11 @@ public class SchedulesApi {
     public APIgetScheduleRequest getSchedule(String scope, String code) {
         return new APIgetScheduleRequest(scope, code);
     }
-    private okhttp3.Call getValidTimezonesCall(String scope, String code, final ApiCallback _callback) throws ApiException {
-        return getValidTimezonesCall(scope, code,  _callback, new ConfigurationOptions());
+    private okhttp3.Call getValidTimezonesCall(final ApiCallback _callback) throws ApiException {
+        return getValidTimezonesCall( _callback, new ConfigurationOptions());
     }
 
-    private okhttp3.Call getValidTimezonesCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getValidTimezonesCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1060,9 +1060,7 @@ public class SchedulesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/api/schedules/{scope}/{code}/enabled"
-            .replace("{" + "scope" + "}", localVarApiClient.escapeString(scope.toString()))
-            .replace("{" + "code" + "}", localVarApiClient.escapeString(code.toString()));
+        String localVarPath = "/api/schedules/timezones";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1092,57 +1090,43 @@ public class SchedulesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getValidTimezonesValidateBeforeCall(String scope, String code, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
-        // verify the required parameter 'scope' is set
-        if (scope == null) {
-            throw new ApiException("Missing the required parameter 'scope' when calling getValidTimezones(Async)");
-        }
-
-        // verify the required parameter 'code' is set
-        if (code == null) {
-            throw new ApiException("Missing the required parameter 'code' when calling getValidTimezones(Async)");
-        }
-
-        return getValidTimezonesCall(scope, code, _callback, opts);
+    private okhttp3.Call getValidTimezonesValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return getValidTimezonesCall(_callback, opts);
 
     }
 
 
-    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo(String scope, String code) throws ApiException {
-        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, null, new ConfigurationOptions());
+    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(null, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo(String scope, String code, ConfigurationOptions opts) throws ApiException {
-        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, null, opts);
+    private ApiResponse<ResourceListOfString> getValidTimezonesWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    private okhttp3.Call getValidTimezonesAsync(String scope, String code, final ApiCallback<ResourceListOfString> _callback) throws ApiException {
+    private okhttp3.Call getValidTimezonesAsync(final ApiCallback<ResourceListOfString> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, _callback, new ConfigurationOptions());
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(_callback, new ConfigurationOptions());
         Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
-    private okhttp3.Call getValidTimezonesAsync(String scope, String code, final ApiCallback<ResourceListOfString> _callback, ConfigurationOptions opts) throws ApiException {
+    private okhttp3.Call getValidTimezonesAsync(final ApiCallback<ResourceListOfString> _callback, ConfigurationOptions opts) throws ApiException {
 
-        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(scope, code, _callback, opts);
+        okhttp3.Call localVarCall = getValidTimezonesValidateBeforeCall(_callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfString>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
 
     public class APIgetValidTimezonesRequest {
-        private final String scope;
-        private final String code;
 
-        private APIgetValidTimezonesRequest(String scope, String code) {
-            this.scope = scope;
-            this.code = code;
+        private APIgetValidTimezonesRequest() {
         }
 
         /**
@@ -1158,7 +1142,7 @@ public class SchedulesApi {
          </table>
          */
         public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
-            return getValidTimezonesCall(scope, code, _callback);
+            return getValidTimezonesCall(_callback);
         }
 
         /**
@@ -1173,7 +1157,7 @@ public class SchedulesApi {
          </table>
          */
         public ResourceListOfString execute() throws ApiException {
-            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo(scope, code);
+            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo();
             return localVarResp.getData();
         }
 
@@ -1189,7 +1173,7 @@ public class SchedulesApi {
          </table>
          */
         public ResourceListOfString execute(ConfigurationOptions opts) throws ApiException {
-            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo(scope, code, opts);
+            ApiResponse<ResourceListOfString> localVarResp = getValidTimezonesWithHttpInfo(opts);
             return localVarResp.getData();
         }
 
@@ -1205,7 +1189,7 @@ public class SchedulesApi {
          </table>
          */
         public ApiResponse<ResourceListOfString> executeWithHttpInfo() throws ApiException {
-            return getValidTimezonesWithHttpInfo(scope, code);
+            return getValidTimezonesWithHttpInfo();
         }
 
         /**
@@ -1220,7 +1204,7 @@ public class SchedulesApi {
          </table>
          */
         public ApiResponse<ResourceListOfString> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
-            return getValidTimezonesWithHttpInfo(scope, code, opts);
+            return getValidTimezonesWithHttpInfo(opts);
         }
 
         /**
@@ -1236,7 +1220,7 @@ public class SchedulesApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfString> _callback) throws ApiException {
-            return getValidTimezonesAsync(scope, code, _callback);
+            return getValidTimezonesAsync(_callback);
         }
 
         /**
@@ -1252,15 +1236,13 @@ public class SchedulesApi {
          </table>
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfString> _callback, ConfigurationOptions opts) throws ApiException {
-            return getValidTimezonesAsync(scope, code, _callback, opts);
+            return getValidTimezonesAsync(_callback, opts);
         }
     }
 
     /**
      * GetValidTimezones: Get a list of valid timezones
      * 
-     * @param scope  (required)
-     * @param code  (required)
      * @return APIgetValidTimezonesRequest
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1269,8 +1251,8 @@ public class SchedulesApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public APIgetValidTimezonesRequest getValidTimezones(String scope, String code) {
-        return new APIgetValidTimezonesRequest(scope, code);
+    public APIgetValidTimezonesRequest getValidTimezones() {
+        return new APIgetValidTimezonesRequest();
     }
     private okhttp3.Call listSchedulesCall(String page, List<String> sortBy, Integer start, Integer limit, String filter, final ApiCallback _callback) throws ApiException {
         return listSchedulesCall(page, sortBy, start, limit, filter,  _callback, new ConfigurationOptions());

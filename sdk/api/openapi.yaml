@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1080
+  version: 0.0.1092
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1725,6 +1725,35 @@ paths:
       x-fbn-apistatus: Stable
       x-content-type: application/json-patch+json
       x-accepts: application/json
+  /api/schedules/timezones:
+    get:
+      operationId: GetValidTimezones
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfString'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "GetValidTimezones: Get a list of valid timezones"
+      tags:
+      - Schedules
+      x-fbn-apistatus: Stable
+      x-accepts: application/json
   /api/schedules/{scope}/{code}:
     delete:
       operationId: DeleteSchedule
@@ -2191,49 +2220,6 @@ paths:
       x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/schedules/{scope}/{code}/enabled:
-    get:
-      operationId: GetValidTimezones
-      parameters:
-      - explode: false
-        in: path
-        name: scope
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: code
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ResourceListOfString'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceListOfString'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ResourceListOfString'
-          description: OK
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LusidProblemDetails'
-          description: Error response
-      security:
-      - oauth2: []
-      summary: "GetValidTimezones: Get a list of valid timezones"
-      tags:
-      - Schedules
-      x-fbn-apistatus: Stable
-      x-accepts: application/json
     put:
       operationId: EnabledSchedule
       parameters:

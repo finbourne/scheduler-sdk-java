@@ -8,7 +8,7 @@ All URIs are relative to *https://fbn-prd.lusid.com/scheduler2*
 | [**deleteSchedule**](SchedulesApi.md#deleteSchedule) | **DELETE** /api/schedules/{scope}/{code} | DeleteSchedule: Delete a schedule |
 | [**enabledSchedule**](SchedulesApi.md#enabledSchedule) | **PUT** /api/schedules/{scope}/{code}/enabled | EnabledSchedule: Enable/disable a schedule |
 | [**getSchedule**](SchedulesApi.md#getSchedule) | **GET** /api/schedules/{scope}/{code} | GetSchedule: Get a single Schedule |
-| [**getValidTimezones**](SchedulesApi.md#getValidTimezones) | **GET** /api/schedules/{scope}/{code}/enabled | GetValidTimezones: Get a list of valid timezones |
+| [**getValidTimezones**](SchedulesApi.md#getValidTimezones) | **GET** /api/schedules/timezones | GetValidTimezones: Get a list of valid timezones |
 | [**listSchedules**](SchedulesApi.md#listSchedules) | **GET** /api/schedules | ListSchedules: List the available Schedules |
 | [**runSchedule**](SchedulesApi.md#runSchedule) | **POST** /api/schedules/{scope}/{code}/$run | RunSchedule: Run a schedule immediately |
 | [**updateSchedule**](SchedulesApi.md#updateSchedule) | **PUT** /api/schedules/{scope}/{code} | UpdateSchedule: Update a schedule. |
@@ -380,7 +380,7 @@ public class SchedulesApiExample {
 
 ## getValidTimezones
 
-> ResourceListOfString getValidTimezones(scope, code)
+> ResourceListOfString getValidTimezones()
 
 GetValidTimezones: Get a list of valid timezones
 
@@ -423,13 +423,11 @@ public class SchedulesApiExample {
         // SchedulesApi apiInstance = apiFactory.build(SchedulesApi.class);
 
         SchedulesApi apiInstance = ApiFactoryBuilder.build(fileName).build(SchedulesApi.class);
-        String scope = "scope_example"; // String | 
-        String code = "code_example"; // String | 
         try {
             // uncomment the below to set overrides at the request level
-            // ResourceListOfString result = apiInstance.getValidTimezones(scope, code).execute(opts);
+            // ResourceListOfString result = apiInstance.getValidTimezones().execute(opts);
 
-            ResourceListOfString result = apiInstance.getValidTimezones(scope, code).execute();
+            ResourceListOfString result = apiInstance.getValidTimezones().execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
             System.err.println("Exception when calling SchedulesApi#getValidTimezones");
@@ -443,11 +441,7 @@ public class SchedulesApiExample {
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **scope** | **String**|  | |
-| **code** | **String**|  | |
+This endpoint does not need any parameter.
 
 ### Return type
 
