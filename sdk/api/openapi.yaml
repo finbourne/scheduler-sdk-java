@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1118
+  version: 0.0.1144
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -2845,10 +2845,13 @@ components:
             Defaults to true
           type: boolean
         useAsAuth:
-          description: "Id of user associated with schedule. All calls to FINBOURNE\
-            \ services\nas part of execution of this schedule will be authenticated\
-            \ as this \nuser. Can be null, in which case we'll default to that of\
-            \ the user \nmaking this request"
+          description: "ID of user associated with schedule. All calls to FINBOURNE\
+            \ services\nas part of processing this schedule (such as calls to Config\
+            \ Service) will be authenticated as this \nuser. Can be null, in which\
+            \ case we'll default to that of the user \nmaking this request. Given\
+            \ the image is a trusted image,\nwe will also supply an FBN_PAT to the\
+            \ environment variables of the image which will hold the\nSystem PAT of\
+            \ this UseAsAuth user"
           maxLength: 64
           minLength: 1
           nullable: true

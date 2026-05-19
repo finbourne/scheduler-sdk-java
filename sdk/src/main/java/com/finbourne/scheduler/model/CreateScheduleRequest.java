@@ -337,7 +337,7 @@ public class CreateScheduleRequest {
   }
 
    /**
-   * Id of user associated with schedule. All calls to FINBOURNE services as part of execution of this schedule will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request
+   * ID of user associated with schedule. All calls to FINBOURNE services as part of processing this schedule (such as calls to Config Service) will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request. Given the image is a trusted image, we will also supply an FBN_PAT to the environment variables of the image which will hold the System PAT of this UseAsAuth user
    * @return useAsAuth
   **/
   @jakarta.annotation.Nullable

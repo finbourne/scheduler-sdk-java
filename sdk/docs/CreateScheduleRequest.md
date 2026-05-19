@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **trigger** | [**Trigger**](Trigger.md) |  | [optional] [default to Trigger]
 **notifications** | [**List&lt;Notification&gt;**](Notification.md) | Notifications for this Schedule | [optional] [default to List<Notification>]
 **enabled** | **Boolean** | Specify whether schedule is enabled or not Defaults to true | [optional] [default to Boolean]
-**useAsAuth** | **String** | Id of user associated with schedule. All calls to FINBOURNE services as part of execution of this schedule will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request | [optional] [default to String]
+**useAsAuth** | **String** | ID of user associated with schedule. All calls to FINBOURNE services as part of processing this schedule (such as calls to Config Service) will be authenticated as this  user. Can be null, in which case we&#39;ll default to that of the user  making this request. Given the image is a trusted image, we will also supply an FBN_PAT to the environment variables of the image which will hold the System PAT of this UseAsAuth user | [optional] [default to String]
 
 ```java
 import com.finbourne.scheduler.model.CreateScheduleRequest;
