@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1144
+  version: 0.0.1161
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -4648,6 +4648,7 @@ components:
         useAsAuth: useAsAuth
         arguments:
           key: arguments
+        runId: runId
         notifications:
         - destination:
           - destination
@@ -4674,11 +4675,22 @@ components:
           nullable: true
           type: array
         useAsAuth:
-          description: "Id of user associated with schedule. All calls to FINBOURNE\
-            \ services\nas part of execution of this schedule will be authenticated\
-            \ as this \nuser. Can be null, in which case we'll default to that of\
-            \ the user \nmaking this request"
+          description: |-
+            Id of user associated with schedule. All calls to FINBOURNE services
+            as part of execution of this schedule will be authenticated as this
+            user. Can be null, in which case we'll default to that of the user
+            making this request
           nullable: true
+          type: string
+        runId:
+          description: |-
+            Optional pre-generated RunId (Guid format) for this job run.
+            When provided, this is used as the RunId instead of generating a new one,
+            allowing the caller to pre-generate and track the run before it starts.
+          maxLength: 36
+          minLength: 36
+          nullable: true
+          pattern: "^[a-zA-Z0-9\\-]+$"
           type: string
       type: object
     StartJobResponse:
