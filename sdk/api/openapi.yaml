@@ -28,7 +28,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE Scheduler API
-  version: 0.0.1199
+  version: 0.0.1230
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -826,6 +826,10 @@ paths:
                   resultUrl: http://exampleUri
                   manuallyTriggeredBy: UserId
                   message: All jobs have completed successfully
+                  imageName: my-job-image
+                  imageTag: 0.1.2
+                  ttl: 3600
+                  userId: UserId
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfJobHistory'
@@ -891,6 +895,10 @@ paths:
                 resultUrl: http://exampleUri
                 manuallyTriggeredBy: UserId
                 message: All jobs have completed successfully
+                imageName: my-job-image
+                imageTag: 0.1.2
+                ttl: 3600
+                userId: UserId
               schema:
                 $ref: '#/components/schemas/JobRunResult'
           description: OK
@@ -1410,6 +1418,85 @@ paths:
       - oauth2: []
       summary: "ListAccessControlledResources: Get resources available for access\
         \ control"
+      tags:
+      - Application Metadata
+      x-fbn-apistatus: Stable
+      x-accepts: application/json
+  /api/metadata/endpoints:
+    get:
+      description: "Get the name of the application and the operation, HTTP method,\
+        \ path, status, summary and description of each of its API endpoints"
+      operationId: ListApiEndpoints
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                application: scheduler
+                endpoints:
+                - operation: ListJobs
+                  httpMethod: GET
+                  path: /scheduler2/api/jobs
+                  status: Stable
+                  summary: List the available jobs
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /scheduler2/api/metadata/access/resources
+                  status: Stable
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/scheduler2/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+            application/json:
+              example:
+                application: scheduler
+                endpoints:
+                - operation: ListJobs
+                  httpMethod: GET
+                  path: /scheduler2/api/jobs
+                  status: Stable
+                  summary: List the available jobs
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /scheduler2/api/metadata/access/resources
+                  status: Stable
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/scheduler2/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+            text/json:
+              example:
+                application: scheduler
+                endpoints:
+                - operation: ListJobs
+                  httpMethod: GET
+                  path: /scheduler2/api/jobs
+                  status: Stable
+                  summary: List the available jobs
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /scheduler2/api/metadata/access/resources
+                  status: Stable
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/scheduler2/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "ListApiEndpoints: Get the API endpoints available"
       tags:
       - Application Metadata
       x-fbn-apistatus: Stable
@@ -2581,6 +2668,38 @@ components:
       - entity
       - scope
       type: object
+    ApiEndpoint:
+      additionalProperties: false
+      example:
+        summary: summary
+        path: path
+        description: description
+        httpMethod: httpMethod
+        operation: operation
+        status: status
+      properties:
+        operation:
+          nullable: true
+          type: string
+        httpMethod:
+          minLength: 1
+          type: string
+        path:
+          minLength: 1
+          type: string
+        status:
+          nullable: true
+          type: string
+        summary:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - httpMethod
+      - path
+      type: object
     ArgumentDefinition:
       additionalProperties: false
       description: Job argument definition
@@ -3218,9 +3337,12 @@ components:
       description: Job run history
       example:
         jobStatus: jobStatus
+        imageName: imageName
         endDate: 2000-01-23T04:56:07.000+00:00
         description: description
         message: message
+        ttl: 0
+        userId: userId
         jobId:
           code: code
           scope: scope
@@ -3234,6 +3356,7 @@ components:
           key: arguments
         runId: runId
         manuallyTriggeredBy: manuallyTriggeredBy
+        imageTag: imageTag
         startDate: 2000-01-23T04:56:07.000+00:00
         scheduleId:
           code: code
@@ -3313,16 +3436,38 @@ components:
             Value will be null when the job is in a `Running` or `Pending` status
           nullable: true
           type: string
+        imageName:
+          description: Name of the container image the job ran with
+          nullable: true
+          type: string
+        imageTag:
+          description: Tag of the container image the job ran with
+          nullable: true
+          type: string
+        ttl:
+          description: TTL (in seconds) that was in effect for this job run
+          format: int32
+          type: integer
+        userId:
+          description: |-
+            UserId of the user that this run was executed as.
+            For manual runs this is the triggering user (or the impersonated user if UseAsAuth was provided);
+            for scheduled runs this is the owner of the Schedule
+          nullable: true
+          type: string
       type: object
     JobRunResult:
       additionalProperties: false
       description: Represent a specific job's run
       example:
         jobStatus: jobStatus
+        imageName: imageName
         endDate: 2000-01-23T04:56:07.000+00:00
         consoleOutputUrl: consoleOutputUrl
         description: description
         message: message
+        ttl: 0
+        userId: userId
         jobId:
           code: code
           scope: scope
@@ -3336,6 +3481,7 @@ components:
           key: arguments
         runId: runId
         manuallyTriggeredBy: manuallyTriggeredBy
+        imageTag: imageTag
         startDate: 2000-01-23T04:56:07.000+00:00
         scheduleId:
           code: code
@@ -3417,6 +3563,25 @@ components:
           description: |-
             Output message generated by the job runner
             Value will be null when the job is in a `Running` or `Pending` status
+          nullable: true
+          type: string
+        imageName:
+          description: Name of the container image the job ran with
+          nullable: true
+          type: string
+        imageTag:
+          description: Tag of the container image the job ran with
+          nullable: true
+          type: string
+        ttl:
+          description: TTL (in seconds) that was in effect for this job run
+          format: int32
+          type: integer
+        userId:
+          description: |-
+            UserId of the user that this run was executed as.
+            For manual runs this is the triggering user (or the impersonated user if UseAsAuth was provided);
+            for scheduled runs this is the owner of the Schedule
           nullable: true
           type: string
       type: object
@@ -4145,9 +4310,12 @@ components:
         nextPage: nextPage
         values:
         - jobStatus: jobStatus
+          imageName: imageName
           endDate: 2000-01-23T04:56:07.000+00:00
           description: description
           message: message
+          ttl: 0
+          userId: userId
           jobId:
             code: code
             scope: scope
@@ -4161,14 +4329,18 @@ components:
             key: arguments
           runId: runId
           manuallyTriggeredBy: manuallyTriggeredBy
+          imageTag: imageTag
           startDate: 2000-01-23T04:56:07.000+00:00
           scheduleId:
             code: code
             scope: scope
         - jobStatus: jobStatus
+          imageName: imageName
           endDate: 2000-01-23T04:56:07.000+00:00
           description: description
           message: message
+          ttl: 0
+          userId: userId
           jobId:
             code: code
             scope: scope
@@ -4182,6 +4354,7 @@ components:
             key: arguments
           runId: runId
           manuallyTriggeredBy: manuallyTriggeredBy
+          imageTag: imageTag
           startDate: 2000-01-23T04:56:07.000+00:00
           scheduleId:
             code: code
@@ -4640,6 +4813,54 @@ components:
           type: boolean
       required:
       - scheduleIdentifier
+      type: object
+    ServiceApiEndpoints:
+      additionalProperties: false
+      example:
+        endpoints:
+        - summary: summary
+          path: path
+          description: description
+          httpMethod: httpMethod
+          operation: operation
+          status: status
+        - summary: summary
+          path: path
+          description: description
+          httpMethod: httpMethod
+          operation: operation
+          status: status
+        application: application
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        application:
+          minLength: 1
+          type: string
+        endpoints:
+          items:
+            $ref: '#/components/schemas/ApiEndpoint'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - application
+      - endpoints
       type: object
     StartJobRequest:
       additionalProperties: false

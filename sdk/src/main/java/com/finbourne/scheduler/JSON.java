@@ -93,6 +93,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.AccessControlledAction.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.AccessControlledResource.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ActionId.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ApiEndpoint.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ArgumentDefinition.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.CreateJobRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.CreateScheduleRequest.CustomTypeAdapterFactory());
@@ -120,6 +121,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScanReport.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScanSummary.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ScheduleDefinition.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.ServiceApiEndpoints.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.StartJobRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.StartJobResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.scheduler.model.StartScheduleResponse.CustomTypeAdapterFactory());

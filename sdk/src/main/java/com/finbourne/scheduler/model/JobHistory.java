@@ -115,6 +115,22 @@ public class JobHistory {
   @SerializedName(SERIALIZED_NAME_MESSAGE)
   private String message;
 
+  public static final String SERIALIZED_NAME_IMAGE_NAME = "imageName";
+  @SerializedName(SERIALIZED_NAME_IMAGE_NAME)
+  private String imageName;
+
+  public static final String SERIALIZED_NAME_IMAGE_TAG = "imageTag";
+  @SerializedName(SERIALIZED_NAME_IMAGE_TAG)
+  private String imageTag;
+
+  public static final String SERIALIZED_NAME_TTL = "ttl";
+  @SerializedName(SERIALIZED_NAME_TTL)
+  private Integer ttl;
+
+  public static final String SERIALIZED_NAME_USER_ID = "userId";
+  @SerializedName(SERIALIZED_NAME_USER_ID)
+  private String userId;
+
   public JobHistory() {
   }
 
@@ -448,6 +464,90 @@ public class JobHistory {
   }
 
 
+  public JobHistory imageName(String imageName) {
+    
+    this.imageName = imageName;
+    return this;
+  }
+
+   /**
+   * Name of the container image the job ran with
+   * @return imageName
+  **/
+  @jakarta.annotation.Nullable
+  public String getImageName() {
+    return imageName;
+  }
+
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
+  }
+
+
+  public JobHistory imageTag(String imageTag) {
+    
+    this.imageTag = imageTag;
+    return this;
+  }
+
+   /**
+   * Tag of the container image the job ran with
+   * @return imageTag
+  **/
+  @jakarta.annotation.Nullable
+  public String getImageTag() {
+    return imageTag;
+  }
+
+
+  public void setImageTag(String imageTag) {
+    this.imageTag = imageTag;
+  }
+
+
+  public JobHistory ttl(Integer ttl) {
+    
+    this.ttl = ttl;
+    return this;
+  }
+
+   /**
+   * TTL (in seconds) that was in effect for this job run
+   * @return ttl
+  **/
+  @jakarta.annotation.Nullable
+  public Integer getTtl() {
+    return ttl;
+  }
+
+
+  public void setTtl(Integer ttl) {
+    this.ttl = ttl;
+  }
+
+
+  public JobHistory userId(String userId) {
+    
+    this.userId = userId;
+    return this;
+  }
+
+   /**
+   * UserId of the user that this run was executed as. For manual runs this is the triggering user (or the impersonated user if UseAsAuth was provided); for scheduled runs this is the owner of the Schedule
+   * @return userId
+  **/
+  @jakarta.annotation.Nullable
+  public String getUserId() {
+    return userId;
+  }
+
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -472,7 +572,11 @@ public class JobHistory {
         Objects.equals(this.scheduleId, jobHistory.scheduleId) &&
         Objects.equals(this.resultUrl, jobHistory.resultUrl) &&
         Objects.equals(this.manuallyTriggeredBy, jobHistory.manuallyTriggeredBy) &&
-        Objects.equals(this.message, jobHistory.message);
+        Objects.equals(this.message, jobHistory.message) &&
+        Objects.equals(this.imageName, jobHistory.imageName) &&
+        Objects.equals(this.imageTag, jobHistory.imageTag) &&
+        Objects.equals(this.ttl, jobHistory.ttl) &&
+        Objects.equals(this.userId, jobHistory.userId);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -481,7 +585,7 @@ public class JobHistory {
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId, jobId, name, initialisedDate, startDate, endDate, arguments, environmentVariables, jobStatus, jobResult, description, scheduleId, resultUrl, manuallyTriggeredBy, message);
+    return Objects.hash(runId, jobId, name, initialisedDate, startDate, endDate, arguments, environmentVariables, jobStatus, jobResult, description, scheduleId, resultUrl, manuallyTriggeredBy, message, imageName, imageTag, ttl, userId);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -510,6 +614,10 @@ public class JobHistory {
     sb.append("    resultUrl: ").append(toIndentedString(resultUrl)).append("\n");
     sb.append("    manuallyTriggeredBy: ").append(toIndentedString(manuallyTriggeredBy)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    imageName: ").append(toIndentedString(imageName)).append("\n");
+    sb.append("    imageTag: ").append(toIndentedString(imageTag)).append("\n");
+    sb.append("    ttl: ").append(toIndentedString(ttl)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -547,6 +655,10 @@ public class JobHistory {
     openapiFields.add("resultUrl");
     openapiFields.add("manuallyTriggeredBy");
     openapiFields.add("message");
+    openapiFields.add("imageName");
+    openapiFields.add("imageTag");
+    openapiFields.add("ttl");
+    openapiFields.add("userId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -596,6 +708,15 @@ public class JobHistory {
       }
       if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("imageName") != null && !jsonObj.get("imageName").isJsonNull()) && !jsonObj.get("imageName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `imageName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("imageName").toString()));
+      }
+      if ((jsonObj.get("imageTag") != null && !jsonObj.get("imageTag").isJsonNull()) && !jsonObj.get("imageTag").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `imageTag` to be a primitive type in the JSON string but got `%s`", jsonObj.get("imageTag").toString()));
+      }
+      if ((jsonObj.get("userId") != null && !jsonObj.get("userId").isJsonNull()) && !jsonObj.get("userId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `userId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("userId").toString()));
       }
   }
 
